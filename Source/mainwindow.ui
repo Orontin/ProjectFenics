@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>703</width>
+    <height>612</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>703</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="openScheme"/>
+    <addaction name="saveScheme"/>
+   </widget>
+   <widget class="QMenu" name="view">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+    <widget class="QMenu" name="zoom">
+     <property name="title">
+      <string>Дальность</string>
+     </property>
+     <addaction name="zoomOut"/>
+     <addaction name="zoomIn"/>
+    </widget>
+    <widget class="QMenu" name="moving">
+     <property name="title">
+      <string>Перемещение</string>
+     </property>
+     <addaction name="movingDown"/>
+     <addaction name="movingUp"/>
+     <addaction name="movingLeft"/>
+     <addaction name="movingRight"/>
+    </widget>
+    <widget class="QMenu" name="rotate">
+     <property name="title">
+      <string>Поворот</string>
+     </property>
+     <addaction name="rotateLeft"/>
+     <addaction name="rotateRight"/>
+    </widget>
+    <addaction name="zoom"/>
+    <addaction name="moving"/>
+    <addaction name="rotate"/>
+   </widget>
+   <widget class="QMenu" name="scheme">
+    <property name="title">
+     <string>Схема</string>
+    </property>
+    <widget class="QMenu" name="threads">
+     <property name="title">
+      <string>Нити</string>
+     </property>
+     <addaction name="removeThreadLeft"/>
+     <addaction name="removeThreadRight"/>
+     <addaction name="separator"/>
+     <addaction name="addThreadLeft"/>
+     <addaction name="addThreadRight"/>
+    </widget>
+    <widget class="QMenu" name="halfrow">
+     <property name="title">
+      <string>Полуряды</string>
+     </property>
+     <addaction name="removeHalfrowDown"/>
+     <addaction name="removeHalfrowTop"/>
+     <addaction name="separator"/>
+     <addaction name="addHalfrowDown"/>
+     <addaction name="addHalfrowTop"/>
+    </widget>
+    <widget class="QMenu" name="menuEditDirectionNewNode">
+     <property name="title">
+      <string>Изменить направление для новых узлов</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="menuCreateNewScheme">
+     <property name="title">
+      <string>Создать новую схему</string>
+     </property>
+    </widget>
+    <addaction name="menuCreateNewScheme"/>
+    <addaction name="deleteScheme"/>
+    <addaction name="editScheme"/>
+    <addaction name="separator"/>
+    <addaction name="threads"/>
+    <addaction name="halfrow"/>
+    <addaction name="separator"/>
+    <addaction name="menuEditDirectionNewNode"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="view"/>
+   <addaction name="scheme"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="openScheme">
+   <property name="text">
+    <string>Открыть схему</string>
+   </property>
+  </action>
+  <action name="saveScheme">
+   <property name="text">
+    <string>Сохранить схему</string>
+   </property>
+  </action>
+  <action name="zoomOut">
+   <property name="text">
+    <string>Отдалить</string>
+   </property>
+  </action>
+  <action name="zoomIn">
+   <property name="text">
+    <string>Приблизить</string>
+   </property>
+  </action>
+  <action name="movingDown">
+   <property name="text">
+    <string>Вниз</string>
+   </property>
+  </action>
+  <action name="movingUp">
+   <property name="text">
+    <string>Вверх</string>
+   </property>
+  </action>
+  <action name="movingLeft">
+   <property name="text">
+    <string>Влево</string>
+   </property>
+  </action>
+  <action name="movingRight">
+   <property name="text">
+    <string>Вправо</string>
+   </property>
+  </action>
+  <action name="rotateLeft">
+   <property name="text">
+    <string>Влево</string>
+   </property>
+  </action>
+  <action name="rotateRight">
+   <property name="text">
+    <string>Вправо</string>
+   </property>
+  </action>
+  <action name="deleteScheme">
+   <property name="text">
+    <string>Удалить открытую схему</string>
+   </property>
+  </action>
+  <action name="editScheme">
+   <property name="text">
+    <string>Изменить открытыю схему</string>
+   </property>
+  </action>
+  <action name="removeThreadLeft">
+   <property name="text">
+    <string>Убрать нить слева</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Left</string>
+   </property>
+  </action>
+  <action name="removeThreadRight">
+   <property name="text">
+    <string>Убрать нить справа</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Right</string>
+   </property>
+  </action>
+  <action name="addThreadLeft">
+   <property name="text">
+    <string>Добавить нить слева</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Left</string>
+   </property>
+  </action>
+  <action name="addThreadRight">
+   <property name="text">
+    <string>Добавить нить справа</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Right</string>
+   </property>
+  </action>
+  <action name="removeHalfrowDown">
+   <property name="text">
+    <string>Убрать полуряд cнизу</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Down</string>
+   </property>
+  </action>
+  <action name="removeHalfrowTop">
+   <property name="text">
+    <string>Убрать полуряд сверху</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Up</string>
+   </property>
+  </action>
+  <action name="addHalfrowDown">
+   <property name="text">
+    <string>Добавить полуряд cнизу</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Down</string>
+   </property>
+  </action>
+  <action name="addHalfrowTop">
+   <property name="text">
+    <string>Добавить полуряд сверху</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Up</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

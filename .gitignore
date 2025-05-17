@@ -1,0 +1,4 @@
+
+*.o
+/Source/build/*
+/Source/ProjectFenics.pro.*
