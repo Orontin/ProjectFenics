@@ -12,6 +12,7 @@
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteconnects.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatellitecolors.h"
+#include "Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h"
 
 class SchemeObliqueChartScene : public AbstractSchemeChartScene
 {
@@ -40,8 +41,11 @@ public:
     void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, QList<QBrush> &colorThreads);
     void removeScene();
 
-    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate);
+    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &setHistory);
     void updateScene() final;
+
+    void backHistory();
+    void nextHistory();
 
     int getSizeThread();
     int getSizeHalfrow();
@@ -56,6 +60,7 @@ public:
     SchemeObliqueSatelliteParts parts;
     SchemeObliqueSatelliteConnects connects;
     SchemeObliqueSatelliteColors colors;
+    SchemeObliqueSatelliteHistory history;
 
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);

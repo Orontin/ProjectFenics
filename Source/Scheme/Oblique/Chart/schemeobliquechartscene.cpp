@@ -11,12 +11,12 @@ int SchemeObliqueChartScene::spaceBetweenNodeSix{spaceBetweenNodeOne * 6};
 
 int SchemeObliqueChartScene::maximumCount{2147483647};
 int SchemeObliqueChartScene::defaultCountThread{3};
-int SchemeObliqueChartScene:: defaultCountHalfrow{2};
+int SchemeObliqueChartScene::defaultCountHalfrow{2};
 bool SchemeObliqueChartScene::defaultIsNode1_2{true};
 QString SchemeObliqueChartScene::defaultNameScheme{"Феникс"};
 QBrush SchemeObliqueChartScene::defaultBrush{QBrush(Qt::gray)};
 
-SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2): info(this), nodes(this), parts(this), connects(this), colors(this)
+SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2): info(this), nodes(this), parts(this), connects(this), colors(this), history(this)
 {
     this->setBackgroundBrush(defaultBrush);
     this->setItemIndexMethod(NoIndex);
@@ -24,7 +24,7 @@ SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const 
     this->editScene(countThreads, countHalfrow, isNode1_2);
 }
 
-SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, QList<QBrush> &colorThreads): info(this), nodes(this), parts(this), connects(this), colors(this)
+SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, QList<QBrush> &colorThreads): info(this), nodes(this), parts(this), connects(this), colors(this), history(this)
 {
     this->setBackgroundBrush(defaultBrush);
     this->setItemIndexMethod(NoIndex);
@@ -46,11 +46,11 @@ void SchemeObliqueChartScene::editScene(const int &countThreads, const int &coun
     this->connects.createConnects(isNode1_2, listNodes);
 
     for (int i = 0; i < countThreads - SchemeObliqueChartScene::defaultCountThread; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, false, false);
     }
 
     for (int i = 0; i < countHalfrow - SchemeObliqueChartScene::defaultCountHalfrow; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, false, false);
     }
 
     this->updateScene();
@@ -65,11 +65,11 @@ void SchemeObliqueChartScene::editScene(const int &countThreads, const int &coun
     this->connects.createConnects(isNode1_2, listNodes);
 
     for (int i = 0; i < countThreads - SchemeObliqueChartScene::defaultCountThread; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, false, false);
     }
 
     for (int i = 0; i < countHalfrow - SchemeObliqueChartScene::defaultCountHalfrow; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, false, false);
     }
 
     this->nodes.setNodeDirections(nodeDirections);
@@ -82,12 +82,12 @@ void SchemeObliqueChartScene::removeScene()
 {
     int sizeThread = this->info.getSizeThread() - SchemeObliqueChartScene::defaultCountThread;
     for (int i = 0; i < sizeThread; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::REMOVE_RIGHT, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::REMOVE_RIGHT, false, false);
     }
 
     int sizeHalfrow = this->info.getSizeHalfrow() - SchemeObliqueChartScene::defaultCountHalfrow;
     for (int i = 0; i < sizeHalfrow; ++i) {
-        this->editNodes(AbstractSchemeChartScene::Directions::REMOVE_BOTTOM, false);
+        this->editNodes(AbstractSchemeChartScene::Directions::REMOVE_BOTTOM, false, false);
     }
 
     if (this->nodes.top.size() != 0 && this->nodes.bottom.size() != 0) {
@@ -96,7 +96,7 @@ void SchemeObliqueChartScene::removeScene()
     }
 }
 
-void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate)
+void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &setHistory)
 {
     switch (direction) {
     case AbstractSchemeChartScene::Directions::ADD_TOP:
@@ -152,6 +152,10 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
     if (isUpdate) {
         this->updateScene();
     }
+
+    if (setHistory) {
+         history.addHistory(direction);
+    }
 }
 
 void SchemeObliqueChartScene::updateScene()
@@ -160,6 +164,16 @@ void SchemeObliqueChartScene::updateScene()
     this->updateEnabledEditNodeAndThread();
 
     this->update();
+}
+
+void SchemeObliqueChartScene::backHistory()
+{
+    this->history.back();
+}
+
+void SchemeObliqueChartScene::nextHistory()
+{
+    this->history.next();
 }
 
 int SchemeObliqueChartScene::getSizeThread()

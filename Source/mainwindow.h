@@ -61,6 +61,9 @@ private slots:
     void on_addHalfrowDown_triggered();
     void on_addHalfrowTop_triggered();
 
+    void on_historyBack_triggered();
+    void on_historyNext_triggered();
+
 private:
     void updateMenu(int index);
 
