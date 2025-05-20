@@ -39,6 +39,9 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     this->connect(&this->tabWidget, &TabWidget::enabledAddedThread, this, &MainWindow::enabledAddedThread);
     this->connect(&this->tabWidget, &TabWidget::enabledAddedHalfrow, this, &MainWindow::enabledAddedHalfrow);
 
+    this->connect(&this->tabWidget, &TabWidget::enabledHistoryBack, this, &MainWindow::enabledHistoryBack);
+    this->connect(&this->tabWidget, &TabWidget::enabledHistoryNext, this, &MainWindow::enabledHistoryNext);
+
     this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
     this->updateMenu(-1);
 }
@@ -71,6 +74,16 @@ void MainWindow::enabledAddedHalfrow(bool enabled)
 {
     this->ui->addHalfrowDown->setEnabled(enabled);
     this->ui->addHalfrowTop->setEnabled(enabled);
+}
+
+void MainWindow::enabledHistoryBack(bool enabled)
+{
+    this->ui->historyBack->setEnabled(enabled);
+}
+
+void MainWindow::enabledHistoryNext(bool enabled)
+{
+    this->ui->historyNext->setEnabled(enabled);
 }
 
 void MainWindow::on_openScheme_triggered()

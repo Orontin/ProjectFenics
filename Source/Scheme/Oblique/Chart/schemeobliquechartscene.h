@@ -70,6 +70,7 @@ protected:
 private:
     void updateRectScene();
     void updateEnabledEditNodeAndThread();
+    void updateEnabledHistory();
 };
 
 #endif // SCHEMEOBLIQUECHARTSCENE_H

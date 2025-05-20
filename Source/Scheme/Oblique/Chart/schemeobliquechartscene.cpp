@@ -149,12 +149,12 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         break;
     }
 
-    if (isUpdate) {
-        this->updateScene();
+    if (setHistory) {
+        history.addHistory(direction);
     }
 
-    if (setHistory) {
-         history.addHistory(direction);
+    if (isUpdate) {
+        this->updateScene();
     }
 }
 
@@ -162,6 +162,7 @@ void SchemeObliqueChartScene::updateScene()
 {
     this->updateRectScene();
     this->updateEnabledEditNodeAndThread();
+    this->updateEnabledHistory();
 
     this->update();
 }
@@ -277,5 +278,20 @@ void SchemeObliqueChartScene::updateEnabledEditNodeAndThread()
         emit this->enabledAddedNode(false);
     } else {
         emit this->enabledAddedNode(true);
+    }
+}
+
+void SchemeObliqueChartScene::updateEnabledHistory()
+{
+    if (this->history.getIterator() == this->history.getIteratorMinimum()) {
+        emit this->enabledHistoryBack(false);
+    } else {
+        emit this->enabledHistoryBack(true);
+    }
+
+    if (this->history.getIterator() == this->history.getIteratorMaximum()) {
+        emit this->enabledHistoryNext(false);
+    } else {
+        emit this->enabledHistoryNext(true);
     }
 }

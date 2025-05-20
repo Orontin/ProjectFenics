@@ -16,36 +16,44 @@ SchemeObliqueSatelliteHistory::~SchemeObliqueSatelliteHistory()
 
 }
 
+int SchemeObliqueSatelliteHistory::getIterator()
+{
+    return iterator;
+}
+
+int SchemeObliqueSatelliteHistory::getIteratorMaximum()
+{
+    return events.size() - 1;
+}
+
+int SchemeObliqueSatelliteHistory::getIteratorMinimum()
+{
+    return -1;
+}
+
 void SchemeObliqueSatelliteHistory::addHistory(const AbstractSchemeChartScene::Directions &direction)
 {
-    qCritical() << 1;
+    int eventsSize = events.size();
+    for (int i = iterator + 1; i > -1 && i < eventsSize; i++) {
+        delete events.back();
+        events.pop_back();
+    }
     events.push_back(new EventAbstractSchemeChartSceneDirections(*scene, direction));
     iterator = events.size() - 1;
-    qCritical() << "e" << iterator;
 }
 
 void SchemeObliqueSatelliteHistory::back()
 {
-    qCritical() << 2;
     if (iterator > -1) {
         events[iterator]->back();
         iterator = iterator - 1;
-    } else {
-        //
     }
-    qCritical() << "e" << iterator;
 }
 
 void SchemeObliqueSatelliteHistory::next()
 {
-    qCritical() << 3;
-    qCritical() << "e" << iterator;
     if (iterator < events.size() - 1) {
         iterator = iterator + 1;
-        qCritical() << "e" << iterator;
         events[iterator]->next();
-    } else {
-        //
     }
-    qCritical() << "e" << iterator;
 }

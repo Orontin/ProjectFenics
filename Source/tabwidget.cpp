@@ -54,6 +54,9 @@ void TabWidget::createOut(AbstractSchemeChartView &view)
     this->connect(&static_cast<AbstractSchemeChartScene&>(*view.scene()), &AbstractSchemeChartScene::enabledAddedThread, this, &TabWidget::enabledAddedThread);
     this->connect(&static_cast<AbstractSchemeChartScene&>(*view.scene()), &AbstractSchemeChartScene::enabledAddedNode, this, &TabWidget::enabledAddedHalfrow);
 
+    this->connect(&static_cast<AbstractSchemeChartScene&>(*view.scene()), &AbstractSchemeChartScene::enabledHistoryBack, this, &TabWidget::enabledHistoryBack);
+    this->connect(&static_cast<AbstractSchemeChartScene&>(*view.scene()), &AbstractSchemeChartScene::enabledHistoryNext, this, &TabWidget::enabledHistoryNext);
+
     this->addTab(&view, view.name);
     this->setCurrentWidget(&view);
     static_cast<AbstractSchemeChartScene&>(*view.scene()).updateScene();

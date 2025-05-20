@@ -4,12 +4,12 @@
 #include <QObject>
 
 #include "Abstract/abstractschemechartscene.h"
-
+#include <QDebug>
 class Event
 {
 public:
     Event(AbstractSchemeChartScene &scene): scene(scene) {};
-
+    virtual ~Event() {};
     virtual void next() = 0;
     virtual void back() = 0;
 
@@ -21,6 +21,7 @@ class EventAbstractSchemeChartSceneDirections: public Event
 {
 public:
     EventAbstractSchemeChartSceneDirections(AbstractSchemeChartScene &scene, const AbstractSchemeChartScene::Directions &direction): Event(scene), direction(direction) {};
+    ~EventAbstractSchemeChartSceneDirections() {};
 
     void next() {
         scene.editNodes(direction, true, false);
@@ -68,6 +69,10 @@ class SchemeObliqueSatelliteHistory: public QObject
 public:
     SchemeObliqueSatelliteHistory(SchemeObliqueChartScene *scene, QObject *parent = nullptr);
     ~SchemeObliqueSatelliteHistory();
+
+    int getIterator();
+    int getIteratorMaximum();
+    int getIteratorMinimum();
 
     void addHistory(const AbstractSchemeChartScene::Directions &direction);
     void back();

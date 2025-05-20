@@ -30,6 +30,9 @@ signals:
     void enabledAddedThread(const bool &enabled);
     void enabledAddedHalfrow(const bool &enabled);
 
+    void enabledHistoryBack(const bool &enabled);
+    void enabledHistoryNext(const bool &enabled);
+
 private:
     QList<AbstractScheme*> &schemes;
     QMap<const AbstractSchemeChartView*, const QString*> mapViewType;

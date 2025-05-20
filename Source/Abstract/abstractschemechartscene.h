@@ -29,6 +29,9 @@ signals:
     void enabledRemoveNode(const bool &enabled);
     void enabledAddedThread(const bool &enabled);
     void enabledAddedNode(const bool &enabled);
+
+    void enabledHistoryNext(const bool &enabled);
+    void enabledHistoryBack(const bool &enabled);
 };
 
 #endif // ABSTRACTSCHEMECHARTSCENE_H

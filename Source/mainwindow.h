@@ -28,6 +28,9 @@ public slots:
     void enabledAddedThread(bool enabled);
     void enabledAddedHalfrow(bool enabled);
 
+    void enabledHistoryBack(bool enabled);
+    void enabledHistoryNext(bool enabled);
+
 private slots:
     // файл
     void on_openScheme_triggered();
