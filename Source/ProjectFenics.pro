@@ -14,6 +14,8 @@ SOURCES += \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.cpp \
     Scheme/Oblique/File/Setting/schemeobliquefilesetting.cpp \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.cpp \
+    Scheme/Oblique/Satellite/History/event.cpp \
+    Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.cpp \
     Scheme/Oblique/Widget/CreateOrEditScheme/schemeobliquewidgetcreateoreditscheme.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.cpp \
@@ -47,6 +49,8 @@ HEADERS += \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h \
     Scheme/Oblique/File/Setting/schemeobliquefilesetting.h \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h \
+    Scheme/Oblique/Satellite/History/event.h \
+    Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h \
     Scheme/Oblique/Widget/CreateOrEditScheme/schemeobliquewidgetcreateoreditscheme.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.h \

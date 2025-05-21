@@ -188,6 +188,7 @@ void SchemeObliqueObjectNode::click()
     editNode();
     this->partLeftTop->updateColor();
     this->partRightTop->updateColor();
+
 }
 
 SchemeObliqueObjectPart *SchemeObliqueObjectNode::searhBegginingPart(const SchemeObliqueObjectPart *part)

@@ -13,7 +13,10 @@ SchemeObliqueSatelliteHistory::SchemeObliqueSatelliteHistory(SchemeObliqueChartS
 
 SchemeObliqueSatelliteHistory::~SchemeObliqueSatelliteHistory()
 {
-
+    for (Event *event : events) {
+        delete event;
+    }
+    events.clear();
 }
 
 int SchemeObliqueSatelliteHistory::getIterator()
@@ -31,22 +34,23 @@ int SchemeObliqueSatelliteHistory::getIteratorMinimum()
     return -1;
 }
 
-void SchemeObliqueSatelliteHistory::addHistory(const AbstractSchemeChartScene::Directions &direction)
+void SchemeObliqueSatelliteHistory::addHistory(const AbstractSchemeChartScene::Directions &direction, const QList<QBrush> &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode)
 {
     int eventsSize = events.size();
     for (int i = iterator + 1; i > -1 && i < eventsSize; i++) {
         delete events.back();
         events.pop_back();
     }
-    events.push_back(new EventAbstractSchemeChartSceneDirections(*scene, direction));
+    events.push_back(new EventAbstractSchemeChartSceneDirections(*scene, direction, brush, directionNode));
     iterator = events.size() - 1;
 }
 
 void SchemeObliqueSatelliteHistory::back()
 {
     if (iterator > -1) {
-        events[iterator]->back();
+        int tmpIterator = iterator;
         iterator = iterator - 1;
+        events[tmpIterator]->back();
     }
 }
 

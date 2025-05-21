@@ -20,7 +20,7 @@ public:
     };
 
     virtual void updateScene() = 0;
-    virtual void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &setHistory) = 0;
+    virtual void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory) = 0;
     virtual void backHistory() = 0;
     virtual void nextHistory() = 0;
 

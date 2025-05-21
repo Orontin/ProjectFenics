@@ -3,8 +3,9 @@
 
 #include <QObject>
 
+#include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
+
 class SchemeObliqueChartScene;
-class SchemeObliqueObjectNode;
 
 class SchemeObliqueSatelliteNodes : public QObject
 {
@@ -16,6 +17,16 @@ public:
 
     void setNodeDirections(const QList<int> &nodeDirections);
     QStringList getNodeDirections();
+
+    QList<SchemeObliqueObjectNode::DirectionsNode> getNodeDirectionLeft();
+    QList<SchemeObliqueObjectNode::DirectionsNode> getNodeDirectionRight();
+    QList<SchemeObliqueObjectNode::DirectionsNode> getNodeDirectionTop();
+    QList<SchemeObliqueObjectNode::DirectionsNode> getNodeDirectionBottom();
+
+    void setNodeDirectionLeft(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionLeft);
+    void setNodeDirectionRight(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionRight);
+    void setNodeDirectionTop(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionTop);
+    void setNodeDirectionBottom(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionBottom);
 
     QList<SchemeObliqueObjectNode*> createNodes(const bool &isNode1_2);
     void removeNodes();

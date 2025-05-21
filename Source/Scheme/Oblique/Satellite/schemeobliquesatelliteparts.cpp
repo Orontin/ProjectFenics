@@ -12,44 +12,45 @@ SchemeObliqueSatelliteParts::~SchemeObliqueSatelliteParts()
 
 }
 
-void SchemeObliqueSatelliteParts::setThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes, QList<QBrush> &colorThreads)
+void SchemeObliqueSatelliteParts::setThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes, const QList<QBrush> &colorThreads)
 {
+    QList<QBrush> tmpcolorThreads = colorThreads;
     if (topNodes.front()->nodeLeftBottom && !topNodes.front()->nodeLeftBottom->nodeLeftTop) {
-        topNodes.front()->nodeLeftBottom->partLeftTop->setColor(colorThreads.front());
+        topNodes.front()->nodeLeftBottom->partLeftTop->setColor(tmpcolorThreads.front());
         topNodes.front()->nodeLeftBottom->partLeftTop->updateColor();
-        colorThreads.pop_front();
+        tmpcolorThreads.pop_front();
     }
 
     for (const SchemeObliqueObjectNode *topNode : topNodes) {
-        topNode->partLeftTop->setColor(colorThreads.front());
+        topNode->partLeftTop->setColor(tmpcolorThreads.front());
         topNode->partLeftTop->updateColor();
-        colorThreads.pop_front();
-        topNode->partRightTop->setColor(colorThreads.front());
+        tmpcolorThreads.pop_front();
+        topNode->partRightTop->setColor(tmpcolorThreads.front());
         topNode->partRightTop->updateColor();
-        colorThreads.pop_front();
+        tmpcolorThreads.pop_front();
     }
 
     if (topNodes.back()->nodeRightBottom && !topNodes.back()->nodeRightBottom->nodeRightTop) {
-        topNodes.back()->nodeRightBottom->partRightTop->setColor(colorThreads.back());
+        topNodes.back()->nodeRightBottom->partRightTop->setColor(tmpcolorThreads.back());
         topNodes.back()->nodeRightBottom->partRightTop->updateColor();
     }
 }
 
-QStringList SchemeObliqueSatelliteParts::getThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes)
+QList<QBrush> SchemeObliqueSatelliteParts::getThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes)
 {
-    QStringList listColorThreads;
+    QList<QBrush> listColorThreads;
 
     if (topNodes.front()->nodeLeftBottom && !topNodes.front()->nodeLeftBottom->nodeLeftTop) {
-        listColorThreads.push_back(topNodes.front()->nodeLeftBottom->partLeftTop->brush.color().name());
+        listColorThreads.push_back(topNodes.front()->nodeLeftBottom->partLeftTop->brush);
     }
 
     for (const SchemeObliqueObjectNode *topNode : topNodes) {
-        listColorThreads.push_back(topNode->partLeftTop->brush.color().name());
-        listColorThreads.push_back(topNode->partRightTop->brush.color().name());
+        listColorThreads.push_back(topNode->partLeftTop->brush);
+        listColorThreads.push_back(topNode->partRightTop->brush);
     }
 
     if (topNodes.back()->nodeRightBottom && !topNodes.back()->nodeRightBottom->nodeRightTop) {
-        listColorThreads.push_back(topNodes.back()->nodeRightBottom->partRightTop->brush.color().name());
+        listColorThreads.push_back(topNodes.back()->nodeRightBottom->partRightTop->brush);
     }
 
     return listColorThreads;

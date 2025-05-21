@@ -32,7 +32,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const int &countHalfrow,
                                                const bool &isNode1_2,
                                                const QList<int> &nodeDirections,
-                                               QList<QBrush> &colorThreads,
+                                               const QList<QBrush> &colorThreads,
                                                const QString &name):
     AbstractSchemeChartView(name)
 {

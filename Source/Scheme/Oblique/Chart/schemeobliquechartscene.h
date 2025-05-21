@@ -34,14 +34,15 @@ public:
     static QBrush defaultBrush;
 
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, QList<QBrush> &colorThreads);
+    SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
     void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, QList<QBrush> &colorThreads);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     void removeScene();
 
-    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &setHistory);
+    void editNodes(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QList<QBrush> &brush);
+    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
     void updateScene() final;
 
     void backHistory();
