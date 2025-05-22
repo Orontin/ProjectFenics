@@ -971,7 +971,7 @@ void SchemeObliqueSatelliteParts::removePartsBottom(const QList<SchemeObliqueObj
                 nodes.front()->nodeRightTop->partRightBottom->editPart(nodes.front()->nodeRightTop->pos, SchemeObliqueObjectPart::DirectionsPart::END_CORNER_RIGHT);
             } else {
                 nodes.front()->nodeRightTop->partLeftBottom->editPart(nodes.front()->nodeRightTop->pos, SchemeObliqueObjectPart::DirectionsPart::END_RIGHT);
-                nodes.front()->nodeRightTop->partRightBottom->editPart(nodes.front()->nodeRightTop->pos, SchemeObliqueObjectPart::DirectionsPart::END_CORNER_RIGHT);
+                nodes.front()->nodeRightTop->partRightBottom->editPart(nodes.front()->nodeRightTop->pos, SchemeObliqueObjectPart::DirectionsPart::END_LEFT);
             }
         } else {
             nodes.front()->nodeRightTop->partLeftBottom->editPart(nodes.front()->nodeRightTop->pos, SchemeObliqueObjectPart::DirectionsPart::END_LEFT);
