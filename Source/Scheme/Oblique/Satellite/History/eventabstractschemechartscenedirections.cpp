@@ -18,7 +18,7 @@ EventAbstractSchemeChartSceneDirections::~EventAbstractSchemeChartSceneDirection
 
 void EventAbstractSchemeChartSceneDirections::next()
 {
-    scene.editNodes(direction, directionNode, brush);
+    scene.editFromHistory(direction, directionNode, brush);
 }
 
 void EventAbstractSchemeChartSceneDirections::back()
@@ -50,5 +50,5 @@ void EventAbstractSchemeChartSceneDirections::back()
         directionReverse = AbstractSchemeChartScene::Directions::ADD_RIGHT;
         break;
     }
-    scene.editNodes(directionReverse, directionNode, brush);
+    scene.editFromHistory(directionReverse, directionNode, brush);
 }

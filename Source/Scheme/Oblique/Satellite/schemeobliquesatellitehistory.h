@@ -8,6 +8,8 @@
 
 #include "Scheme/Oblique/Satellite/History/event.h"
 #include "Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h"
+#include "Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h"
+
 
 #include <QDebug>
 
@@ -24,6 +26,7 @@ public:
     int getIteratorMaximum();
     int getIteratorMinimum();
 
+    void addHistory(const int &numberThread, const QBrush &brushNext, const QBrush &brushBack);
     void addHistory(const AbstractSchemeChartScene::Directions &direction, const QList<QBrush> &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode);
     void back();
     void next();

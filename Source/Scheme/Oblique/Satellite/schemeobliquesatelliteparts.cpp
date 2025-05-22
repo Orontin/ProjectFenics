@@ -56,6 +56,26 @@ QList<QBrush> SchemeObliqueSatelliteParts::getThreadColors(const QList<SchemeObl
     return listColorThreads;
 }
 
+QList<SchemeObliqueObjectPart*> SchemeObliqueSatelliteParts::getThreadBeggining(const QList<SchemeObliqueObjectNode *> &topNodes)
+{
+    QList<SchemeObliqueObjectPart*> listThreadBeggining;
+
+    if (topNodes.front()->nodeLeftBottom && !topNodes.front()->nodeLeftBottom->nodeLeftTop) {
+        listThreadBeggining.push_back(topNodes.front()->nodeLeftBottom->partLeftTop);
+    }
+
+    for (const SchemeObliqueObjectNode *topNode : topNodes) {
+        listThreadBeggining.push_back(topNode->partLeftTop);
+        listThreadBeggining.push_back(topNode->partRightTop);
+    }
+
+    if (topNodes.back()->nodeRightBottom && !topNodes.back()->nodeRightBottom->nodeRightTop) {
+        listThreadBeggining.push_back(topNodes.back()->nodeRightBottom->partRightTop);
+    }
+
+    return listThreadBeggining;
+}
+
 void SchemeObliqueSatelliteParts::createParts(const bool isNode1_2, const QList<SchemeObliqueObjectNode*> &listNodes)
 {
     if (isNode1_2) {

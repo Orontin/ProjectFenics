@@ -41,7 +41,9 @@ public:
     void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     void removeScene();
 
-    void editNodes(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QList<QBrush> &brush);
+    void editFromHistory(const int &numberThread, const QBrush &brush);
+    void editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QList<QBrush> &brush);
+
     void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
     void updateScene() final;
 

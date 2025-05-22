@@ -34,9 +34,9 @@ public:
     void editPart(const QPoint &pos, const SchemeObliqueObjectPart::DirectionsPart &directionPart);
     void setDirectionPart(const SchemeObliqueObjectPart::DirectionsPart &directionPart);
 
-    void click();
+    SchemeObliqueObjectPart* click();
 
-    void setColor();
+    bool setColor();
     void setColor(const QBrush &brush);
     void updateColor();
 
