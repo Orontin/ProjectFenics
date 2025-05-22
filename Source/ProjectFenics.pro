@@ -15,6 +15,7 @@ SOURCES += \
     Scheme/Oblique/File/Setting/schemeobliquefilesetting.cpp \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.cpp \
     Scheme/Oblique/Satellite/History/event.cpp \
+    Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     Scheme/Oblique/File/Setting/schemeobliquefilesetting.h \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h \
     Scheme/Oblique/Satellite/History/event.h \
+    Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h \

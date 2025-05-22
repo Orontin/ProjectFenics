@@ -16,6 +16,11 @@ public:
     SchemeObliqueSatelliteParts(SchemeObliqueChartScene *scene, QObject *parent = nullptr);
     ~SchemeObliqueSatelliteParts();
 
+    void setThreadColorsLeft(const SchemeObliqueObjectNode *leftNode, const QBrush &colorThread);
+    void setThreadColorsRight(const SchemeObliqueObjectNode *rightNode, const QBrush &colorThread);
+    QBrush getThreadColorsLeft(const SchemeObliqueObjectNode *leftNode);
+    QBrush getThreadColorsRight(const SchemeObliqueObjectNode *rightNode);
+
     void setThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes, const QList<QBrush> &colorThreads);
     QList<QBrush> getThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes);
 

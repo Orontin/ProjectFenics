@@ -12,6 +12,54 @@ SchemeObliqueSatelliteParts::~SchemeObliqueSatelliteParts()
 
 }
 
+void SchemeObliqueSatelliteParts::setThreadColorsLeft(const SchemeObliqueObjectNode *leftNode, const QBrush &colorThread)
+{
+    if (leftNode->nodeLeftBottom && !leftNode->nodeLeftBottom->nodeLeftTop) {
+        leftNode->nodeLeftBottom->partLeftTop->setColor(colorThread);
+        leftNode->nodeLeftBottom->partLeftTop->updateColor();
+    } else {
+        leftNode->partLeftTop->setColor(colorThread);
+        leftNode->partLeftTop->updateColor();
+    }
+}
+
+void SchemeObliqueSatelliteParts::setThreadColorsRight(const SchemeObliqueObjectNode *rightNode, const QBrush &colorThread)
+{
+    if (rightNode->nodeRightBottom && !rightNode->nodeRightBottom->nodeRightTop) {
+        rightNode->nodeRightBottom->partRightTop->setColor(colorThread);
+        rightNode->nodeRightBottom->partRightTop->updateColor();
+    } else {
+        rightNode->partRightTop->setColor(colorThread);
+        rightNode->partRightTop->updateColor();
+    }
+}
+
+QBrush SchemeObliqueSatelliteParts::getThreadColorsLeft(const SchemeObliqueObjectNode *leftNode)
+{
+    QBrush listColorThreads;
+
+    if (leftNode->nodeLeftBottom && !leftNode->nodeLeftBottom->nodeLeftTop) {
+        listColorThreads = leftNode->nodeLeftBottom->partLeftTop->brush;
+    } else {
+        listColorThreads = leftNode->partLeftTop->brush;
+    }
+
+    return listColorThreads;
+}
+
+QBrush SchemeObliqueSatelliteParts::getThreadColorsRight(const SchemeObliqueObjectNode *rightNode)
+{
+    QBrush listColorThreads;
+
+    if (rightNode->nodeRightBottom && !rightNode->nodeRightBottom->nodeRightTop) {
+        listColorThreads = rightNode->nodeRightBottom->partRightTop->brush;
+    } else {
+        listColorThreads = rightNode->partRightTop->brush;
+    }
+
+    return listColorThreads;
+}
+
 void SchemeObliqueSatelliteParts::setThreadColors(const QList<SchemeObliqueObjectNode*> &topNodes, const QList<QBrush> &colorThreads)
 {
     QList<QBrush> tmpcolorThreads = colorThreads;

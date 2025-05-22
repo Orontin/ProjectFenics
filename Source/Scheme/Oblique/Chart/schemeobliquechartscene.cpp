@@ -96,6 +96,11 @@ void SchemeObliqueChartScene::removeScene()
     }
 }
 
+void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
+{
+
+}
+
 void SchemeObliqueChartScene::editFromHistory(const int &numberThread, const QBrush &brush)
 {
     SchemeObliqueObjectPart *part = this->parts.getThreadBeggining(this->nodes.top).at(numberThread);
@@ -106,7 +111,7 @@ void SchemeObliqueChartScene::editFromHistory(const int &numberThread, const QBr
     updateEnabledHistory();
 }
 
-void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QList<QBrush> &brush)
+void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush)
 {
     switch (direction) {
     case AbstractSchemeChartScene::Directions::ADD_TOP:
@@ -115,7 +120,6 @@ void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const
         this->connects.createConnectsTop(this->nodes.top);
         this->colors.createColorsTop(this->nodes.top);
         this->nodes.setNodeDirectionTop(directionNode);
-        this->parts.setThreadColors(this->nodes.top, brush);
         break;
     case AbstractSchemeChartScene::Directions::ADD_BOTTOM:
         this->nodes.createNodeBottom();
@@ -123,7 +127,6 @@ void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const
         this->connects.createConnectsBottom(this->nodes.bottom);
         this->colors.createColorsBottom(this->nodes.bottom);
         this->nodes.setNodeDirectionBottom(directionNode);
-        this->parts.setThreadColors(this->nodes.top, brush);
         break;
     case AbstractSchemeChartScene::Directions::ADD_LEFT:
         this->nodes.createNodeLeft();
@@ -131,7 +134,7 @@ void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const
         this->connects.createConnectsLeft(this->nodes.left);
         this->colors.createColorsLeft(this->nodes.left);
         this->nodes.setNodeDirectionLeft(directionNode);
-        this->parts.setThreadColors(this->nodes.top, brush);
+        this->parts.setThreadColorsLeft(this->nodes.top.front(), brush);
         break;
     case AbstractSchemeChartScene::Directions::ADD_RIGHT:
         this->nodes.createNodeRight();
@@ -139,7 +142,7 @@ void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const
         this->connects.createConnectsRight(this->nodes.right);
         this->colors.createColorsRight(this->nodes.right);
         this->nodes.setNodeDirectionRight(directionNode);
-        this->parts.setThreadColors(this->nodes.top, brush);
+        this->parts.setThreadColorsRight(this->nodes.top.back(), brush);
         break;
     case AbstractSchemeChartScene::Directions::REMOVE_TOP:
         this->parts.removePartsTop(this->nodes.top);
@@ -179,7 +182,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         this->connects.createConnectsTop(this->nodes.top);
         this->colors.createColorsTop(this->nodes.top);
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionTop());
+            this->history.addHistory(direction, QBrush(), this->nodes.getNodeDirectionTop());
         }
         break;
     case AbstractSchemeChartScene::Directions::ADD_BOTTOM:
@@ -188,7 +191,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         this->connects.createConnectsBottom(this->nodes.bottom);
         this->colors.createColorsBottom(this->nodes.bottom);
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionBottom());
+            this->history.addHistory(direction, QBrush(), this->nodes.getNodeDirectionBottom());
         }
         break;
     case AbstractSchemeChartScene::Directions::ADD_LEFT:
@@ -197,7 +200,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         this->connects.createConnectsLeft(this->nodes.left);
         this->colors.createColorsLeft(this->nodes.left);
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionLeft());
+            this->history.addHistory(direction, this->parts.getThreadColorsLeft(this->nodes.top.front()), this->nodes.getNodeDirectionLeft());
         }
         break;
     case AbstractSchemeChartScene::Directions::ADD_RIGHT:
@@ -206,12 +209,12 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         this->connects.createConnectsRight(this->nodes.right);
         this->colors.createColorsRight(this->nodes.right);
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionRight());
+            this->history.addHistory(direction, this->parts.getThreadColorsRight(this->nodes.top.back()), this->nodes.getNodeDirectionRight());
         }
         break;
     case AbstractSchemeChartScene::Directions::REMOVE_TOP:
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionTop());
+            this->history.addHistory(direction, QBrush(), this->nodes.getNodeDirectionTop());
         }
         this->parts.removePartsTop(this->nodes.top);
         this->nodes.removeNodeTop();
@@ -220,7 +223,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         break;
     case AbstractSchemeChartScene::Directions::REMOVE_BOTTOM:
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionBottom());
+            this->history.addHistory(direction, QBrush(), this->nodes.getNodeDirectionBottom());
         }
         this->parts.removePartsBottom(this->nodes.bottom);
         this->nodes.removeNodeBottom();
@@ -229,7 +232,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         break;
     case AbstractSchemeChartScene::Directions::REMOVE_LEFT:
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionLeft());
+            this->history.addHistory(direction, this->parts.getThreadColorsLeft(this->nodes.top.front()), this->nodes.getNodeDirectionLeft());
         }
         this->parts.removePartsLeft(this->nodes.left);
         this->nodes.removeNodeLeft();
@@ -238,7 +241,7 @@ void SchemeObliqueChartScene::editNodes(const AbstractSchemeChartScene::Directio
         break;
     case AbstractSchemeChartScene::Directions::REMOVE_RIGHT:
         if (isSetHistory) {
-            this->history.addHistory(direction, this->parts.getThreadColors(this->nodes.top), this->nodes.getNodeDirectionRight());
+            this->history.addHistory(direction, this->parts.getThreadColorsRight(this->nodes.top.back()), this->nodes.getNodeDirectionRight());
         }
         this->parts.removePartsRight(this->nodes.right);
         this->nodes.removeNodeRight();
@@ -302,7 +305,9 @@ void SchemeObliqueChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     SchemeObliqueObjectNode *node = dynamic_cast<SchemeObliqueObjectNode *>(item);
     SchemeObliqueObjectPart *part = dynamic_cast<SchemeObliqueObjectPart *>(item);
     if (node) {
+        SchemeObliqueObjectNode::DirectionsNode directionsNodeBack = node->directionNode;
         node->click();
+        //this->history.addHistory(this->nodes.getNumberRow(node), this->nodes.getNumberColumn(node), node->directionNode, directionsNodeBack);
     } else if (part) {
         QBrush colorBack = part->brush;
         SchemeObliqueObjectPart* partBeggining = part->click();

@@ -34,6 +34,17 @@ int SchemeObliqueSatelliteHistory::getIteratorMinimum()
     return -1;
 }
 
+void SchemeObliqueSatelliteHistory::addHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeNext, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeBack)
+{
+    int eventsSize = events.size();
+    for (int i = iterator + 1; i > -1 && i < eventsSize; i++) {
+        delete events.back();
+        events.pop_back();
+    }
+    events.push_back(new EventAbstractSchemeChartSceneDirectionNode(*scene, numberRow, numberColumn, directionsNodeNext, directionsNodeBack));
+    iterator = events.size() - 1;
+}
+
 void SchemeObliqueSatelliteHistory::addHistory(const int &numberThread, const QBrush &brushNext, const QBrush &brushBack)
 {
     int eventsSize = events.size();
@@ -45,7 +56,7 @@ void SchemeObliqueSatelliteHistory::addHistory(const int &numberThread, const QB
     iterator = events.size() - 1;
 }
 
-void SchemeObliqueSatelliteHistory::addHistory(const AbstractSchemeChartScene::Directions &direction, const QList<QBrush> &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode)
+void SchemeObliqueSatelliteHistory::addHistory(const AbstractSchemeChartScene::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode)
 {
     int eventsSize = events.size();
     for (int i = iterator + 1; i > -1 && i < eventsSize; i++) {

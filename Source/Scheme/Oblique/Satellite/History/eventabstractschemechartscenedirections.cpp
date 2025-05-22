@@ -2,7 +2,7 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-EventAbstractSchemeChartSceneDirections::EventAbstractSchemeChartSceneDirections(SchemeObliqueChartScene &scene, const AbstractSchemeChartScene::Directions &direction, const QList<QBrush> &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode):
+EventAbstractSchemeChartSceneDirections::EventAbstractSchemeChartSceneDirections(SchemeObliqueChartScene &scene, const AbstractSchemeChartScene::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode):
     Event(scene),
     direction(direction),
     brush(brush),

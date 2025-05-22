@@ -13,7 +13,7 @@ class EventAbstractSchemeChartSceneDirections: public Event
 public:
     EventAbstractSchemeChartSceneDirections(SchemeObliqueChartScene &scene,
                                             const AbstractSchemeChartScene::Directions &direction,
-                                            const QList<QBrush> &brush,
+                                            const QBrush &brush,
                                             const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode);
     ~EventAbstractSchemeChartSceneDirections();
 
@@ -22,7 +22,7 @@ public:
 
 private:
     const AbstractSchemeChartScene::Directions direction;
-    const QList<QBrush> brush;
+    const QBrush brush;
     const QList<SchemeObliqueObjectNode::DirectionsNode> directionNode;
 };
 
