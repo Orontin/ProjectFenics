@@ -22,7 +22,7 @@
      <x>0</x>
      <y>0</y>
      <width>703</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -123,60 +123,96 @@
    <property name="text">
     <string>Открыть схему</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="saveScheme">
    <property name="text">
     <string>Сохранить схему</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="zoomOut">
    <property name="text">
     <string>Отдалить</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
   </action>
   <action name="zoomIn">
    <property name="text">
     <string>Приблизить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
    </property>
   </action>
   <action name="movingDown">
    <property name="text">
     <string>Вниз</string>
    </property>
+   <property name="shortcut">
+    <string>Down</string>
+   </property>
   </action>
   <action name="movingUp">
    <property name="text">
     <string>Вверх</string>
+   </property>
+   <property name="shortcut">
+    <string>Up</string>
    </property>
   </action>
   <action name="movingLeft">
    <property name="text">
     <string>Влево</string>
    </property>
+   <property name="shortcut">
+    <string>Left</string>
+   </property>
   </action>
   <action name="movingRight">
    <property name="text">
     <string>Вправо</string>
+   </property>
+   <property name="shortcut">
+    <string>Right</string>
    </property>
   </action>
   <action name="rotateLeft">
    <property name="text">
     <string>Влево</string>
    </property>
+   <property name="shortcut">
+    <string>Shift+Left</string>
+   </property>
   </action>
   <action name="rotateRight">
    <property name="text">
     <string>Вправо</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Right</string>
    </property>
   </action>
   <action name="deleteScheme">
    <property name="text">
     <string>Удалить открытую схему</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+R</string>
+   </property>
   </action>
   <action name="editScheme">
    <property name="text">
     <string>Изменить открытыю схему</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+E</string>
    </property>
   </action>
   <action name="removeThreadLeft">

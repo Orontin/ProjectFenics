@@ -15,6 +15,7 @@ public:
     SchemeObliqueSatelliteNodes(SchemeObliqueChartScene *scene, QObject *parent = nullptr);
     ~SchemeObliqueSatelliteNodes();
 
+    void setNodeDirection(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
     void setNodeDirections(const QList<int> &nodeDirections);
     QStringList getNodeDirections();
 

@@ -98,7 +98,7 @@ void SchemeObliqueChartScene::removeScene()
 
 void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
 {
-
+    this->nodes.setNodeDirection(numberRow, numberColumn, directionsNode);
 }
 
 void SchemeObliqueChartScene::editFromHistory(const int &numberThread, const QBrush &brush)
@@ -108,7 +108,7 @@ void SchemeObliqueChartScene::editFromHistory(const int &numberThread, const QBr
     part->setColor(brush);
     part->updateColor();
 
-    updateEnabledHistory();
+    this->updateScene();
 }
 
 void SchemeObliqueChartScene::editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush)
@@ -307,7 +307,8 @@ void SchemeObliqueChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (node) {
         SchemeObliqueObjectNode::DirectionsNode directionsNodeBack = node->directionNode;
         node->click();
-        //this->history.addHistory(this->nodes.getNumberRow(node), this->nodes.getNumberColumn(node), node->directionNode, directionsNodeBack);
+        this->history.addHistory(node->getNumberRow(), node->getNumberColumn(), node->directionNode, directionsNodeBack);
+        updateEnabledHistory();
     } else if (part) {
         QBrush colorBack = part->brush;
         SchemeObliqueObjectPart* partBeggining = part->click();
