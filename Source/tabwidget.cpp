@@ -6,9 +6,7 @@ TabWidget::TabWidget(QList<AbstractScheme*> &schemes): schemes(schemes)
 {
     for (AbstractScheme *scheme : schemes) {
         scheme->widgetCreateOrEditScheme->setWindowModality(Qt::ApplicationModal);
-
         this->connect(scheme->widgetCreateOrEditScheme, &AbstractSchemeWidgetCreateOrEditScheme::createOut, this, &TabWidget::createOut);
-        this->connect(scheme->widgetCreateOrEditScheme, &AbstractSchemeWidgetCreateOrEditScheme::editOut, this, &TabWidget::editOut);
     }
 }
 
@@ -33,15 +31,6 @@ void TabWidget::addScheme(const QString &typeScheme)
     }
 }
 
-void TabWidget::editScheme()
-{
-    for (AbstractScheme *scheme : schemes) {
-        if (scheme->typeScheme == static_cast<AbstractSchemeChartView&>(*this->currentWidget()).getTypeScheme()) {
-            scheme->widgetCreateOrEditScheme->editIn(static_cast<AbstractSchemeChartView&>(*this->currentWidget()));
-        }
-    }
-}
-
 void TabWidget::deleteScheme()
 {
     delete this->currentWidget();
@@ -60,9 +49,4 @@ void TabWidget::createOut(AbstractSchemeChartView &view)
     this->addTab(&view, view.name);
     this->setCurrentWidget(&view);
     static_cast<AbstractSchemeChartScene&>(*view.scene()).updateScene();
-}
-
-void TabWidget::editOut(AbstractSchemeChartView &view)
-{
-    this->setTabText(this->currentIndex(), view.name);
 }

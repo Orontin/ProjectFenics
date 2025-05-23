@@ -15,14 +15,9 @@ public:
 
 public slots:
     virtual void createIn() = 0;
-    virtual void editIn(AbstractSchemeChartView &view) = 0;
 
 signals:
     void createOut(AbstractSchemeChartView &view);
-    void editOut(AbstractSchemeChartView &view);
-
-protected:
-    AbstractSchemeChartView *view;
 };
 
 #endif // ABSTRACTSCHEMEWIDGETCREATEOREDITSCHEME_H

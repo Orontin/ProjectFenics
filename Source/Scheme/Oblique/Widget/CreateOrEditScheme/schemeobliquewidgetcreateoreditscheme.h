@@ -19,11 +19,10 @@ public:
 
 public slots:
     void createIn();
-    void editIn(AbstractSchemeChartView &view);
 
 private slots:
-    void on_createOrEdit_clicked();
     void on_cancel_clicked();
+    void on_create_clicked();
 
 private:
     Ui::SchemeObliqueWidgetCreateOrEditScheme *ui;

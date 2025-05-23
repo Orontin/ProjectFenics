@@ -99,7 +99,6 @@
     </widget>
     <addaction name="menuCreateNewScheme"/>
     <addaction name="deleteScheme"/>
-    <addaction name="editScheme"/>
     <addaction name="separator"/>
     <addaction name="threads"/>
     <addaction name="halfrow"/>
@@ -205,14 +204,6 @@
    </property>
    <property name="shortcut">
     <string>Alt+R</string>
-   </property>
-  </action>
-  <action name="editScheme">
-   <property name="text">
-    <string>Изменить открытыю схему</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+E</string>
    </property>
   </action>
   <action name="removeThreadLeft">

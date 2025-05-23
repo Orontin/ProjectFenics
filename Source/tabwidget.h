@@ -17,12 +17,10 @@ public:
 
 public slots:
     void addScheme(const QString &typeScheme);
-    void editScheme();
     void deleteScheme();
 
 public slots:
     void createOut(AbstractSchemeChartView &view);
-    void editOut(AbstractSchemeChartView &view);
 
 signals:
     void enabledRemoveHalfrow(const bool &enabled);

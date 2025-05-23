@@ -50,7 +50,6 @@ private slots:
 
     // схема
     void on_deleteScheme_triggered();
-    void on_editScheme_triggered();
 
     void on_removeThreadLeft_triggered();
     void on_removeThreadRight_triggered();

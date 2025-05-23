@@ -141,11 +141,6 @@ void MainWindow::on_deleteScheme_triggered()
     this->tabWidget.deleteScheme();
 }
 
-void MainWindow::on_editScheme_triggered()
-{
-    this->tabWidget.editScheme();
-}
-
 void MainWindow::on_removeThreadLeft_triggered()
 {
     static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_LEFT, true, true);
@@ -214,7 +209,6 @@ void MainWindow::updateMenu(int index)
         this->ui->rotateLeft->setEnabled(false);
 
         this->ui->deleteScheme->setEnabled(false);
-        this->ui->editScheme->setEnabled(false);
 
         this->ui->addHalfrowDown->setEnabled(false);
         this->ui->addHalfrowTop->setEnabled(false);
@@ -243,7 +237,6 @@ void MainWindow::updateMenu(int index)
         this->ui->rotateLeft->setEnabled(true);
 
         this->ui->deleteScheme->setEnabled(true);
-        this->ui->editScheme->setEnabled(true);
 
         this->ui->addHalfrowDown->setEnabled(true);
         this->ui->addHalfrowTop->setEnabled(true);
