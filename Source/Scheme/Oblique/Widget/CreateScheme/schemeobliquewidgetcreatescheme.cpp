@@ -1,12 +1,12 @@
-#include "schemeobliquewidgetcreateoreditscheme.h"
-#include "ui_schemeobliquewidgetcreateoreditscheme.h"
+#include "schemeobliquewidgetcreatescheme.h"
+#include "ui_schemeobliquewidgetcreatescheme.h"
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueWidgetCreateOrEditScheme::SchemeObliqueWidgetCreateOrEditScheme() :
-    AbstractSchemeWidgetCreateOrEditScheme(nullptr),
-    ui(new Ui::SchemeObliqueWidgetCreateOrEditScheme)
+SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme() :
+    AbstractSchemeWidgetCreateScheme(nullptr),
+    ui(new Ui::SchemeObliqueWidgetCreateScheme)
 {
     this->ui->setupUi(this);
 
@@ -18,23 +18,23 @@ SchemeObliqueWidgetCreateOrEditScheme::SchemeObliqueWidgetCreateOrEditScheme() :
     this->ui->countThreads->setMaximum(SchemeObliqueChartScene::maximumCount);
 }
 
-SchemeObliqueWidgetCreateOrEditScheme::~SchemeObliqueWidgetCreateOrEditScheme()
+SchemeObliqueWidgetCreateScheme::~SchemeObliqueWidgetCreateScheme()
 {
     delete this->ui;
 }
 
-void SchemeObliqueWidgetCreateOrEditScheme::createIn()
+void SchemeObliqueWidgetCreateScheme::createIn()
 {
     this->ui->name->setText(SchemeObliqueChartScene::defaultNameScheme);
     this->show();
 }
 
-void SchemeObliqueWidgetCreateOrEditScheme::on_cancel_clicked()
+void SchemeObliqueWidgetCreateScheme::on_cancel_clicked()
 {
     this->close();
 }
 
-void SchemeObliqueWidgetCreateOrEditScheme::on_create_clicked()
+void SchemeObliqueWidgetCreateScheme::on_create_clicked()
 {
     emit this->createOut(*(new SchemeObliqueChartView(this->ui->countThreads->value(), this->ui->countHalfrow->value(), this->ui->nodeOf1_2->isChecked(), this->ui->name->text())));
     on_cancel_clicked();

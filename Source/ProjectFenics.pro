@@ -19,7 +19,7 @@ SOURCES += \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.cpp \
-    Scheme/Oblique/Widget/CreateOrEditScheme/schemeobliquewidgetcreateoreditscheme.cpp \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.cpp \
     Scheme/Oblique/Chart/schemeobliquechartscene.cpp \
@@ -45,7 +45,7 @@ HEADERS += \
     Abstract/abstractschemefileread.h \
     Abstract/abstractschemefilesetting.h \
     Abstract/abstractschemefilewrite.h \
-    Abstract/abstractschemewidgetcreateoreditscheme.h \
+    Abstract/abstractschemewidgetcreatescheme.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h \
@@ -56,7 +56,7 @@ HEADERS += \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h \
-    Scheme/Oblique/Widget/CreateOrEditScheme/schemeobliquewidgetcreateoreditscheme.h \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.h \
     Scheme/Oblique/Chart/schemeobliquechartscene.h \
@@ -75,7 +75,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
-    Scheme/Oblique/Widget/CreateOrEditScheme/schemeobliquewidgetcreateoreditscheme.ui \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.ui \
     editdirectionfornewnodewindow.ui \
     mainwindow.ui
 

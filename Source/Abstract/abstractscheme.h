@@ -3,18 +3,18 @@
 
 #include "abstractschemefileread.h"
 #include "abstractschemefilewrite.h"
-#include "abstractschemewidgetcreateoreditscheme.h"
+#include "abstractschemewidgetcreatescheme.h"
 
 class AbstractScheme {
 public:
     AbstractScheme(QList<AbstractSchemeFileRead*> *listFileRead,
                    AbstractSchemeFileWrite *fileWrite,
-                   AbstractSchemeWidgetCreateOrEditScheme *widgetCreateOrEditScheme,
+                   AbstractSchemeWidgetCreateScheme *widgetCreateScheme,
                    QGraphicsView *editDirectionForNewNodeView,
                    const QString &typeScheme):
                                                 listFileRead(listFileRead),
                                                 fileWrite(fileWrite),
-                                                widgetCreateOrEditScheme(widgetCreateOrEditScheme),
+                                                widgetCreateScheme(widgetCreateScheme),
                                                 editDirectionForNewNodeView(editDirectionForNewNodeView),
                                                 typeScheme(typeScheme)
     {};
@@ -25,13 +25,13 @@ public:
         }
         delete listFileRead;
         delete fileWrite;
-        delete widgetCreateOrEditScheme;
+        delete widgetCreateScheme;
         delete editDirectionForNewNodeView;
     };
 
     QList<AbstractSchemeFileRead*> *listFileRead;
     AbstractSchemeFileWrite *fileWrite;
-    AbstractSchemeWidgetCreateOrEditScheme *widgetCreateOrEditScheme;
+    AbstractSchemeWidgetCreateScheme *widgetCreateScheme;
     QGraphicsView *editDirectionForNewNodeView;
     const QString &typeScheme;
 };

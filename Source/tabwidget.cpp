@@ -5,8 +5,8 @@
 TabWidget::TabWidget(QList<AbstractScheme*> &schemes): schemes(schemes)
 {
     for (AbstractScheme *scheme : schemes) {
-        scheme->widgetCreateOrEditScheme->setWindowModality(Qt::ApplicationModal);
-        this->connect(scheme->widgetCreateOrEditScheme, &AbstractSchemeWidgetCreateOrEditScheme::createOut, this, &TabWidget::createOut);
+        scheme->widgetCreateScheme->setWindowModality(Qt::ApplicationModal);
+        this->connect(scheme->widgetCreateScheme, &AbstractSchemeWidgetCreateScheme::createOut, this, &TabWidget::createOut);
     }
 }
 
@@ -26,7 +26,7 @@ void TabWidget::addScheme(const QString &typeScheme)
 {
     for (AbstractScheme *scheme : schemes) {
         if (scheme->typeScheme == typeScheme) {
-            scheme->widgetCreateOrEditScheme->createIn();
+            scheme->widgetCreateScheme->createIn();
         }
     }
 }
