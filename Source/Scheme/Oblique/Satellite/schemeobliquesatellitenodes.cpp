@@ -16,7 +16,7 @@ void SchemeObliqueSatelliteNodes::setNodeDirection(const int &numberRow, const i
 {
     SchemeObliqueObjectNode *node = this->top.front();
 
-    for (int i = 0; i <= numberRow; i++) {
+    for (int i = 0; i < numberRow; i++) {
         if (node->nodeLeftBottom && node->nodeLeftBottom->nodeLeftTop != node) {
             node = node->nodeLeftBottom;
         } else if (node->nodeRightBottom && node->nodeRightBottom->nodeRightTop != node) {
@@ -24,7 +24,7 @@ void SchemeObliqueSatelliteNodes::setNodeDirection(const int &numberRow, const i
         }
     }
 
-    for (int i = 0; i <= numberColumn; i++) {
+    for (int i = 0; i < numberColumn; i++) {
         if (node->nodeRightBottom && node->nodeRightBottom->nodeRightTop && node->nodeRightBottom->nodeRightTop != node && node->nodeRightBottom->nodeRightTop != node->nodeRightTop) {
             node = node->nodeRightBottom->nodeRightTop;
         } else if (node->nodeRightTop && node->nodeRightTop->nodeRightBottom && node->nodeRightTop->nodeRightBottom != node && node->nodeRightTop->nodeRightBottom != node->nodeRightBottom) {
