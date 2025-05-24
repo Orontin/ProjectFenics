@@ -99,15 +99,22 @@
     </widget>
     <addaction name="menuCreateNewScheme"/>
     <addaction name="deleteScheme"/>
-    <addaction name="editScheme"/>
     <addaction name="separator"/>
     <addaction name="threads"/>
     <addaction name="halfrow"/>
     <addaction name="separator"/>
     <addaction name="menuEditDirectionNewNode"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>История</string>
+    </property>
+    <addaction name="historyBack"/>
+    <addaction name="historyNext"/>
+   </widget>
    <addaction name="menu"/>
    <addaction name="view"/>
+   <addaction name="menu_2"/>
    <addaction name="scheme"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -115,60 +122,88 @@
    <property name="text">
     <string>Открыть схему</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="saveScheme">
    <property name="text">
     <string>Сохранить схему</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="zoomOut">
    <property name="text">
     <string>Отдалить</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
   </action>
   <action name="zoomIn">
    <property name="text">
     <string>Приблизить</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
    </property>
   </action>
   <action name="movingDown">
    <property name="text">
     <string>Вниз</string>
    </property>
+   <property name="shortcut">
+    <string>Down</string>
+   </property>
   </action>
   <action name="movingUp">
    <property name="text">
     <string>Вверх</string>
+   </property>
+   <property name="shortcut">
+    <string>Up</string>
    </property>
   </action>
   <action name="movingLeft">
    <property name="text">
     <string>Влево</string>
    </property>
+   <property name="shortcut">
+    <string>Left</string>
+   </property>
   </action>
   <action name="movingRight">
    <property name="text">
     <string>Вправо</string>
+   </property>
+   <property name="shortcut">
+    <string>Right</string>
    </property>
   </action>
   <action name="rotateLeft">
    <property name="text">
     <string>Влево</string>
    </property>
+   <property name="shortcut">
+    <string>Shift+Left</string>
+   </property>
   </action>
   <action name="rotateRight">
    <property name="text">
     <string>Вправо</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Right</string>
    </property>
   </action>
   <action name="deleteScheme">
    <property name="text">
     <string>Удалить открытую схему</string>
    </property>
-  </action>
-  <action name="editScheme">
-   <property name="text">
-    <string>Изменить открытыю схему</string>
+   <property name="shortcut">
+    <string>Alt+R</string>
    </property>
   </action>
   <action name="removeThreadLeft">
@@ -233,6 +268,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Up</string>
+   </property>
+  </action>
+  <action name="historyBack">
+   <property name="text">
+    <string>Назад</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="historyNext">
+   <property name="text">
+    <string>Вперед</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
    </property>
   </action>
  </widget>

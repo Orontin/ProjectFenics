@@ -28,6 +28,9 @@ public slots:
     void enabledAddedThread(bool enabled);
     void enabledAddedHalfrow(bool enabled);
 
+    void enabledHistoryBack(bool enabled);
+    void enabledHistoryNext(bool enabled);
+
 private slots:
     // файл
     void on_openScheme_triggered();
@@ -47,7 +50,6 @@ private slots:
 
     // схема
     void on_deleteScheme_triggered();
-    void on_editScheme_triggered();
 
     void on_removeThreadLeft_triggered();
     void on_removeThreadRight_triggered();
@@ -60,6 +62,9 @@ private slots:
 
     void on_addHalfrowDown_triggered();
     void on_addHalfrowTop_triggered();
+
+    void on_historyBack_triggered();
+    void on_historyNext_triggered();
 
 private:
     void updateMenu(int index);

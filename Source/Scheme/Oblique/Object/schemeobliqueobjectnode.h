@@ -29,6 +29,9 @@ public:
     SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueObjectNode::DirectionsNode &directionNode);
     ~SchemeObliqueObjectNode();
 
+    int getNumberRow();
+    int getNumberColumn();
+
     void editNode();
     void editNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);
     void setDirectionNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);

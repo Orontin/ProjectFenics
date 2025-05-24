@@ -12,6 +12,7 @@
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteconnects.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatellitecolors.h"
+#include "Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h"
 
 class SchemeObliqueChartScene : public AbstractSchemeChartScene
 {
@@ -33,15 +34,22 @@ public:
     static QBrush defaultBrush;
 
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, QList<QBrush> &colorThreads);
+    SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
     void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, QList<QBrush> &colorThreads);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     void removeScene();
 
-    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate);
+    void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
+    void editFromHistory(const int &numberThread, const QBrush &brush);
+    void editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
+
+    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
     void updateScene() final;
+
+    void backHistory();
+    void nextHistory();
 
     int getSizeThread();
     int getSizeHalfrow();
@@ -56,6 +64,7 @@ public:
     SchemeObliqueSatelliteParts parts;
     SchemeObliqueSatelliteConnects connects;
     SchemeObliqueSatelliteColors colors;
+    SchemeObliqueSatelliteHistory history;
 
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -65,6 +74,7 @@ protected:
 private:
     void updateRectScene();
     void updateEnabledEditNodeAndThread();
+    void updateEnabledHistory();
 };
 
 #endif // SCHEMEOBLIQUECHARTSCENE_H

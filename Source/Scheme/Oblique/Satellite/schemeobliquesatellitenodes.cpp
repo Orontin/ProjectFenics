@@ -1,7 +1,6 @@
 #include "schemeobliquesatellitenodes.h"
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
-#include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
 
 SchemeObliqueSatelliteNodes::SchemeObliqueSatelliteNodes(SchemeObliqueChartScene *scene, QObject *parent): QObject(parent), scene(scene)
 {
@@ -11,6 +10,31 @@ SchemeObliqueSatelliteNodes::SchemeObliqueSatelliteNodes(SchemeObliqueChartScene
 SchemeObliqueSatelliteNodes::~SchemeObliqueSatelliteNodes()
 {
 
+}
+
+void SchemeObliqueSatelliteNodes::setNodeDirection(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
+{
+    SchemeObliqueObjectNode *node = this->top.front();
+
+    for (int i = 0; i < numberRow; i++) {
+        if (node->nodeLeftBottom && node->nodeLeftBottom->nodeLeftTop != node) {
+            node = node->nodeLeftBottom;
+        } else if (node->nodeRightBottom && node->nodeRightBottom->nodeRightTop != node) {
+            node = node->nodeRightBottom;
+        }
+    }
+
+    for (int i = 0; i < numberColumn; i++) {
+        if (node->nodeRightBottom && node->nodeRightBottom->nodeRightTop && node->nodeRightBottom->nodeRightTop != node && node->nodeRightBottom->nodeRightTop != node->nodeRightTop) {
+            node = node->nodeRightBottom->nodeRightTop;
+        } else if (node->nodeRightTop && node->nodeRightTop->nodeRightBottom && node->nodeRightTop->nodeRightBottom != node && node->nodeRightTop->nodeRightBottom != node->nodeRightBottom) {
+            node = node->nodeRightTop->nodeRightBottom;
+        }
+    }
+
+    node->editNode(directionsNode);
+    node->partLeftTop->updateColor();
+    node->partRightTop->updateColor();
 }
 
 void SchemeObliqueSatelliteNodes::setNodeDirections(const QList<int> &nodeDirections)
@@ -88,6 +112,78 @@ QStringList SchemeObliqueSatelliteNodes::getNodeDirections()
     }
 
     return listNodeDirections;
+}
+
+QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionLeft()
+{
+    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+
+    for (const SchemeObliqueObjectNode *node : this->left) {
+        listDirection.push_back(node->directionNode);
+    }
+
+    return listDirection;
+}
+
+QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionRight()
+{
+    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+
+    for (const SchemeObliqueObjectNode *node : this->right) {
+        listDirection.push_back(node->directionNode);
+    }
+
+    return listDirection;
+}
+
+QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionTop()
+{
+    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+
+    for (const SchemeObliqueObjectNode *node : this->top) {
+        listDirection.push_back(node->directionNode);
+    }
+
+    return listDirection;
+}
+
+QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionBottom()
+{
+    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+
+    for (const SchemeObliqueObjectNode *node : this->bottom) {
+        listDirection.push_back(node->directionNode);
+    }
+
+    return listDirection;
+}
+
+void SchemeObliqueSatelliteNodes::setNodeDirectionLeft(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionLeft)
+{
+    for (int i = 0; i < directionLeft.size(); i++) {
+        this->left[i]->editNode(directionLeft[i]);
+    }
+}
+
+void SchemeObliqueSatelliteNodes::setNodeDirectionRight(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionRight)
+{
+    for (int i = 0; i < directionRight.size(); i++) {
+        this->right[i]->editNode(directionRight[i]);
+    }
+}
+
+void SchemeObliqueSatelliteNodes::setNodeDirectionTop(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionTop)
+{
+    for (int i = 0; i < directionTop.size(); i++) {
+        this->top[i]->editNode(directionTop[i]);
+    }
+}
+
+void SchemeObliqueSatelliteNodes::setNodeDirectionBottom(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionBottom)
+{
+    for (int i = 0; i < directionBottom.size(); i++) {
+        this->bottom[i]->editNode(directionBottom[i]);
+    }
 }
 
 QList<SchemeObliqueObjectNode*> SchemeObliqueSatelliteNodes::createNodes(const bool &isNode1_2)

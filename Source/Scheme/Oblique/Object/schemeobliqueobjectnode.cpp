@@ -56,6 +56,46 @@ SchemeObliqueObjectNode::~SchemeObliqueObjectNode()
 
 }
 
+int SchemeObliqueObjectNode::getNumberRow()
+{
+    int numberRow = 0;
+
+    SchemeObliqueObjectNode *node = this;
+    while (true) {
+        if (node->nodeLeftTop && node->nodeLeftTop->nodeLeftBottom != node) {
+            node = node->nodeLeftTop;
+            numberRow++;
+        } else if (node->nodeRightTop && node->nodeRightTop->nodeRightBottom != node) {
+            node = node->nodeRightTop;
+            numberRow++;
+        } else {
+            break;
+        }
+    }
+
+    return numberRow;
+}
+
+int SchemeObliqueObjectNode::getNumberColumn()
+{
+    int numberColumn = 0;
+
+    SchemeObliqueObjectNode *node = this;
+    while (true) {
+        if (node->nodeLeftBottom && node->nodeLeftBottom->nodeLeftTop && node->nodeLeftBottom->nodeLeftTop != node && node->nodeLeftBottom->nodeLeftTop != node->nodeLeftTop) {
+            node = node->nodeLeftBottom->nodeLeftTop;
+            numberColumn++;
+        } else if (node->nodeLeftTop && node->nodeLeftTop->nodeLeftBottom && node->nodeLeftTop->nodeLeftBottom != node && node->nodeLeftTop->nodeLeftBottom != node->nodeLeftBottom) {
+            node = node->nodeLeftTop->nodeLeftBottom;
+            numberColumn++;
+        } else {
+            break;
+        }
+    }
+
+    return numberColumn;
+}
+
 void SchemeObliqueObjectNode::editNode()
 {
     SchemeObliqueObjectNode::DirectionsNode directionsNode = SchemeObliqueObjectNode::DirectionsNode::GAP;

@@ -39,6 +39,9 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     this->connect(&this->tabWidget, &TabWidget::enabledAddedThread, this, &MainWindow::enabledAddedThread);
     this->connect(&this->tabWidget, &TabWidget::enabledAddedHalfrow, this, &MainWindow::enabledAddedHalfrow);
 
+    this->connect(&this->tabWidget, &TabWidget::enabledHistoryBack, this, &MainWindow::enabledHistoryBack);
+    this->connect(&this->tabWidget, &TabWidget::enabledHistoryNext, this, &MainWindow::enabledHistoryNext);
+
     this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
     this->updateMenu(-1);
 }
@@ -71,6 +74,16 @@ void MainWindow::enabledAddedHalfrow(bool enabled)
 {
     this->ui->addHalfrowDown->setEnabled(enabled);
     this->ui->addHalfrowTop->setEnabled(enabled);
+}
+
+void MainWindow::enabledHistoryBack(bool enabled)
+{
+    this->ui->historyBack->setEnabled(enabled);
+}
+
+void MainWindow::enabledHistoryNext(bool enabled)
+{
+    this->ui->historyNext->setEnabled(enabled);
 }
 
 void MainWindow::on_openScheme_triggered()
@@ -128,49 +141,55 @@ void MainWindow::on_deleteScheme_triggered()
     this->tabWidget.deleteScheme();
 }
 
-void MainWindow::on_editScheme_triggered()
-{
-    this->tabWidget.editScheme();
-}
-
 void MainWindow::on_removeThreadLeft_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_LEFT, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_LEFT, true, true);
 }
 
 void MainWindow::on_removeThreadRight_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_RIGHT, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_RIGHT, true, true);
 }
 
 void MainWindow::on_addThreadLeft_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_LEFT, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_LEFT, true, true);
 }
 
 void MainWindow::on_addThreadRight_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, true, true);
 }
 
 void MainWindow::on_removeHalfrowDown_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_BOTTOM, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_BOTTOM, true, true);
 }
 
 void MainWindow::on_removeHalfrowTop_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_TOP, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_TOP, true, true);
 }
 
 void MainWindow::on_addHalfrowDown_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, true, true);
 }
 
 void MainWindow::on_addHalfrowTop_triggered()
 {
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_TOP, true);
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_TOP, true, true);
+}
+
+void MainWindow::on_historyBack_triggered()
+{
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->backHistory();
+}
+
+
+void MainWindow::on_historyNext_triggered()
+{
+    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->nextHistory();
 }
 
 void MainWindow::updateMenu(int index)
@@ -190,7 +209,6 @@ void MainWindow::updateMenu(int index)
         this->ui->rotateLeft->setEnabled(false);
 
         this->ui->deleteScheme->setEnabled(false);
-        this->ui->editScheme->setEnabled(false);
 
         this->ui->addHalfrowDown->setEnabled(false);
         this->ui->addHalfrowTop->setEnabled(false);
@@ -201,6 +219,9 @@ void MainWindow::updateMenu(int index)
         this->ui->removeHalfrowTop->setEnabled(false);
         this->ui->removeThreadLeft->setEnabled(false);
         this->ui->removeThreadRight->setEnabled(false);
+
+        this->ui->historyBack->setEnabled(false);
+        this->ui->historyNext->setEnabled(false);
     } else {
         this->ui->saveScheme->setEnabled(true);
 
@@ -216,7 +237,6 @@ void MainWindow::updateMenu(int index)
         this->ui->rotateLeft->setEnabled(true);
 
         this->ui->deleteScheme->setEnabled(true);
-        this->ui->editScheme->setEnabled(true);
 
         this->ui->addHalfrowDown->setEnabled(true);
         this->ui->addHalfrowTop->setEnabled(true);
@@ -227,5 +247,11 @@ void MainWindow::updateMenu(int index)
         this->ui->removeHalfrowTop->setEnabled(true);
         this->ui->removeThreadLeft->setEnabled(true);
         this->ui->removeThreadRight->setEnabled(true);
+
+        this->ui->historyBack->setEnabled(true);
+        this->ui->historyNext->setEnabled(true);
+
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
     }
 }
+

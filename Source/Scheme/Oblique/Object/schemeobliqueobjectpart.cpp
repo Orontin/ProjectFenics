@@ -134,28 +134,39 @@ void SchemeObliqueObjectPart::setDirectionPart(const SchemeObliqueObjectPart::Di
     this->directionPart = directionPart;
 }
 
-void SchemeObliqueObjectPart::click()
+SchemeObliqueObjectPart* SchemeObliqueObjectPart::click()
 {
     SchemeObliqueObjectPart *begginingPart = searhBegginingPart();
     if (begginingPart) {
-        begginingPart->setColor();
-        begginingPart->updateColor();
+        if (begginingPart->setColor()) {
+            begginingPart->updateColor();
+        } else {
+            begginingPart = nullptr;
+        }
     }
+
+    return begginingPart;
 }
 
-void SchemeObliqueObjectPart::setColor()
+bool SchemeObliqueObjectPart::setColor()
 {
+    bool isSelectNewColor = false;
+
     QColor color = QColorDialog::getColor();
     if (color.isValid()) {
         this->brush = color;
         this->pen = QPen(getContrastColor(this->brush.color()), 0);
+
+        isSelectNewColor = true;
     }
+
+    return isSelectNewColor;
 }
 
 void SchemeObliqueObjectPart::setColor(const QBrush &brush)
 {
     this->brush = brush;
-    this->pen =  QPen(getContrastColor(this->brush.color()), 0);
+    this->pen = QPen(getContrastColor(this->brush.color()), 0);
 }
 
 void SchemeObliqueObjectPart::updateColor()

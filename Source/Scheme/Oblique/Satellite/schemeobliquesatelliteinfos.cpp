@@ -70,5 +70,11 @@ QStringList SchemeObliqueSatelliteInfos::getNodeDirections()
 
 QStringList SchemeObliqueSatelliteInfos::getThreadColors()
 {
-    return scene->parts.getThreadColors(scene->nodes.top);
+    QStringList listThreadColors;
+
+    for (const QBrush &brush : scene->parts.getThreadColors(scene->nodes.top)) {
+        listThreadColors.push_back(brush.color().name());
+    }
+
+    return listThreadColors;
 }

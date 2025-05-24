@@ -17,18 +17,19 @@ public:
 
 public slots:
     void addScheme(const QString &typeScheme);
-    void editScheme();
     void deleteScheme();
 
 public slots:
     void createOut(AbstractSchemeChartView &view);
-    void editOut(AbstractSchemeChartView &view);
 
 signals:
     void enabledRemoveHalfrow(const bool &enabled);
     void enabledRemoveThread(const bool &enabled);
     void enabledAddedThread(const bool &enabled);
     void enabledAddedHalfrow(const bool &enabled);
+
+    void enabledHistoryBack(const bool &enabled);
+    void enabledHistoryNext(const bool &enabled);
 
 private:
     QList<AbstractScheme*> &schemes;

@@ -10,7 +10,7 @@ class SchemeObliqueChartView : public AbstractSchemeChartView
 public:
     SchemeObliqueChartView();
     SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QString &name);
-    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, QList<QBrush> &colorThreads, const QString &name);
+    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads, const QString &name);
     ~SchemeObliqueChartView();
 
     const QString &getTypeScheme();
