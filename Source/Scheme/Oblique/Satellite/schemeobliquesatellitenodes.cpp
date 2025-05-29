@@ -162,6 +162,8 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionLeft(const QList<SchemeOblique
 {
     for (int i = 0; i < directionLeft.size(); i++) {
         this->left[i]->editNode(directionLeft[i]);
+        this->bottom[i]->partLeftTop->updateColor();
+        this->bottom[i]->partRightTop->updateColor();
     }
 }
 
@@ -169,6 +171,8 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionRight(const QList<SchemeObliqu
 {
     for (int i = 0; i < directionRight.size(); i++) {
         this->right[i]->editNode(directionRight[i]);
+        this->right[i]->partLeftTop->updateColor();
+        this->right[i]->partRightTop->updateColor();
     }
 }
 
@@ -176,6 +180,8 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionTop(const QList<SchemeObliqueO
 {
     for (int i = 0; i < directionTop.size(); i++) {
         this->top[i]->editNode(directionTop[i]);
+        this->bottom[i]->partLeftTop->updateColor();
+        this->bottom[i]->partRightTop->updateColor();
     }
 }
 
@@ -183,6 +189,8 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionBottom(const QList<SchemeObliq
 {
     for (int i = 0; i < directionBottom.size(); i++) {
         this->bottom[i]->editNode(directionBottom[i]);
+        this->bottom[i]->partLeftTop->updateColor();
+        this->bottom[i]->partRightTop->updateColor();
     }
 }
 
