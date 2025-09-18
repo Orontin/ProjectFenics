@@ -16,6 +16,9 @@ SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme() :
     this->ui->countHalfrow->setMaximum(SchemeObliqueChartScene::maximumCount);
     this->ui->countThreads->setMinimum(SchemeObliqueChartScene::defaultCountThread);
     this->ui->countThreads->setMaximum(SchemeObliqueChartScene::maximumCount);
+
+    connect(this->ui->create, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCreateClicked);
+    connect(this->ui->cancel, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCancelClicked);
 }
 
 SchemeObliqueWidgetCreateScheme::~SchemeObliqueWidgetCreateScheme()
@@ -29,13 +32,13 @@ void SchemeObliqueWidgetCreateScheme::createIn()
     this->show();
 }
 
-void SchemeObliqueWidgetCreateScheme::on_cancel_clicked()
+void SchemeObliqueWidgetCreateScheme::onCancelClicked()
 {
     this->close();
 }
 
-void SchemeObliqueWidgetCreateScheme::on_create_clicked()
+void SchemeObliqueWidgetCreateScheme::onCreateClicked()
 {
     emit this->createOut(*(new SchemeObliqueChartView(this->ui->countThreads->value(), this->ui->countHalfrow->value(), this->ui->nodeOf1_2->isChecked(), this->ui->name->text())));
-    on_cancel_clicked();
+    onCancelClicked();
 }

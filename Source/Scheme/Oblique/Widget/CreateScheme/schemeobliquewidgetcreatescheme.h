@@ -21,8 +21,8 @@ public slots:
     void createIn();
 
 private slots:
-    void on_cancel_clicked();
-    void on_create_clicked();
+    void onCancelClicked();
+    void onCreateClicked();
 
 private:
     Ui::SchemeObliqueWidgetCreateScheme *ui;
