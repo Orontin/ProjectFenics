@@ -6,7 +6,6 @@
 #include "tabwidget.h"
 #include "fileread.h"
 #include "filewrite.h"
-#include "editdirectionfornewnodewindow.h"
 
 #include "Abstract/abstractscheme.h"
 
@@ -75,6 +74,5 @@ private:
     TabWidget tabWidget;
     FileRead fileRead;
     FileWrite fileWrite;
-    EditDirectionForNewNodeWindow editDirectionForNewNodeWindow;
 };
 #endif // MAINWINDOW_H

@@ -10,12 +10,10 @@ public:
     AbstractScheme(QList<AbstractSchemeFileRead*> *listFileRead,
                    AbstractSchemeFileWrite *fileWrite,
                    AbstractSchemeWidgetCreateScheme *widgetCreateScheme,
-                   QGraphicsView *editDirectionForNewNodeView,
                    const QString &typeScheme):
                                                 listFileRead(listFileRead),
                                                 fileWrite(fileWrite),
                                                 widgetCreateScheme(widgetCreateScheme),
-                                                editDirectionForNewNodeView(editDirectionForNewNodeView),
                                                 typeScheme(typeScheme)
     {};
     ~AbstractScheme()
@@ -26,13 +24,11 @@ public:
         delete listFileRead;
         delete fileWrite;
         delete widgetCreateScheme;
-        delete editDirectionForNewNodeView;
     };
 
     QList<AbstractSchemeFileRead*> *listFileRead;
     AbstractSchemeFileWrite *fileWrite;
     AbstractSchemeWidgetCreateScheme *widgetCreateScheme;
-    QGraphicsView *editDirectionForNewNodeView;
     const QString &typeScheme;
 };
 

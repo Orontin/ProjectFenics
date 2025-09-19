@@ -20,8 +20,8 @@ SOURCES += \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.cpp \
     Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.cpp \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.cpp \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.cpp \
     Scheme/Oblique/Chart/schemeobliquechartscene.cpp \
     Scheme/Oblique/Chart/schemeobliquechartview.cpp \
     Scheme/Oblique/Object/schemeobliqueobjectnode.cpp \
@@ -31,7 +31,7 @@ SOURCES += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.cpp \
-    editdirectionfornewnodewindow.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.cpp \
     fileread.cpp \
     filewrite.cpp \
     tabwidget.cpp \
@@ -57,8 +57,8 @@ HEADERS += \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h \
     Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodescene.h \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h \
     Scheme/Oblique/Chart/schemeobliquechartscene.h \
     Scheme/Oblique/Chart/schemeobliquechartview.h \
     Scheme/Oblique/Object/schemeobliqueobjectnode.h \
@@ -68,7 +68,7 @@ HEADERS += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h \
-    editdirectionfornewnodewindow.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h \
     fileread.h \
     filewrite.h \
     tabwidget.h \
@@ -76,7 +76,7 @@ HEADERS += \
 
 FORMS += \
     Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.ui \
-    editdirectionfornewnodewindow.ui \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.ui \
     mainwindow.ui
 
 # INCLUDEPATH += "C:/Program Files (x86)/Visual Leak Detector/include/"

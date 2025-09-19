@@ -14,7 +14,6 @@
 #include "Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h"
 #include "Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h"
 #include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
-#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,9 +31,8 @@ int main(int argc, char *argv[])
     AbstractSchemeFileRead *schemeObliqueFileReadPFCO = new SchemeObliqueFileReadPFCO();
     QList<AbstractSchemeFileRead*> *listFileRead = new QList<AbstractSchemeFileRead*>{schemeObliqueFileReadRNX, schemeObliqueFileReadFBD, schemeObliqueFileReadPFCO};
     AbstractSchemeFileWrite *fileWrite = new SchemeObliqueFileWritePFCO();
-    QGraphicsView *schemeObliqueWidgetEditDirectionForNewNodeView = new SchemeObliqueWidgetEditDirectionForNewNodeView();
     AbstractSchemeWidgetCreateScheme *schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme();
-    AbstractScheme *schemeOblique = new AbstractScheme(listFileRead, fileWrite, schemeObliqueWidgetCreateScheme, schemeObliqueWidgetEditDirectionForNewNodeView, view.getTypeScheme());
+    AbstractScheme *schemeOblique = new AbstractScheme(listFileRead, fileWrite, schemeObliqueWidgetCreateScheme, view.getTypeScheme());
 
     QList<AbstractScheme*> *schemes = new QList<AbstractScheme*>{schemeOblique};
 

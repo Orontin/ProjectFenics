@@ -10,8 +10,7 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     schemes(schemes),
     tabWidget(schemes),
     fileRead(schemes),
-    fileWrite(schemes),
-    editDirectionForNewNodeWindow(schemes)
+    fileWrite(schemes)
 {
     ui->setupUi(this);
 

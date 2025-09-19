@@ -1,9 +1,9 @@
-#include "schemeobliquewidgeteditdirectionfornewnodescene.h"
+#include "schemeobliquewidgeteditdirectionfornewnodechartscene.h"
 
 #include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-SchemeObliqueWidgetEditDirectionForNewNodeScene::SchemeObliqueWidgetEditDirectionForNewNodeScene():
+SchemeObliqueWidgetEditDirectionForNewNodeChartScene::SchemeObliqueWidgetEditDirectionForNewNodeChartScene():
     node(new SchemeObliqueObjectNode(QPoint(0, 0), SchemeObliqueObjectNode::standartDirectionObliqueNode)),
     partLeftTop(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_LEFT)),
     partLeftBottom(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::END_CORNER_LEFT)),
@@ -31,7 +31,7 @@ SchemeObliqueWidgetEditDirectionForNewNodeScene::SchemeObliqueWidgetEditDirectio
     this->addItem(this->partRightBottom);
 }
 
-SchemeObliqueWidgetEditDirectionForNewNodeScene::~SchemeObliqueWidgetEditDirectionForNewNodeScene()
+SchemeObliqueWidgetEditDirectionForNewNodeChartScene::~SchemeObliqueWidgetEditDirectionForNewNodeChartScene()
 {
     delete this->partLeftTop;
     delete this->partLeftBottom;
@@ -41,7 +41,7 @@ SchemeObliqueWidgetEditDirectionForNewNodeScene::~SchemeObliqueWidgetEditDirecti
     delete this->node;
 }
 
-void SchemeObliqueWidgetEditDirectionForNewNodeScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void SchemeObliqueWidgetEditDirectionForNewNodeChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
     SchemeObliqueObjectNode *node = dynamic_cast<SchemeObliqueObjectNode *>(item);

@@ -1,5 +1,5 @@
-#ifndef SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODESCENE_H
-#define SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODESCENE_H
+#ifndef SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODECHARTSCENE_H
+#define SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODECHARTSCENE_H
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
@@ -7,13 +7,13 @@
 #include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
 #include "Scheme/Oblique/Object/schemeobliqueobjectpart.h"
 
-class SchemeObliqueWidgetEditDirectionForNewNodeScene : public QGraphicsScene
+class SchemeObliqueWidgetEditDirectionForNewNodeChartScene : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    SchemeObliqueWidgetEditDirectionForNewNodeScene();
-    ~SchemeObliqueWidgetEditDirectionForNewNodeScene();
+    SchemeObliqueWidgetEditDirectionForNewNodeChartScene();
+    ~SchemeObliqueWidgetEditDirectionForNewNodeChartScene();
 
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -26,4 +26,4 @@ private:
     SchemeObliqueObjectPart *partRightBottom;
 };
 
-#endif // SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODESCENE_H
+#endif // SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODECHARTSCENE_H
