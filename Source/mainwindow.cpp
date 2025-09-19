@@ -24,9 +24,9 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
             this->tabWidget.addScheme(scheme->typeScheme);
         });
 
-        connect(actionEditDirectionNewNode, &QAction::triggered, [=](){
-            this->editDirectionForNewNodeWindow.open(scheme->typeScheme);
-        });
+        // connect(actionEditDirectionNewNode, &QAction::triggered, [=](){
+        //     this->editDirectionForNewNodeWindow.open(scheme->typeScheme);
+        // });
     }
 
     this->connect(&this->fileRead, &FileRead::createOut, &this->tabWidget, &TabWidget::createOut);
