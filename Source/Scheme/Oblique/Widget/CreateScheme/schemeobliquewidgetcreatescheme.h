@@ -3,13 +3,13 @@
 
 #include <QWidget>
 
-#include "Abstract/abstractschemewidgetcreatescheme.h"
+#include "Abstract/abstractschemechartview.h"
 
 namespace Ui {
 class SchemeObliqueWidgetCreateScheme;
 }
 
-class SchemeObliqueWidgetCreateScheme : public AbstractSchemeWidgetCreateScheme
+class SchemeObliqueWidgetCreateScheme: public QWidget
 {
     Q_OBJECT
 
@@ -19,6 +19,9 @@ public:
 
 public slots:
     void createIn();
+
+signals:
+    void createOut(AbstractSchemeChartView &view);
 
 private slots:
     void onCancelClicked();

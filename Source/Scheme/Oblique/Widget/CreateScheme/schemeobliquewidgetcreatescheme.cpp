@@ -4,8 +4,7 @@
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme() :
-    AbstractSchemeWidgetCreateScheme(nullptr),
+SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme():
     ui(new Ui::SchemeObliqueWidgetCreateScheme)
 {
     this->ui->setupUi(this);

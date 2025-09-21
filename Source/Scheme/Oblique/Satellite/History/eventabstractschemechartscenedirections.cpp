@@ -2,7 +2,7 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-EventAbstractSchemeChartSceneDirections::EventAbstractSchemeChartSceneDirections(SchemeObliqueChartScene &scene, const AbstractSchemeChartScene::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode):
+EventAbstractSchemeChartSceneDirections::EventAbstractSchemeChartSceneDirections(SchemeObliqueChartScene &scene, const SchemeOblique::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode):
     Event(scene),
     direction(direction),
     brush(brush),
@@ -23,31 +23,31 @@ void EventAbstractSchemeChartSceneDirections::next()
 
 void EventAbstractSchemeChartSceneDirections::back()
 {
-    AbstractSchemeChartScene::Directions directionReverse;
+    SchemeOblique::Directions directionReverse;
     switch (direction) {
-    case AbstractSchemeChartScene::Directions::ADD_TOP:
-        directionReverse = AbstractSchemeChartScene::Directions::REMOVE_TOP;
+    case SchemeOblique::Directions::ADD_TOP:
+        directionReverse = SchemeOblique::Directions::REMOVE_TOP;
         break;
-    case AbstractSchemeChartScene::Directions::ADD_BOTTOM:
-        directionReverse = AbstractSchemeChartScene::Directions::REMOVE_BOTTOM;
+    case SchemeOblique::Directions::ADD_BOTTOM:
+        directionReverse = SchemeOblique::Directions::REMOVE_BOTTOM;
         break;
-    case AbstractSchemeChartScene::Directions::ADD_LEFT:
-        directionReverse = AbstractSchemeChartScene::Directions::REMOVE_LEFT;
+    case SchemeOblique::Directions::ADD_LEFT:
+        directionReverse = SchemeOblique::Directions::REMOVE_LEFT;
         break;
-    case AbstractSchemeChartScene::Directions::ADD_RIGHT:
-        directionReverse = AbstractSchemeChartScene::Directions::REMOVE_RIGHT;
+    case SchemeOblique::Directions::ADD_RIGHT:
+        directionReverse = SchemeOblique::Directions::REMOVE_RIGHT;
         break;
-    case AbstractSchemeChartScene::Directions::REMOVE_TOP:
-        directionReverse = AbstractSchemeChartScene::Directions::ADD_TOP;
+    case SchemeOblique::Directions::REMOVE_TOP:
+        directionReverse = SchemeOblique::Directions::ADD_TOP;
         break;
-    case AbstractSchemeChartScene::Directions::REMOVE_BOTTOM:
-        directionReverse = AbstractSchemeChartScene::Directions::ADD_BOTTOM;
+    case SchemeOblique::Directions::REMOVE_BOTTOM:
+        directionReverse = SchemeOblique::Directions::ADD_BOTTOM;
         break;
-    case AbstractSchemeChartScene::Directions::REMOVE_LEFT:
-        directionReverse = AbstractSchemeChartScene::Directions::ADD_LEFT;
+    case SchemeOblique::Directions::REMOVE_LEFT:
+        directionReverse = SchemeOblique::Directions::ADD_LEFT;
         break;
-    case AbstractSchemeChartScene::Directions::REMOVE_RIGHT:
-        directionReverse = AbstractSchemeChartScene::Directions::ADD_RIGHT;
+    case SchemeOblique::Directions::REMOVE_RIGHT:
+        directionReverse = SchemeOblique::Directions::ADD_RIGHT;
         break;
     }
     scene.editFromHistory(directionReverse, directionNode, brush);

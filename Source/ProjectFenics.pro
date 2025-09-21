@@ -32,6 +32,7 @@ SOURCES += \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.cpp \
+    Scheme/Oblique/schemeoblique.cpp \
     fileread.cpp \
     filewrite.cpp \
     tabwidget.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h \
+    Scheme/Oblique/schemeoblique.h \
     fileread.h \
     filewrite.h \
     tabwidget.h \

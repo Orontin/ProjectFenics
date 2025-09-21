@@ -1,35 +1,22 @@
 #ifndef ABSTRACTSCHEME_H
 #define ABSTRACTSCHEME_H
 
-#include "abstractschemefileread.h"
-#include "abstractschemefilewrite.h"
-#include "abstractschemewidgetcreatescheme.h"
+#include <QAction>
 
-class AbstractScheme {
+#include "Abstract/abstractschemechartview.h"
+
+class AbstractScheme: public QObject {
 public:
-    AbstractScheme(QList<AbstractSchemeFileRead*> *listFileRead,
-                   AbstractSchemeFileWrite *fileWrite,
-                   AbstractSchemeWidgetCreateScheme *widgetCreateScheme,
-                   const QString &typeScheme):
-                                                listFileRead(listFileRead),
-                                                fileWrite(fileWrite),
-                                                widgetCreateScheme(widgetCreateScheme),
-                                                typeScheme(typeScheme)
-    {};
-    ~AbstractScheme()
-    {
-        for (AbstractSchemeFileRead *fileRead : *listFileRead) {
-            delete fileRead;
-        }
-        delete listFileRead;
-        delete fileWrite;
-        delete widgetCreateScheme;
-    };
+    AbstractScheme() {};
+    ~AbstractScheme() {};
 
-    QList<AbstractSchemeFileRead*> *listFileRead;
-    AbstractSchemeFileWrite *fileWrite;
-    AbstractSchemeWidgetCreateScheme *widgetCreateScheme;
-    const QString &typeScheme;
+    virtual QAction &getActionCreate() = 0;
+
+signals:
+    void createOut(AbstractSchemeChartView &view);
+
+protected:
+    QAction actionCreate;
 };
 
 #endif // ABSTRACTSCHEME_H

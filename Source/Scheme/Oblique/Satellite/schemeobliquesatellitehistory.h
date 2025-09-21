@@ -3,7 +3,8 @@
 
 #include <QObject>
 
-#include "Abstract/abstractschemechartscene.h"
+#include "Scheme/Oblique/schemeoblique.h"
+
 #include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
 
 #include "Scheme/Oblique/Satellite/History/event.h"
@@ -29,7 +30,7 @@ public:
 
     void addHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeNext, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeBack);
     void addHistory(const int &numberThread, const QBrush &brushNext, const QBrush &brushBack);
-    void addHistory(const AbstractSchemeChartScene::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode);
+    void addHistory(const SchemeOblique::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode);
 
     void back();
     void next();

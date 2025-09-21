@@ -8,13 +8,6 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-const QString &SchemeObliqueChartView::typeScheme = "Усложенная косая";
-
-SchemeObliqueChartView::SchemeObliqueChartView():
-    AbstractSchemeChartView("")
-{
-}
-
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const int &countHalfrow,
                                                const bool &isNode1_2,
@@ -22,10 +15,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
     AbstractSchemeChartView(name)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2));
-
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setMouseTracking(true);
+    commonCreate();
 }
 
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
@@ -37,10 +27,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
     AbstractSchemeChartView(name)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads));
-
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setMouseTracking(true);
+    commonCreate();
 }
 
 SchemeObliqueChartView::~SchemeObliqueChartView()
@@ -48,64 +35,9 @@ SchemeObliqueChartView::~SchemeObliqueChartView()
     delete this->scene();
 }
 
-const QString &SchemeObliqueChartView::getTypeScheme() {
-    return SchemeObliqueChartView::typeScheme;
-}
-
-void SchemeObliqueChartView::toRight()
+QMenu &SchemeObliqueChartView::getMenuView()
 {
-    const int step = abs(this->horizontalScrollBar()->minimum());
-    this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() + step);
-}
-
-void SchemeObliqueChartView::toLeft()
-{
-    const int step = abs(this->horizontalScrollBar()->minimum());
-    this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() - step);
-}
-
-void SchemeObliqueChartView::toTop()
-{
-    const int step = abs(this->verticalScrollBar()->minimum());
-    this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() - step);
-}
-
-void SchemeObliqueChartView::toBottom()
-{
-    const int step = abs(this->verticalScrollBar()->minimum());
-    this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() + step);
-}
-
-void SchemeObliqueChartView::zoomIn()
-{
-    if (this->skrooll > -25) {
-        double angle = 120;
-        this->skrooll--;
-        double factor = qPow(1.0015, angle);
-        this->scale(factor, factor);
-        this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
-    }
-}
-
-void SchemeObliqueChartView::zoomOut()
-{
-    if (this->skrooll < 25) {
-        double angle = -120;
-        this->skrooll++;
-        double factor = qPow(1.0015, angle);
-        this->scale(factor, factor);
-        this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
-    }
-}
-
-void SchemeObliqueChartView::rotateRight()
-{
-    this->rotate(45);
-}
-
-void SchemeObliqueChartView::rotateLeft()
-{
-    this->rotate(-45);
+    return menuView;
 }
 
 void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)
@@ -180,4 +112,104 @@ void SchemeObliqueChartView::mouseReleaseEvent(QMouseEvent *event)
     } else {
         QGraphicsView::mouseReleaseEvent(event);
     }
+}
+
+void SchemeObliqueChartView::toRight()
+{
+    const int step = abs(this->horizontalScrollBar()->minimum());
+    this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() + step);
+}
+
+void SchemeObliqueChartView::toLeft()
+{
+    const int step = abs(this->horizontalScrollBar()->minimum());
+    this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() - step);
+}
+
+void SchemeObliqueChartView::toTop()
+{
+    const int step = abs(this->verticalScrollBar()->minimum());
+    this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() - step);
+}
+
+void SchemeObliqueChartView::toBottom()
+{
+    const int step = abs(this->verticalScrollBar()->minimum());
+    this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() + step);
+}
+
+void SchemeObliqueChartView::zoomIn()
+{
+    if (this->skrooll > -25) {
+        double angle = 120;
+        this->skrooll--;
+        double factor = qPow(1.0015, angle);
+        this->scale(factor, factor);
+        this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
+    }
+}
+
+void SchemeObliqueChartView::zoomOut()
+{
+    if (this->skrooll < 25) {
+        double angle = -120;
+        this->skrooll++;
+        double factor = qPow(1.0015, angle);
+        this->scale(factor, factor);
+        this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
+    }
+}
+
+void SchemeObliqueChartView::rotateRight()
+{
+    this->rotate(45);
+}
+
+void SchemeObliqueChartView::rotateLeft()
+{
+    this->rotate(-45);
+}
+
+void SchemeObliqueChartView::commonCreate()
+{
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    this->setMouseTracking(true);
+
+    menuView.setTitle("Вид");
+
+    QMenu *menuZoom = new QMenu("Дальность");
+    QMenu *menuTo = new QMenu("Перемещение");
+    QMenu *menuRotate = new QMenu("Поворот");
+
+    menuView.addMenu(menuZoom);
+    menuView.addMenu(menuTo);
+    menuView.addMenu(menuRotate);
+
+    QAction *actionZoomOut = new QAction("Отдалить");
+    QAction *actionZoomIn = new QAction("Приблизить");
+    QAction *actionToBottom = new QAction("Вниз");
+    QAction *actionToTop = new QAction("Вверх");
+    QAction *actionToLeft = new QAction("Влево");
+    QAction *actionToRight = new QAction("Вправо");
+    QAction *actionRotateLeft = new QAction("Влево");
+    QAction *actionRotateRight = new QAction("Вправо");
+
+    menuZoom->addAction(actionZoomOut);
+    menuZoom->addAction(actionZoomIn);
+    menuTo->addAction(actionToBottom);
+    menuTo->addAction(actionToTop);
+    menuTo->addAction(actionToLeft);
+    menuTo->addAction(actionToRight);
+    menuRotate->addAction(actionRotateLeft);
+    menuRotate->addAction(actionRotateRight);
+
+    connect(actionZoomOut, &QAction::triggered, this, &SchemeObliqueChartView::zoomOut);
+    connect(actionZoomIn, &QAction::triggered, this, &SchemeObliqueChartView::zoomIn);
+    connect(actionToBottom, &QAction::triggered, this, &SchemeObliqueChartView::toBottom);
+    connect(actionToTop, &QAction::triggered, this, &SchemeObliqueChartView::toTop);
+    connect(actionToLeft, &QAction::triggered, this, &SchemeObliqueChartView::toLeft);
+    connect(actionToRight, &QAction::triggered, this, &SchemeObliqueChartView::toRight);
+    connect(actionRotateLeft, &QAction::triggered, this, &SchemeObliqueChartView::rotateLeft);
+    connect(actionRotateRight, &QAction::triggered, this, &SchemeObliqueChartView::rotateRight);
 }

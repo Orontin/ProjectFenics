@@ -7,6 +7,10 @@
 
 #include "Abstract/abstractschemechartscene.h"
 
+#include "Scheme/Oblique/schemeoblique.h"
+
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
+
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h"
@@ -37,27 +41,17 @@ public:
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
-    void removeScene();
+    QMenu &getMenuHistory();
+    QMenu &getMenuManagment();
+    QMenu &getMenuSettings();
 
     void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
     void editFromHistory(const int &numberThread, const QBrush &brush);
-    void editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
+    void editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
 
-    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
     void updateScene() final;
-
-    void backHistory();
-    void nextHistory();
-
-    int getSizeThread();
-    int getSizeHalfrow();
-
-    bool getIsNode1_2();
-
-    QStringList getNodeDirections();
-    QStringList getThreadColors();
+    void backHistory() final;
+    void nextHistory() final;
 
     SchemeObliqueSatelliteInfos info;
     SchemeObliqueSatelliteNodes nodes;
@@ -72,9 +66,32 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    void commonCreate();
+
+    void editNodes(const SchemeOblique::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
+    void removeScene();
+
     void updateRectScene();
     void updateEnabledEditNodeAndThread();
     void updateEnabledHistory();
+
+    QMenu menuThread;
+    QMenu menuHalfrow;
+    QAction actionBack;
+    QAction actionNext;
+    QAction actionRemoveThreadLeft;
+    QAction actionRemoveThreadRight;
+    QAction actionAddThreadLeft;
+    QAction actionAddThreadRight;
+    QAction actionRemoveHalfrowDown;
+    QAction actionRemoveHalfrowTop;
+    QAction actionAddHalfrowDown;
+    QAction actionAddHalfrowTop;
+    QAction actionEditDirectionNewNode;
+
+    SchemeObliqueWidgetEditDirectionForNewNodeWindow schemeObliqueWidgetEditDirectionForNewNodeWindow;
 };
 
 #endif // SCHEMEOBLIQUECHARTSCENE_H
