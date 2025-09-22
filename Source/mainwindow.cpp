@@ -91,8 +91,8 @@ void MainWindow::updateMenu(int index)
         currentMenuHistory = &static_cast<AbstractSchemeChartView*>(&this->tabWidget.getCurrentScheme())->getMenuView();
         currentMenuView = &static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->getMenuHistory();
 
-        this->ui->menubar->insertMenu(this->ui->menu2->menuAction(), currentMenuView);
         this->ui->menubar->insertMenu(this->ui->menu2->menuAction(), currentMenuHistory);
+        this->ui->menubar->insertMenu(this->ui->menu2->menuAction(), currentMenuView);
 
         currentMenuManagment = &static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->getMenuManagment();
         this->ui->menu2->insertMenu(separatorManagment, currentMenuManagment);

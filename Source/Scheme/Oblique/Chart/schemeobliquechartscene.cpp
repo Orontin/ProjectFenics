@@ -422,41 +422,41 @@ void SchemeObliqueChartScene::updateEnabledEditNodeAndThread()
     }
 
     if (this->info.getSizeHalfrow() == SchemeObliqueChartScene::defaultCountHalfrow) {
-        emit this->actionRemoveHalfrowDown.setEnabled(false);
-        emit this->actionRemoveHalfrowTop.setEnabled(false);
+        this->actionRemoveHalfrowDown.setEnabled(false);
+        this->actionRemoveHalfrowTop.setEnabled(false);
     } else {
-        emit this->actionRemoveHalfrowDown.setEnabled(true);
-        emit this->actionRemoveHalfrowTop.setEnabled(true);
+        this->actionRemoveHalfrowDown.setEnabled(true);
+        this->actionRemoveHalfrowTop.setEnabled(true);
     }
 
     if (this->info.getSizeThread() == SchemeObliqueChartScene::maximumCount) {
-        emit this->actionAddThreadLeft.setEnabled(false);
-        emit this->actionAddThreadRight.setEnabled(false);
+        this->actionAddThreadLeft.setEnabled(false);
+        this->actionAddThreadRight.setEnabled(false);
     } else {
-        emit this->actionAddThreadLeft.setEnabled(true);
-        emit this->actionAddThreadRight.setEnabled(true);
+        this->actionAddThreadLeft.setEnabled(true);
+        this->actionAddThreadRight.setEnabled(true);
     }
 
     if (this->info.getSizeHalfrow() == SchemeObliqueChartScene::maximumCount) {
-        emit this->actionAddHalfrowDown.setEnabled(false);
-        emit this->actionAddHalfrowTop.setEnabled(false);
+        this->actionAddHalfrowDown.setEnabled(false);
+        this->actionAddHalfrowTop.setEnabled(false);
     } else {
-        emit this->actionAddHalfrowDown.setEnabled(true);
-        emit this->actionAddHalfrowTop.setEnabled(true);
+        this->actionAddHalfrowDown.setEnabled(true);
+        this->actionAddHalfrowTop.setEnabled(true);
     }
 }
 
 void SchemeObliqueChartScene::updateEnabledHistory()
 {
     if (this->history.getIterator() == this->history.getIteratorMinimum()) {
-        emit this->actionBack.setEnabled(false);
+        this->actionBack.setEnabled(false);
     } else {
-        emit this->actionBack.setEnabled(true);
+        this->actionBack.setEnabled(true);
     }
 
     if (this->history.getIterator() == this->history.getIteratorMaximum()) {
-        emit this->actionNext.setEnabled(false);
+        this->actionNext.setEnabled(false);
     } else {
-        emit this->actionNext.setEnabled(true);
+        this->actionNext.setEnabled(true);
     }
 }

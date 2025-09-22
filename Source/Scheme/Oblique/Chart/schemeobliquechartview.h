@@ -40,6 +40,7 @@ private:
 
     qreal originX;
     qreal originY;
+    //QPoint lastPos;
     bool isMovements = false;
     int skrooll = 5;
 
