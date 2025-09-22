@@ -53,6 +53,11 @@ void MainWindow::onSaveSchemeTriggered()
 
 void MainWindow::onDeleteSchemeTriggered()
 {
+    currentMenuHistory = nullptr;
+    currentMenuView = nullptr;
+    currentMenuManagment = nullptr;
+    currentMenuSettings = nullptr;
+
     this->tabWidget.deleteScheme();
 }
 
@@ -64,16 +69,20 @@ void MainWindow::updateMenu(int index)
     } else {
         if (currentMenuHistory) {
             this->ui->menubar->removeAction(currentMenuHistory->menuAction());
+            currentMenuHistory = nullptr;
         }
         if (currentMenuView) {
             this->ui->menubar->removeAction(currentMenuView->menuAction());
+            currentMenuView = nullptr;
         }
 
         if (currentMenuManagment) {
             this->ui->menu2->removeAction(currentMenuManagment->menuAction());
+            currentMenuManagment = nullptr;
         }
         if (currentMenuSettings) {
             this->ui->menu2->removeAction(currentMenuSettings->menuAction());
+            currentMenuSettings = nullptr;
         }
 
         this->ui->deleteOpenScheme->setEnabled(true);
