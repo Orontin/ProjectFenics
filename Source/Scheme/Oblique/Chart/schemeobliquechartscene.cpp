@@ -19,11 +19,15 @@ QBrush SchemeObliqueChartScene::defaultBrush{QBrush(Qt::gray)};
 SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2): info(this), nodes(this), parts(this), connects(this), colors(this), history(this)
 {
     this->editScene(countThreads, countHalfrow, isNode1_2);
+
+    commonCreate();
 }
 
 SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads): info(this), nodes(this), parts(this), connects(this), colors(this), history(this)
 {
     this->editScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads);
+
+    commonCreate();
 }
 
 SchemeObliqueChartScene::~SchemeObliqueChartScene()
@@ -187,8 +191,8 @@ void SchemeObliqueChartScene::commonCreate()
     this->menuHistory.addAction(&this->actionBack);
     this->menuHistory.addAction(&this->actionNext);
 
-    connect(&this->actionBack, &QAction::triggered, this, &SchemeObliqueChartScene::nextHistory);
-    connect(&this->actionNext, &QAction::triggered, this, &SchemeObliqueChartScene::backHistory);
+    connect(&this->actionBack, &QAction::triggered, this, &SchemeObliqueChartScene::backHistory);
+    connect(&this->actionNext, &QAction::triggered, this, &SchemeObliqueChartScene::nextHistory);
 
     this->menuManagment.setTitle("Управление");
 
@@ -214,7 +218,7 @@ void SchemeObliqueChartScene::commonCreate()
     this->menuThread.addAction(&actionAddThreadRight);
     this->menuHalfrow.addAction(&actionRemoveHalfrowDown);
     this->menuHalfrow.addAction(&actionRemoveHalfrowTop);
-    this->menuThread.addSeparator();
+    this->menuHalfrow.addSeparator();
     this->menuHalfrow.addAction(&actionAddHalfrowDown);
     this->menuHalfrow.addAction(&actionAddHalfrowTop);
 

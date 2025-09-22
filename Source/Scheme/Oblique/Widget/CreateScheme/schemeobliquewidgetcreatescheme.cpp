@@ -11,6 +11,8 @@ SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme():
 
     this->setWindowTitle("Создать схему");
 
+    this->setWindowModality(Qt::ApplicationModal);
+
     this->ui->countHalfrow->setMinimum(SchemeObliqueChartScene::defaultCountHalfrow);
     this->ui->countHalfrow->setMaximum(SchemeObliqueChartScene::maximumCount);
     this->ui->countThreads->setMinimum(SchemeObliqueChartScene::defaultCountThread);

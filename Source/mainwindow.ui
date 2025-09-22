@@ -22,30 +22,32 @@
      <x>0</x>
      <y>0</y>
      <width>703</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu1">
     <property name="title">
      <string>Файл</string>
     </property>
     <addaction name="openFile"/>
     <addaction name="saveScheme"/>
    </widget>
-   <widget class="QMenu" name="scheme">
+   <widget class="QMenu" name="menu2">
     <property name="title">
      <string>Схема</string>
     </property>
-    <widget class="QMenu" name="menuCreateNewScheme">
+    <widget class="QMenu" name="createNewScheme">
      <property name="title">
       <string>Создать новую схему</string>
      </property>
     </widget>
-    <addaction name="menuCreateNewScheme"/>
+    <addaction name="createNewScheme"/>
     <addaction name="deleteOpenScheme"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
    </widget>
-   <addaction name="menu"/>
-   <addaction name="scheme"/>
+   <addaction name="menu1"/>
+   <addaction name="menu2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="openFile">

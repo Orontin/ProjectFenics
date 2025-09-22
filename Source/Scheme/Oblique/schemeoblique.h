@@ -25,10 +25,11 @@ public:
     ~SchemeOblique();
 
     QAction &getActionCreate();
+    QList<AbstractSchemeFileRead*> &getListFileRead();
+    AbstractSchemeFileWrite &getFileWrite();
+    const QString &getTypeScheme();
 
 private:
-    QAction actionCreate;
-
     SchemeObliqueWidgetCreateScheme schemeObliqueWidgetCreateScheme;
 };
 

@@ -42,7 +42,7 @@ void FileRead::readFile()
 void FileRead::searchAbstractSchemeFileRead(const QString &prefix, QList<AbstractSchemeFileRead *> &listAbstractSchemeFileRead)
 {
     for (AbstractScheme *scheme : schemes) {
-        for (AbstractSchemeFileRead *abstractSchemeFileRead : *scheme->listFileRead) {
+        for (AbstractSchemeFileRead *abstractSchemeFileRead : scheme->getListFileRead()) {
             if (abstractSchemeFileRead->prefix == prefix) {
                 listAbstractSchemeFileRead.push_back(abstractSchemeFileRead);
             }
@@ -79,7 +79,7 @@ void FileRead::setFilterRead()
     QString stringSupportFiles = "";
 
     for (AbstractScheme *scheme : schemes) {
-        for (AbstractSchemeFileRead *abstractSchemeFileRead : *scheme->listFileRead) {
+        for (AbstractSchemeFileRead *abstractSchemeFileRead : scheme->getListFileRead()) {
             stringFilters = stringFilters + patternFilters.arg(abstractSchemeFileRead->filter);
             stringSupportFiles = stringSupportFiles + patternSupportFiles.arg(abstractSchemeFileRead->prefix);
             stringSupportFiles = stringSupportFiles + QString(" ");

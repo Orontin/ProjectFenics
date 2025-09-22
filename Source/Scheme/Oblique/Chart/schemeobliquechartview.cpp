@@ -8,6 +8,8 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
+const QString &SchemeObliqueChartView::typeScheme = "Усложенная косая";
+
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const int &countHalfrow,
                                                const bool &isNode1_2,
@@ -38,6 +40,16 @@ SchemeObliqueChartView::~SchemeObliqueChartView()
 QMenu &SchemeObliqueChartView::getMenuView()
 {
     return menuView;
+}
+
+const QString &SchemeObliqueChartView::getTypeScheme()
+{
+    return SchemeObliqueChartView::typeScheme;
+}
+
+const QString &SchemeObliqueChartView::getTypeSchemeStatic()
+{
+    return SchemeObliqueChartView::typeScheme;
 }
 
 void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)

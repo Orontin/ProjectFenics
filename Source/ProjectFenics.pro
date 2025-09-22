@@ -46,7 +46,6 @@ HEADERS += \
     Abstract/abstractschemefileread.h \
     Abstract/abstractschemefilesetting.h \
     Abstract/abstractschemefilewrite.h \
-    Abstract/abstractschemewidgetcreatescheme.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h \

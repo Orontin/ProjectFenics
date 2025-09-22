@@ -13,9 +13,9 @@ public:
     virtual void backHistory() = 0;
     virtual void nextHistory() = 0;
 
-    QMenu &getMenuHistory();
-    QMenu &getMenuManagment();
-    QMenu &getMenuSettings();
+    virtual QMenu &getMenuHistory() = 0;
+    virtual QMenu &getMenuManagment() = 0;
+    virtual QMenu &getMenuSettings() = 0;
 
 protected:
     QMenu menuHistory;

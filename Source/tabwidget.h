@@ -16,7 +16,6 @@ public:
     AbstractSchemeChartView &getCurrentScheme();
 
 public slots:
-    void addScheme(const QString &typeScheme);
     void deleteScheme();
 
 public slots:

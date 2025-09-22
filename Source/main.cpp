@@ -6,14 +6,7 @@
 
 #include "mainwindow.h"
 
-#include "Abstract/abstractscheme.h"
-
-#include "Scheme/Oblique/Chart/schemeobliquechartview.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h"
-#include "Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h"
-#include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
+#include "Scheme/Oblique/schemeoblique.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,17 +18,8 @@ int main(int argc, char *argv[])
         a.installTranslator(&qtTranslator);
     }
 
-    SchemeObliqueChartView view;
-    AbstractSchemeFileRead *schemeObliqueFileReadRNX = new SchemeObliqueFileReadRNX();
-    AbstractSchemeFileRead *schemeObliqueFileReadFBD = new SchemeObliqueFileReadFBD();
-    AbstractSchemeFileRead *schemeObliqueFileReadPFCO = new SchemeObliqueFileReadPFCO();
-    QList<AbstractSchemeFileRead*> *listFileRead = new QList<AbstractSchemeFileRead*>{schemeObliqueFileReadRNX, schemeObliqueFileReadFBD, schemeObliqueFileReadPFCO};
-    AbstractSchemeFileWrite *fileWrite = new SchemeObliqueFileWritePFCO();
-    AbstractSchemeWidgetCreateScheme *schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme();
-    AbstractScheme *schemeOblique = new AbstractScheme(listFileRead, fileWrite, schemeObliqueWidgetCreateScheme, view.getTypeScheme());
-
+    SchemeOblique *schemeOblique = new SchemeOblique();
     QList<AbstractScheme*> *schemes = new QList<AbstractScheme*>{schemeOblique};
-
 
     MainWindow w(*schemes);
     w.show();

@@ -18,13 +18,13 @@ FileWrite::~FileWrite()
 void FileWrite::writeFile(AbstractSchemeChartView &view)
 {
     for (AbstractScheme *scheme : schemes) {
-        if (view.getTypeScheme() == scheme->typeScheme) {
+        if (view.getTypeScheme() == scheme->getTypeScheme()) {
             QFileDialog dialog(nullptr, "Сохранить схему",
                                AbstractSchemeFileSetting::getValue("FileWriteDirectory", QDir::homePath()).isEmpty() ? QDir::homePath() : AbstractSchemeFileSetting::getValue("FileWriteDirectory", QDir::homePath()),
-                               scheme->fileWrite->filter);
+                               scheme->getFileWrite().filter);
             dialog.setFileMode(QFileDialog::AnyFile);
             dialog.setAcceptMode(QFileDialog::AcceptSave);
-            dialog.setDefaultSuffix(scheme->fileWrite->prefix);
+            dialog.setDefaultSuffix(scheme->getFileWrite().prefix);
             dialog.selectFile(view.name);
 
             if (dialog.exec()) {
@@ -33,7 +33,7 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
                 if (!filePath.isEmpty()) {
                     QFile file(filePath);
                     if (file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate)) {
-                        file.write(scheme->fileWrite->writeScheme(view));
+                        file.write(scheme->getFileWrite().writeScheme(view));
                         file.close();
                     } else {
                         QMessageBox::warning(nullptr, filePath, "Не удалось создать/перезаписать файл");

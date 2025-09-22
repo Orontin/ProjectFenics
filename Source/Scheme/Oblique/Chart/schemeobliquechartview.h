@@ -13,6 +13,9 @@ public:
     ~SchemeObliqueChartView();
 
     QMenu &getMenuView();
+    const QString &getTypeScheme();
+
+    static const QString &getTypeSchemeStatic();
 
 protected:
     void wheelEvent(QWheelEvent *event);
@@ -39,6 +42,8 @@ private:
     qreal originY;
     bool isMovements = false;
     int skrooll = 5;
+
+    static const QString &typeScheme;
 };
 
 #endif // SCHEMEOBLIQUECHARTVIEW_H

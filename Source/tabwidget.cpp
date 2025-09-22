@@ -5,8 +5,7 @@
 TabWidget::TabWidget(QList<AbstractScheme*> &schemes): schemes(schemes)
 {
     for (AbstractScheme *scheme : schemes) {
-        scheme->widgetCreateScheme->setWindowModality(Qt::ApplicationModal);
-        this->connect(scheme->widgetCreateScheme, &AbstractSchemeWidgetCreateScheme::createOut, this, &TabWidget::createOut);
+        this->connect(scheme, &AbstractScheme::createOut, this, &TabWidget::createOut);
     }
 }
 
@@ -20,15 +19,6 @@ TabWidget::~TabWidget()
 AbstractSchemeChartView &TabWidget::getCurrentScheme()
 {
     return *static_cast<AbstractSchemeChartView*>(this->currentWidget());
-}
-
-void TabWidget::addScheme(const QString &typeScheme)
-{
-    for (AbstractScheme *scheme : schemes) {
-        if (scheme->typeScheme == typeScheme) {
-            scheme->widgetCreateScheme->createIn();
-        }
-    }
 }
 
 void TabWidget::deleteScheme()

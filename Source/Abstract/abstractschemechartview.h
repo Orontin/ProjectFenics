@@ -4,6 +4,8 @@
 #include <QGraphicsView>
 #include <QMenu>
 
+class AbstractScheme;
+
 class AbstractSchemeChartView : public QGraphicsView
 {
     Q_OBJECT
@@ -13,8 +15,9 @@ public:
     ~AbstractSchemeChartView() {};
 
     virtual QMenu &getMenuView() = 0;
+    virtual const QString &getTypeScheme() = 0;
 
-    QString name;
+    const QString name;
 
 protected:
     QMenu menuView;
