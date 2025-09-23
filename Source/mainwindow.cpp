@@ -4,6 +4,8 @@
 #include "Abstract/abstractschemechartscene.h"
 #include "Abstract/abstractschemechartview.h"
 
+// #include <QKeySequence>
+
 MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -31,8 +33,8 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     connect(this->ui->openFile, &QAction::triggered, this, &MainWindow::onOpenSchemeTriggered);
     connect(this->ui->saveScheme, &QAction::triggered, this, &MainWindow::onSaveSchemeTriggered);
 
-    separatorManagment = this->ui->menu2->addSeparator();
-    separatorSettings = this->ui->menu2->addSeparator();
+    separatorManagment = this->ui->scheme->addSeparator();
+    separatorSettings = this->ui->scheme->addSeparator();
 }
 
 MainWindow::~MainWindow()
@@ -77,11 +79,11 @@ void MainWindow::updateMenu(int index)
         }
 
         if (currentMenuManagment) {
-            this->ui->menu2->removeAction(currentMenuManagment->menuAction());
+            this->ui->scheme->removeAction(currentMenuManagment->menuAction());
             currentMenuManagment = nullptr;
         }
         if (currentMenuSettings) {
-            this->ui->menu2->removeAction(currentMenuSettings->menuAction());
+            this->ui->scheme->removeAction(currentMenuSettings->menuAction());
             currentMenuSettings = nullptr;
         }
 
@@ -91,16 +93,18 @@ void MainWindow::updateMenu(int index)
         currentMenuHistory = &static_cast<AbstractSchemeChartView*>(&this->tabWidget.getCurrentScheme())->getMenuView();
         currentMenuView = &static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->getMenuHistory();
 
-        this->ui->menubar->insertMenu(this->ui->menu2->menuAction(), currentMenuHistory);
-        this->ui->menubar->insertMenu(this->ui->menu2->menuAction(), currentMenuView);
+        this->ui->menubar->insertMenu(this->ui->scheme->menuAction(), currentMenuHistory);
+        this->ui->menubar->insertMenu(this->ui->scheme->menuAction(), currentMenuView);
 
         currentMenuManagment = &static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->getMenuManagment();
-        this->ui->menu2->insertMenu(separatorManagment, currentMenuManagment);
+        this->ui->scheme->insertMenu(separatorManagment, currentMenuManagment);
 
         currentMenuSettings = &static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->getMenuSettings();
-        this->ui->menu2->insertMenu(separatorSettings, currentMenuSettings);
+        this->ui->scheme->insertMenu(separatorSettings, currentMenuSettings);
 
         static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
+
+        //this->ui->openFile->setShortcut({QKeySequence("CTRL+S")});
     }
 }
 
