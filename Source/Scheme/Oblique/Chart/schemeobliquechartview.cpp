@@ -91,11 +91,10 @@ void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)
 
 void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && this->isMovements == false) {
+    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && !this->isMovements) {
         this->setTransformationAnchor(QGraphicsView::NoAnchor);
         this->isMovements = true;
-        this->originX = event->position().x();
-        this->originY = event->position().y();
+        this->lastPos = event->pos();
     } else {
         QGraphicsView::mousePressEvent(event);
     }
@@ -103,15 +102,12 @@ void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
 
 void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->buttons().testFlag(Qt::LeftButton) && this->isMovements == true) {
-        QPoint oldP = this->mapToScene(this->originX, this->originY).toPoint();
-        QPoint newP = this->mapToScene(event->pos()).toPoint();
-        QPoint translation = newP - oldP;
-
-        this->translate(translation.x(), translation.y());
-
-        this->originX = event->position().x();
-        this->originY = event->position().y();
+    if (event->modifiers() & Qt::ControlModifier && event->buttons() == Qt::LeftButton && this->isMovements) {
+        QPointF delta = event->position() - this->lastPos;
+        QTransform transform = this->transform();
+        transform.translate(delta.x(), delta.y());
+        this->setTransform(transform);
+        this->lastPos = event->pos();
     } else {
         QGraphicsView::mouseMoveEvent(event);
     }
@@ -119,56 +115,12 @@ void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
 
 void SchemeObliqueChartView::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && this->isMovements == true) {
+    if (event->button() == Qt::LeftButton && this->isMovements) {
         this->isMovements = false;
     } else {
         QGraphicsView::mouseReleaseEvent(event);
     }
 }
-
-// void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
-// {
-//     if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && !this->isMovements) {
-//         this->setTransformationAnchor(QGraphicsView::NoAnchor);
-//         this->setDragMode(QGraphicsView::NoDrag);
-//         this->isMovements = true;
-//         this->originX = event->position().x();
-//         this->originY = event->position().y();
-//         this->lastPos = event->pos(); // Сохраняем позицию для движения
-//     } else {
-//         QGraphicsView::mousePressEvent(event);
-//     }
-// }
-
-// void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
-// {
-//     if ((event->modifiers() & Qt::ControlModifier) && (event->buttons() & Qt::LeftButton) && this->isMovements) {
-//         // Вычисляем смещение относительно предыдущей позиции
-//         QPointF delta = event->position() - QPointF(this->originX, this->originY);
-
-//         // Создаем трансформацию сдвига
-//         QTransform transform = this->transform();
-//         transform.translate(delta.x(), delta.y());
-//         this->setTransform(transform);
-
-//         // Обновляем исходные координаты для следующего движения
-//         this->originX = event->position().x();
-//         this->originY = event->position().y();
-//         this->lastPos = event->pos();
-//     } else {
-//         QGraphicsView::mouseMoveEvent(event);
-//     }
-// }
-
-// void SchemeObliqueChartView::mouseReleaseEvent(QMouseEvent *event)
-// {
-//     if (event->button() == Qt::LeftButton && this->isMovements) {
-//         this->isMovements = false;
-//         this->setDragMode(QGraphicsView::RubberBandDrag); // или другой режим по умолчанию
-//     } else {
-//         QGraphicsView::mouseReleaseEvent(event);
-//     }
-// }
 
 void SchemeObliqueChartView::toRight()
 {

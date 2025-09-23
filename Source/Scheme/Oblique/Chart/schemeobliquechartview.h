@@ -38,9 +38,7 @@ private slots:
 private:
     void commonCreate();
 
-    qreal originX;
-    qreal originY;
-    //QPoint lastPos;
+    QPoint lastPos;
     bool isMovements = false;
     int skrooll = 5;
 
