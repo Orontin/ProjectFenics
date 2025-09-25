@@ -35,6 +35,7 @@ SOURCES += \
     Scheme/Oblique/schemeoblique.cpp \
     fileread.cpp \
     filewrite.cpp \
+    settings.cpp \
     tabwidget.cpp \
     mainwindow.cpp \
     main.cpp \
@@ -72,6 +73,7 @@ HEADERS += \
     Scheme/Oblique/schemeoblique.h \
     fileread.h \
     filewrite.h \
+    settings.h \
     tabwidget.h \
     mainwindow.h
 

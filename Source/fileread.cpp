@@ -1,6 +1,6 @@
 #include "fileread.h"
 
-#include "Abstract/abstractschemefilesetting.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -17,13 +17,13 @@ FileRead::~FileRead()
 void FileRead::readFile()
 {
     QFileDialog dialog(nullptr, "Выберите файл(ы) сохранений",
-                       AbstractSchemeFileSetting::getValue("FileReadDirectory", QDir::homePath()).isEmpty() ? QDir::homePath() : AbstractSchemeFileSetting::getValue("FileReadDirectory", QDir::homePath())
+                       Settings::getFileReadDirectory(QDir::homePath()).isEmpty() ? QDir::homePath() : Settings::getFileReadDirectory(QDir::homePath())
                        , this->filter);
     dialog.setFileMode(QFileDialog::ExistingFiles);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     if (dialog.exec()) {
-        AbstractSchemeFileSetting::setValue("FileReadDirectory", dialog.directory().path());
+        Settings::setFileReadDirectory(dialog.directory().path());
         for (const QString &filePath : dialog.selectedFiles()) {
             QFile file(filePath);
             if (file.open(QFile::OpenModeFlag::ReadOnly)) {

@@ -1,6 +1,6 @@
 #include "filewrite.h"
 
-#include "Abstract/abstractschemefilesetting.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -20,7 +20,7 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
     for (AbstractScheme *scheme : schemes) {
         if (view.getTypeScheme() == scheme->getTypeScheme()) {
             QFileDialog dialog(nullptr, "Сохранить схему",
-                               AbstractSchemeFileSetting::getValue("FileWriteDirectory", QDir::homePath()).isEmpty() ? QDir::homePath() : AbstractSchemeFileSetting::getValue("FileWriteDirectory", QDir::homePath()),
+                               Settings::getFileWriteDirectory(QDir::homePath()).isEmpty() ? QDir::homePath() : Settings::getFileWriteDirectory(QDir::homePath()),
                                scheme->getFileWrite().filter);
             dialog.setFileMode(QFileDialog::AnyFile);
             dialog.setAcceptMode(QFileDialog::AcceptSave);
@@ -28,7 +28,7 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
             dialog.selectFile(view.name);
 
             if (dialog.exec()) {
-                AbstractSchemeFileSetting::setValue("FileWriteDirectory", dialog.directory().path());
+                Settings::setFileWriteDirectory(dialog.directory().path());
                 QString filePath = dialog.selectedFiles().back();
                 if (!filePath.isEmpty()) {
                     QFile file(filePath);
