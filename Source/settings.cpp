@@ -22,32 +22,32 @@ QString Settings::getFileWriteDirectory()
     return AbstractSchemeFileSetting::getValue("File/Directory/Write", QDir::homePath());
 }
 
-void Settings::setShortcut_Action_OpenFile(const QString &valueParam)
+void Settings::setShortcut_Action_OpenFile(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/OpenFile", valueParam);
+    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/OpenFile", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void Settings::setShortcut_Action_SaveScheme(const QString &valueParam)
+void Settings::setShortcut_Action_SaveScheme(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/SaveScheme", valueParam);
+    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/SaveScheme", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void Settings::setShortcut_Action_DeleteOpenScheme(const QString &valueParam)
+void Settings::setShortcut_Action_DeleteOpenScheme(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/DeleteOpenScheme", valueParam);
+    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/DeleteOpenScheme", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-QString Settings::getShortcut_Action_OpenFile()
+QList<QKeySequence> Settings::getShortcut_Action_OpenFile()
 {
-    return AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenFile", "Ctrl+O");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenFile", QStringList{"Ctrl+O"}));
 }
 
-QString Settings::getShortcut_Action_SaveScheme()
+QList<QKeySequence> Settings::getShortcut_Action_SaveScheme()
 {
-    return AbstractSchemeFileSetting::getValue("Shortcut/Coomon/SaveScheme", "Ctrl+S");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/SaveScheme", QStringList{"Ctrl+S"}));
 }
 
-QString Settings::getShortcut_Action_DeleteOpenScheme()
+QList<QKeySequence> Settings::getShortcut_Action_DeleteOpenScheme()
 {
-    return AbstractSchemeFileSetting::getValue("Shortcut/Coomon/DeleteOpenScheme", "Ctrl+D");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/DeleteOpenScheme", QStringList{"Ctrl+D"}));
 }

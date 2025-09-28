@@ -29,7 +29,7 @@ QAction &SchemeOblique::getActionCreate()
 
 void SchemeOblique::updateShortcut()
 {
-    this->actionCreate.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_Create()));
+    this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_Create());
 }
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()

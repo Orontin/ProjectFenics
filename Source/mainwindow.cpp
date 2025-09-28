@@ -38,9 +38,9 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     this->separatorManagment = this->ui->scheme->addSeparator();
     this->separatorSettings = this->ui->scheme->addSeparator();
 
-    this->ui->deleteOpenScheme->setShortcut(QKeySequence::fromString(Settings::getShortcut_Action_DeleteOpenScheme()));
-    this->ui->openFile->setShortcut(QKeySequence::fromString(Settings::getShortcut_Action_OpenFile()));
-    this->ui->saveScheme->setShortcut(QKeySequence::fromString(Settings::getShortcut_Action_SaveScheme()));
+    this->ui->deleteOpenScheme->setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
+    this->ui->openFile->setShortcuts(Settings::getShortcut_Action_OpenFile());
+    this->ui->saveScheme->setShortcuts(Settings::getShortcut_Action_SaveScheme());
 }
 
 MainWindow::~MainWindow()

@@ -10,202 +10,202 @@ SchemeObliqueObjectNode::DirectionsNode SchemeObliqueFileSetting::getStandartDir
     return static_cast<SchemeObliqueObjectNode::DirectionsNode>(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Common/standartDirectionObliqueNode", "7").toInt());
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ZoomOut(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ZoomOut(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Zoom/Out", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Zoom/Out", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ZoomIn(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ZoomIn(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Zoom/In", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Zoom/In", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ToBottom(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ToBottom(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Bottom", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Bottom", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ToTop(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ToTop(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Top", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Top", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ToLeft(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ToLeft(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Left", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Left", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_ToRight(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_ToRight(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Right", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/To/Right", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RotateLeft(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RotateLeft(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Rotate/Left", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Rotate/Left", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RotateRight(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RotateRight(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Rotate/Right", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/View/Rotate/Right", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ZoomOut()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ZoomOut()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Zoom/Out", "Ctrl+-");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Zoom/Out", QStringList{"Ctrl+-"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ZoomIn()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ZoomIn()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Zoom/In", "Ctrl+=");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Zoom/In", QStringList{"Ctrl+="}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ToBottom()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ToBottom()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Bottom", "Down");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Bottom", QStringList{"Down"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ToTop()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ToTop()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Top", "Up");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Top", QStringList{"Up"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ToLeft()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ToLeft()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Left", "Left");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Left", QStringList{"Left"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_ToRight()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_ToRight()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Right", "Right");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/To/Right", QStringList{"Right"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RotateLeft()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RotateLeft()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Rotate/Left", "Shift+Left");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Rotate/Left", QStringList{"Shift+Left"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RotateRight()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RotateRight()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Rotate/Right", "Shift+Right");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/View/Rotate/Right", QStringList{"Shift+Right"}));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_HistoryBack(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_HistoryBack(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/History/Back", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/History/Back", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_HistoryNext(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_HistoryNext(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/History/Next", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/History/Next", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RemoveThreadLeft(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RemoveThreadLeft(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveLeft", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveLeft", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RemoveThreadRight(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RemoveThreadRight(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveRight", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveRight", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_AddThreadLeft(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_AddThreadLeft(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/AddLeft", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/AddLeft", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_AddThreadRight(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_AddThreadRight(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/AddRight", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Thread/AddRight", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RemoveHalfrowDown(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RemoveHalfrowDown(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveDown", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveDown", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_RemoveHalfrowTop(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_RemoveHalfrowTop(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveTop", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveTop", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_AddHalfrowDown(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_AddHalfrowDown(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddDown", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddDown", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_AddHalfrowTop(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_AddHalfrowTop(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddTop", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddTop", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_EditDirectionNewNode(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_EditDirectionNewNode(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Setting/EditDirectionNewNode", valueParam);
+    AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Setting/EditDirectionNewNode", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_HistoryBack()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_HistoryBack()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/History/Back", "Ctrl+Z");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/History/Back", QStringList{"Ctrl+Z"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_HistoryNext()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_HistoryNext()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/History/Next", "Ctrl+Y");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/History/Next", QStringList{"Ctrl+Y", "Ctrl+Shift+Z"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadLeft()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadLeft()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveLeft", "Alt+Left");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveLeft", QStringList{"Alt+Left"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadRight()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadRight()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveRight", "Alt+Right");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/RemoveRight", QStringList{"Alt+Right"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_AddThreadLeft()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_AddThreadLeft()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/AddLeft", "Ctrl+Left");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/AddLeft", QStringList{"Ctrl+Left"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_AddThreadRight()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_AddThreadRight()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/AddRight", "Ctrl+Right");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Thread/AddRight", QStringList{"Ctrl+Right"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowDown()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowDown()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveDown", "Alt+Down");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveDown", QStringList{"Alt+Down"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveTop", "Alt+Up");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveTop", QStringList{"Alt+Up"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddDown", "Ctrl+Down");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddDown", QStringList{"Ctrl+Down"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddTop", "Ctrl+Up");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Halfrow/AddTop", QStringList{"Ctrl+Up"}));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Setting/EditDirectionNewNode", "Ctrl+F1");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Setting/EditDirectionNewNode", QStringList{"Ctrl+F1"}));
 }
 
-void SchemeObliqueFileSetting::setShortcut_Action_Create(const QString &valueParam)
+void SchemeObliqueFileSetting::setShortcut_Action_Create(const QList<QKeySequence> &valueParam)
 {
-    return AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Create", valueParam);
+    return AbstractSchemeFileSetting::setValue("Scheme/Oblique/Shortcut/Scene/Create", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-QString SchemeObliqueFileSetting::getShortcut_Action_Create()
+QList<QKeySequence> SchemeObliqueFileSetting::getShortcut_Action_Create()
 {
-    return AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Create", "F1");
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Shortcut/Scene/Create", QStringList{"F1"}));
 }

@@ -12,12 +12,12 @@ public:
     static void setFileWriteDirectory(const QString &valueParam);
     static QString getFileWriteDirectory();
 
-    static void setShortcut_Action_OpenFile(const QString &valueParam);
-    static void setShortcut_Action_SaveScheme(const QString &valueParam);
-    static void setShortcut_Action_DeleteOpenScheme(const QString &valueParam);
-    static QString getShortcut_Action_OpenFile();
-    static QString getShortcut_Action_SaveScheme();
-    static QString getShortcut_Action_DeleteOpenScheme();
+    static void setShortcut_Action_OpenFile(const QList<QKeySequence> &valueParam);
+    static void setShortcut_Action_SaveScheme(const QList<QKeySequence> &valueParam);
+    static void setShortcut_Action_DeleteOpenScheme(const QList<QKeySequence> &valueParam);
+    static QList<QKeySequence> getShortcut_Action_OpenFile();
+    static QList<QKeySequence> getShortcut_Action_SaveScheme();
+    static QList<QKeySequence> getShortcut_Action_DeleteOpenScheme();
 };
 
 #endif // SETTINGS_H

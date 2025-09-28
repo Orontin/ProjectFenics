@@ -53,17 +53,17 @@ QMenu &SchemeObliqueChartScene::getMenuSettings()
 
 void SchemeObliqueChartScene::updateShortcut()
 {
-    this->actionBack.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_HistoryBack()));
-    this->actionNext.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_HistoryNext()));
-    this->actionRemoveThreadLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadLeft()));
-    this->actionRemoveThreadRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadRight()));
-    this->actionAddThreadLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddThreadLeft()));
-    this->actionAddThreadRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddThreadRight()));
-    this->actionRemoveHalfrowDown.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowDown()));
-    this->actionRemoveHalfrowTop.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop()));
-    this->actionAddHalfrowDown.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown()));
-    this->actionAddHalfrowTop.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop()));
-    this->actionEditDirectionNewNode.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode()));
+    this->actionBack.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_HistoryBack());
+    this->actionNext.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_HistoryNext());
+    this->actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadLeft());
+    this->actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadRight());
+    this->actionAddThreadLeft.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddThreadLeft());
+    this->actionAddThreadRight.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddThreadRight());
+    this->actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowDown());
+    this->actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop());
+    this->actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown());
+    this->actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop());
+    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode());
 }
 
 void SchemeObliqueChartScene::updateScene()
