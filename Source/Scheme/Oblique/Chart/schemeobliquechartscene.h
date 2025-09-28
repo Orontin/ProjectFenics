@@ -44,14 +44,14 @@ public:
     QMenu &getMenuHistory();
     QMenu &getMenuManagment();
     QMenu &getMenuSettings();
+    void updateShortcut();
+    void updateScene() final;
+    void backHistory() final;
+    void nextHistory() final;
 
     void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
     void editFromHistory(const int &numberThread, const QBrush &brush);
     void editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
-
-    void updateScene() final;
-    void backHistory() final;
-    void nextHistory() final;
 
     SchemeObliqueSatelliteInfos info;
     SchemeObliqueSatelliteNodes nodes;

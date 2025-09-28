@@ -41,5 +41,5 @@ void SchemeObliqueWidgetCreateScheme::onCancelClicked()
 void SchemeObliqueWidgetCreateScheme::onCreateClicked()
 {
     emit this->createOut(*(new SchemeObliqueChartView(this->ui->countThreads->value(), this->ui->countHalfrow->value(), this->ui->nodeOf1_2->isChecked(), this->ui->name->text())));
-    onCancelClicked();
+    this->onCancelClicked();
 }

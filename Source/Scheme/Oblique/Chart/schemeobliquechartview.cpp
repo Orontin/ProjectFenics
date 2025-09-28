@@ -7,6 +7,7 @@
 #include <QtMath>
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
 const QString &SchemeObliqueChartView::typeScheme = "Усложенная косая";
 
@@ -17,7 +18,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
     AbstractSchemeChartView(name)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2));
-    commonCreate();
+    this->commonCreate();
 }
 
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
@@ -29,7 +30,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
     AbstractSchemeChartView(name)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads));
-    commonCreate();
+    this->commonCreate();
 }
 
 SchemeObliqueChartView::~SchemeObliqueChartView()
@@ -39,7 +40,19 @@ SchemeObliqueChartView::~SchemeObliqueChartView()
 
 QMenu &SchemeObliqueChartView::getMenuView()
 {
-    return menuView;
+    return this->menuView;
+}
+
+void SchemeObliqueChartView::updateShortcut()
+{
+    this->actionZoomOut.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ZoomOut()));
+    this->actionZoomIn.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ZoomIn()));
+    this->actionToBottom.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ToBottom()));
+    this->actionToTop.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ToTop()));
+    this->actionToLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ToLeft()));
+    this->actionToRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_ToRight()));
+    this->actionRotateLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RotateLeft()));
+    this->actionRotateRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RotateRight()));
 }
 
 const QString &SchemeObliqueChartView::getTypeScheme()
@@ -184,40 +197,42 @@ void SchemeObliqueChartView::commonCreate()
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     this->setMouseTracking(true);
 
-    menuView.setTitle("Вид");
+    this->menuView.setTitle("Вид");
 
-    QMenu *menuZoom = new QMenu("Дальность");
-    QMenu *menuTo = new QMenu("Перемещение");
-    QMenu *menuRotate = new QMenu("Поворот");
+    this->menuZoom.setTitle("Дальность");
+    this->menuTo.setTitle("Перемещение");
+    this->menuRotate.setTitle("Поворот");
 
-    menuView.addMenu(menuZoom);
-    menuView.addMenu(menuTo);
-    menuView.addMenu(menuRotate);
+    this->menuView.addMenu(&menuZoom);
+    this->menuView.addMenu(&menuTo);
+    this->menuView.addMenu(&menuRotate);
 
-    QAction *actionZoomOut = new QAction("Отдалить");
-    QAction *actionZoomIn = new QAction("Приблизить");
-    QAction *actionToBottom = new QAction("Вниз");
-    QAction *actionToTop = new QAction("Вверх");
-    QAction *actionToLeft = new QAction("Влево");
-    QAction *actionToRight = new QAction("Вправо");
-    QAction *actionRotateLeft = new QAction("Влево");
-    QAction *actionRotateRight = new QAction("Вправо");
+    this->actionZoomOut.setText("Отдалить");
+    this->actionZoomIn.setText("Приблизить");
+    this->actionToBottom.setText("Вниз");
+    this->actionToTop.setText("Вверх");
+    this->actionToLeft.setText("Влево");
+    this->actionToRight.setText("Вправо");
+    this->actionRotateLeft.setText("Влево");
+    this->actionRotateRight.setText("Вправо");
 
-    menuZoom->addAction(actionZoomOut);
-    menuZoom->addAction(actionZoomIn);
-    menuTo->addAction(actionToBottom);
-    menuTo->addAction(actionToTop);
-    menuTo->addAction(actionToLeft);
-    menuTo->addAction(actionToRight);
-    menuRotate->addAction(actionRotateLeft);
-    menuRotate->addAction(actionRotateRight);
+    this->menuZoom.addAction(&actionZoomOut);
+    this->menuZoom.addAction(&actionZoomIn);
+    this->menuTo.addAction(&actionToBottom);
+    this->menuTo.addAction(&actionToTop);
+    this->menuTo.addAction(&actionToLeft);
+    this->menuTo.addAction(&actionToRight);
+    this->menuRotate.addAction(&actionRotateLeft);
+    this->menuRotate.addAction(&actionRotateRight);
 
-    connect(actionZoomOut, &QAction::triggered, this, &SchemeObliqueChartView::zoomOut);
-    connect(actionZoomIn, &QAction::triggered, this, &SchemeObliqueChartView::zoomIn);
-    connect(actionToBottom, &QAction::triggered, this, &SchemeObliqueChartView::toBottom);
-    connect(actionToTop, &QAction::triggered, this, &SchemeObliqueChartView::toTop);
-    connect(actionToLeft, &QAction::triggered, this, &SchemeObliqueChartView::toLeft);
-    connect(actionToRight, &QAction::triggered, this, &SchemeObliqueChartView::toRight);
-    connect(actionRotateLeft, &QAction::triggered, this, &SchemeObliqueChartView::rotateLeft);
-    connect(actionRotateRight, &QAction::triggered, this, &SchemeObliqueChartView::rotateRight);
+    connect(&this->actionZoomOut, &QAction::triggered, this, &SchemeObliqueChartView::zoomOut);
+    connect(&this->actionZoomIn, &QAction::triggered, this, &SchemeObliqueChartView::zoomIn);
+    connect(&this->actionToBottom, &QAction::triggered, this, &SchemeObliqueChartView::toBottom);
+    connect(&this->actionToTop, &QAction::triggered, this, &SchemeObliqueChartView::toTop);
+    connect(&this->actionToLeft, &QAction::triggered, this, &SchemeObliqueChartView::toLeft);
+    connect(&this->actionToRight, &QAction::triggered, this, &SchemeObliqueChartView::toRight);
+    connect(&this->actionRotateLeft, &QAction::triggered, this, &SchemeObliqueChartView::rotateLeft);
+    connect(&this->actionRotateRight, &QAction::triggered, this, &SchemeObliqueChartView::rotateRight);
+
+    this->updateShortcut();
 }

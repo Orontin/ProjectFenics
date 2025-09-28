@@ -6,14 +6,15 @@
 #include "Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h"
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
 SchemeOblique::SchemeOblique(): AbstractScheme{*(new QList<AbstractSchemeFileRead*>{new SchemeObliqueFileReadRNX(), new SchemeObliqueFileReadFBD(), new SchemeObliqueFileReadPFCO()}),
                                                *(new SchemeObliqueFileWritePFCO())}
 {
-    connect(&actionCreate, &QAction::triggered, &schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createIn);
-    connect(&schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
+    connect(&this->actionCreate, &QAction::triggered, &this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createIn);
+    connect(&this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
 
-    actionCreate.setText(this->getTypeScheme());
+    this->commonCreate();
 }
 
 SchemeOblique::~SchemeOblique()
@@ -23,20 +24,32 @@ SchemeOblique::~SchemeOblique()
 
 QAction &SchemeOblique::getActionCreate()
 {
-    return actionCreate;
+    return this->actionCreate;
+}
+
+void SchemeOblique::updateShortcut()
+{
+    this->actionCreate.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_Create()));
 }
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()
 {
-    return *listFileRead;
+    return *this->listFileRead;
 }
 
 AbstractSchemeFileWrite &SchemeOblique::getFileWrite()
 {
-    return *fileWrite;
+    return *this->fileWrite;
 }
 
 const QString &SchemeOblique::getTypeScheme()
 {
     return SchemeObliqueChartView::getTypeSchemeStatic();
+}
+
+void SchemeOblique::commonCreate()
+{
+    this->actionCreate.setText(this->getTypeScheme());
+
+    this->updateShortcut();
 }

@@ -13,6 +13,7 @@ public:
     ~SchemeObliqueChartView();
 
     QMenu &getMenuView();
+    void updateShortcut();
     const QString &getTypeScheme();
 
     static const QString &getTypeSchemeStatic();
@@ -41,6 +42,18 @@ private:
     QPoint lastPos;
     bool isMovements = false;
     int skrooll = 5;
+
+    QMenu menuZoom;
+    QMenu menuTo;
+    QMenu menuRotate;
+    QAction actionZoomOut;
+    QAction actionZoomIn;
+    QAction actionToBottom;
+    QAction actionToTop;
+    QAction actionToLeft;
+    QAction actionToRight;
+    QAction actionRotateLeft;
+    QAction actionRotateRight;
 
     static const QString &typeScheme;
 };

@@ -25,11 +25,14 @@ public:
     ~SchemeOblique();
 
     QAction &getActionCreate();
+    void updateShortcut();
     QList<AbstractSchemeFileRead*> &getListFileRead();
     AbstractSchemeFileWrite &getFileWrite();
     const QString &getTypeScheme();
 
 private:
+    void commonCreate();
+
     SchemeObliqueWidgetCreateScheme schemeObliqueWidgetCreateScheme;
 };
 

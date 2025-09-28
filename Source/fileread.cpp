@@ -17,8 +17,8 @@ FileRead::~FileRead()
 void FileRead::readFile()
 {
     QFileDialog dialog(nullptr, "Выберите файл(ы) сохранений",
-                       Settings::getFileReadDirectory(QDir::homePath()).isEmpty() ? QDir::homePath() : Settings::getFileReadDirectory(QDir::homePath())
-                       , this->filter);
+                       Settings::getFileReadDirectory(),
+                       this->filter);
     dialog.setFileMode(QFileDialog::ExistingFiles);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 

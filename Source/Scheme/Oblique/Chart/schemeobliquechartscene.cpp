@@ -1,6 +1,7 @@
 #include "schemeobliquechartscene.h"
 
 #include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
 int SchemeObliqueChartScene::spaceBetweenNodeOne{68};
 int SchemeObliqueChartScene::spaceBetweenNodeTwo{spaceBetweenNodeOne * 2};
@@ -20,35 +21,70 @@ SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const 
 {
     this->editScene(countThreads, countHalfrow, isNode1_2);
 
-    commonCreate();
+    this->commonCreate();
 }
 
 SchemeObliqueChartScene::SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads): info(this), nodes(this), parts(this), connects(this), colors(this), history(this)
 {
     this->editScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads);
 
-    commonCreate();
+    this->commonCreate();
 }
 
 SchemeObliqueChartScene::~SchemeObliqueChartScene()
 {
-    removeScene();
+    this->removeScene();
 }
 
 QMenu &SchemeObliqueChartScene::getMenuHistory()
 {
-    return menuHistory;
+    return this->menuHistory;
 }
 
 QMenu &SchemeObliqueChartScene::getMenuManagment()
 {
-    return menuManagment;
+    return this->menuManagment;
 }
 
 QMenu &SchemeObliqueChartScene::getMenuSettings()
 {
-    return menuSettings;
+    return this->menuSettings;
 }
+
+void SchemeObliqueChartScene::updateShortcut()
+{
+    this->actionBack.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_HistoryBack()));
+    this->actionNext.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_HistoryNext()));
+    this->actionRemoveThreadLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadLeft()));
+    this->actionRemoveThreadRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveThreadRight()));
+    this->actionAddThreadLeft.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddThreadLeft()));
+    this->actionAddThreadRight.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddThreadRight()));
+    this->actionRemoveHalfrowDown.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowDown()));
+    this->actionRemoveHalfrowTop.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop()));
+    this->actionAddHalfrowDown.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown()));
+    this->actionAddHalfrowTop.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop()));
+    this->actionEditDirectionNewNode.setShortcut(QKeySequence::fromString(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode()));
+}
+
+void SchemeObliqueChartScene::updateScene()
+{
+    this->updateRectScene();
+    this->updateEnabledEditNodeAndThread();
+    this->updateEnabledHistory();
+
+    this->update();
+}
+
+void SchemeObliqueChartScene::backHistory()
+{
+    this->history.back();
+}
+
+void SchemeObliqueChartScene::nextHistory()
+{
+    this->history.next();
+}
+
 
 void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
 {
@@ -129,25 +165,6 @@ void SchemeObliqueChartScene::editFromHistory(const SchemeOblique::Directions &d
     this->updateScene();
 }
 
-void SchemeObliqueChartScene::updateScene()
-{
-    this->updateRectScene();
-    this->updateEnabledEditNodeAndThread();
-    this->updateEnabledHistory();
-
-    this->update();
-}
-
-void SchemeObliqueChartScene::backHistory()
-{
-    this->history.back();
-}
-
-void SchemeObliqueChartScene::nextHistory()
-{
-    this->history.next();
-}
-
 void SchemeObliqueChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem *item = this->itemAt(event->scenePos(), QTransform());
@@ -157,13 +174,13 @@ void SchemeObliqueChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         SchemeObliqueObjectNode::DirectionsNode directionsNodeBack = node->directionNode;
         node->click();
         this->history.addHistory(node->getNumberRow(), node->getNumberColumn(), node->directionNode, directionsNodeBack);
-        updateScene();
+        this->updateScene();
     } else if (part) {
         QBrush colorBack = part->brush;
         SchemeObliqueObjectPart* partBeggining = part->click();
         if (partBeggining) {
             this->history.addHistory(this->parts.getThreadBeggining(this->nodes.top).indexOf(partBeggining), partBeggining->brush.color(), colorBack);
-            updateScene();
+            this->updateScene();
         }
     }
 }
@@ -238,6 +255,8 @@ void SchemeObliqueChartScene::commonCreate()
     this->menuSettings.addAction(&actionEditDirectionNewNode);
 
     connect(&this->actionEditDirectionNewNode, &QAction::triggered, &schemeObliqueWidgetEditDirectionForNewNodeWindow, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+
+    this->updateShortcut();
 }
 
 void SchemeObliqueChartScene::editNodes(const SchemeOblique::Directions &direction, const bool &isUpdate, const bool &isSetHistory)
@@ -324,7 +343,7 @@ void SchemeObliqueChartScene::editNodes(const SchemeOblique::Directions &directi
 
 void SchemeObliqueChartScene::editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2)
 {
-    removeScene();
+    this->removeScene();
 
     QList<SchemeObliqueObjectNode*> listNodes = this->nodes.createNodes(isNode1_2);
     this->parts.createParts(isNode1_2, listNodes);
@@ -343,7 +362,7 @@ void SchemeObliqueChartScene::editScene(const int &countThreads, const int &coun
 
 void SchemeObliqueChartScene::editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads)
 {
-    removeScene();
+    this->removeScene();
 
     QList<SchemeObliqueObjectNode*> listNodes = this->nodes.createNodes(isNode1_2);
     this->parts.createParts(isNode1_2, listNodes);

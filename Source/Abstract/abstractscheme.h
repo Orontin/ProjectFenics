@@ -22,6 +22,7 @@ public:
     };
 
     virtual QAction &getActionCreate() = 0;
+    virtual void updateShortcut() = 0;
     virtual QList<AbstractSchemeFileRead*> &getListFileRead() = 0;
     virtual AbstractSchemeFileWrite &getFileWrite() = 0;
     virtual const QString &getTypeScheme() = 0;
