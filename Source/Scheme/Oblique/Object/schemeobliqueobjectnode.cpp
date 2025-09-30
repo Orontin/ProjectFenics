@@ -4,7 +4,7 @@
 
 #include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
-SchemeObliqueObjectNode::DirectionsNode SchemeObliqueObjectNode::standartDirectionObliqueNode{SchemeObliqueFileSetting::getStandartDirectionObliqueNode()};
+SchemeObliqueObjectNode::DirectionsNode SchemeObliqueObjectNode::standartDirectionObliqueNode{DirectionsNode::GAP};
 
 QPolygon SchemeObliqueObjectNode::POLYGON_ROMB{QPoint(0, -40), QPoint(40, 0), QPoint(0, 40), QPoint(-40, 0), QPoint(0, -40)};
 
@@ -46,6 +46,8 @@ SchemeObliqueObjectNode::SchemeObliqueObjectNode(const QPoint &pos, const Scheme
     pos(pos),
     directionNode(directionNode)
 {
+    setStandartDirectionObliqueNode(SchemeObliqueFileSetting::getStandartDirectionObliqueNode());
+
     this->setZValue(1);
     this->graphicObjectNode.addPolygon(SchemeObliqueObjectNode::POLYGON_ROMB.translated(pos));
     editNode(directionNode);
@@ -54,6 +56,16 @@ SchemeObliqueObjectNode::SchemeObliqueObjectNode(const QPoint &pos, const Scheme
 SchemeObliqueObjectNode::~SchemeObliqueObjectNode()
 {
 
+}
+
+void SchemeObliqueObjectNode::setStandartDirectionObliqueNode(const DirectionsNode &directionNode)
+{
+    SchemeObliqueObjectNode::standartDirectionObliqueNode = directionNode;
+}
+
+SchemeObliqueObjectNode::DirectionsNode SchemeObliqueObjectNode::getStandartDirectionObliqueNode()
+{
+    return SchemeObliqueObjectNode::standartDirectionObliqueNode;
 }
 
 int SchemeObliqueObjectNode::getNumberRow()

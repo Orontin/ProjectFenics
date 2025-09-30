@@ -4,7 +4,7 @@
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
 SchemeObliqueWidgetEditDirectionForNewNodeChartScene::SchemeObliqueWidgetEditDirectionForNewNodeChartScene():
-    node(new SchemeObliqueObjectNode(QPoint(0, 0), SchemeObliqueObjectNode::standartDirectionObliqueNode)),
+    node(new SchemeObliqueObjectNode(QPoint(0, 0), SchemeObliqueObjectNode::getStandartDirectionObliqueNode())),
     partLeftTop(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_LEFT)),
     partLeftBottom(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::END_CORNER_LEFT)),
     partRightTop(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_RIGHT)),
@@ -47,7 +47,7 @@ void SchemeObliqueWidgetEditDirectionForNewNodeChartScene::mouseReleaseEvent(QGr
     SchemeObliqueObjectNode *node = dynamic_cast<SchemeObliqueObjectNode *>(item);
     if (node) {
         node->click();
-        SchemeObliqueObjectNode::standartDirectionObliqueNode = node->directionNode;
-        SchemeObliqueFileSetting::setStandartDirectionObliqueNode(SchemeObliqueObjectNode::standartDirectionObliqueNode);
+        SchemeObliqueObjectNode::setStandartDirectionObliqueNode(node->directionNode);
+        SchemeObliqueFileSetting::setStandartDirectionObliqueNode(SchemeObliqueObjectNode::getStandartDirectionObliqueNode());
     }
 }

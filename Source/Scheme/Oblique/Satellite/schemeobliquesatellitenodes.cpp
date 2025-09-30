@@ -765,7 +765,7 @@ int SchemeObliqueSatelliteNodes::getSizeRight()
 
 SchemeObliqueObjectNode *SchemeObliqueSatelliteNodes::createNode(const QPoint &pos)
 {
-    SchemeObliqueObjectNode *node = new SchemeObliqueObjectNode(pos, SchemeObliqueObjectNode::standartDirectionObliqueNode);
+    SchemeObliqueObjectNode *node = new SchemeObliqueObjectNode(pos, SchemeObliqueObjectNode::getStandartDirectionObliqueNode());
 
     this->scene->addItem(node);
 

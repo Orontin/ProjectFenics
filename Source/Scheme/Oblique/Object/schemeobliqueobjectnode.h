@@ -24,10 +24,11 @@ public:
         RIGHT_UP__IN__LEFT_BOTTOM           = 7,
     };
 
-    static DirectionsNode standartDirectionObliqueNode;
-
     SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueObjectNode::DirectionsNode &directionNode);
     ~SchemeObliqueObjectNode();
+
+    static void setStandartDirectionObliqueNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);
+    static DirectionsNode getStandartDirectionObliqueNode();
 
     int getNumberRow();
     int getNumberColumn();
@@ -72,6 +73,8 @@ private:
 
     QList<QLine> graphicObjectNodeRightUpPen;
     QList<QLine> graphicObjectNodeRightBottomPen;
+
+    static DirectionsNode standartDirectionObliqueNode;
 
     static QPolygon POLYGON_ROMB;
 
