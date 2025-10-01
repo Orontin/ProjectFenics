@@ -70,7 +70,7 @@ void MainWindow::updateMenu(int index)
     if (index == -1) {
         this->ui->deleteOpenScheme->setEnabled(false);
         this->ui->saveScheme->setEnabled(false);
-        this->ui->history->setEnabled(false);
+
         this->ui->view->setEnabled(false);
         this->ui->history->setEnabled(false);
         this->ui->managment->setEnabled(false);
@@ -86,11 +86,27 @@ void MainWindow::updateMenu(int index)
 
         this->ui->deleteOpenScheme->setEnabled(true);
         this->ui->saveScheme->setEnabled(true);
-        this->ui->history->setEnabled(true);
-        this->ui->view->setEnabled(true);
-        this->ui->history->setEnabled(true);
-        this->ui->managment->setEnabled(true);
-        this->ui->settingsOpenScheme->setEnabled(true);
+
+        if (this->ui->view->actions().count()) {
+            this->ui->view->setEnabled(true);
+        } else {
+            this->ui->view->setEnabled(false);
+        }
+        if (this->ui->history->actions().count()) {
+            this->ui->history->setEnabled(true);
+        } else {
+            this->ui->history->setEnabled(false);
+        }
+        if (this->ui->managment->actions().count()) {
+            this->ui->managment->setEnabled(true);
+        } else {
+            this->ui->managment->setEnabled(false);
+        }
+        if (this->ui->settingsOpenScheme->actions().count()) {
+            this->ui->settingsOpenScheme->setEnabled(true);
+        } else {
+            this->ui->settingsOpenScheme->setEnabled(false);
+        }
     }
 }
 
