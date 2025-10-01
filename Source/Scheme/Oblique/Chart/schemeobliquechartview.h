@@ -12,17 +12,17 @@ public:
     SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads, const QString &name);
     ~SchemeObliqueChartView();
 
-    void setMenuView(QMenu &menuView);
-    void updateShortcut();
-    const QString &getTypeScheme();
+    void setMenuView(QMenu &menuView) override final;
+    void updateShortcut() override final;
+    const QString &getTypeScheme() override final;
 
     static const QString &getTypeSchemeStatic();
 
 protected:
-    void wheelEvent(QWheelEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event) override final;
+    void mousePressEvent(QMouseEvent *event) override final;
+    void mouseMoveEvent(QMouseEvent *event) override final;
+    void mouseReleaseEvent(QMouseEvent *event) override final;
 
 private slots:
     void toRight();

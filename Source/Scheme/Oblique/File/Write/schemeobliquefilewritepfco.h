@@ -11,7 +11,7 @@ public:
     SchemeObliqueFileWritePFCO();
     ~SchemeObliqueFileWritePFCO();
 
-    QByteArray writeScheme(const AbstractSchemeChartView &view);
+    QByteArray writeScheme(const AbstractSchemeChartView &view) override final;
 };
 
 #endif // SCHEMEOBLIQUEFILEWRITEPFCO_H

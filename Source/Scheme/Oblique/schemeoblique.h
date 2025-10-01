@@ -25,12 +25,12 @@ public:
     SchemeOblique();
     ~SchemeOblique();
 
-    void setMenuCreate(QMenu &menuCreate);
-    void setMenuSettings(QMenu &menuSettings);
-    void updateShortcut();
-    QList<AbstractSchemeFileRead*> &getListFileRead();
-    AbstractSchemeFileWrite &getFileWrite();
-    const QString &getTypeScheme();
+    void setMenuCreate(QMenu &menuCreate) override final;
+    void setMenuSettings(QMenu &menuSettings) override final;
+    void updateShortcut() override final;
+    QList<AbstractSchemeFileRead*> &getListFileRead() override final;
+    AbstractSchemeFileWrite &getFileWrite() override final;
+    const QString &getTypeScheme() override final;
 
 private:
     void commonCreate();

@@ -39,13 +39,13 @@ public:
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
-    void setMenuHistory(QMenu &menuHistory) final;
-    void setMenuManagment(QMenu &menuManagment) final;
-    void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) final;
-    void updateShortcut() final;
-    void updateScene() final;
-    void backHistory() final;
-    void nextHistory() final;
+    void setMenuHistory(QMenu &menuHistory) override final;
+    void setMenuManagment(QMenu &menuManagment) override final;
+    void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) override final;
+    void updateShortcut() override final;
+    void updateScene() override final;
+    void backHistory() override final;
+    void nextHistory() override final;
 
     void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
     void editFromHistory(const int &numberThread, const QBrush &brush);
@@ -59,9 +59,9 @@ public:
     SchemeObliqueSatelliteHistory history;
 
 protected:
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override final;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override final;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override final;
 
 private:
     void commonCreate();
