@@ -9,8 +9,6 @@
 
 #include "Scheme/Oblique/schemeoblique.h"
 
-#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
-
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h"
@@ -41,10 +39,10 @@ public:
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
-    QMenu &getMenuHistory();
-    QMenu &getMenuManagment();
-    QMenu &getMenuSettings();
-    void updateShortcut();
+    void setMenuHistory(QMenu &menuHistory) final;
+    void setMenuManagment(QMenu &menuManagment) final;
+    void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) final;
+    void updateShortcut() final;
     void updateScene() final;
     void backHistory() final;
     void nextHistory() final;
@@ -89,9 +87,6 @@ private:
     QAction actionRemoveHalfrowTop;
     QAction actionAddHalfrowDown;
     QAction actionAddHalfrowTop;
-    QAction actionEditDirectionNewNode;
-
-    SchemeObliqueWidgetEditDirectionForNewNodeWindow schemeObliqueWidgetEditDirectionForNewNodeWindow;
 };
 
 #endif // SCHEMEOBLIQUECHARTSCENE_H

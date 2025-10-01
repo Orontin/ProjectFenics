@@ -32,15 +32,6 @@ private slots:
 private:
     void updateMenu(int index);
 
-    QMenu *currentMenuHistory = nullptr;
-    QMenu *currentMenuView = nullptr;
-
-    QAction *separatorManagment = nullptr;
-    QAction *separatorSettings = nullptr;
-
-    QMenu *currentMenuManagment = nullptr;
-    QMenu *currentMenuSettings = nullptr;
-
     Ui::MainWindow *ui;
 
     QList<AbstractScheme*> &schemes;

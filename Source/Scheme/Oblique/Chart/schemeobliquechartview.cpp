@@ -38,9 +38,11 @@ SchemeObliqueChartView::~SchemeObliqueChartView()
     delete this->scene();
 }
 
-QMenu &SchemeObliqueChartView::getMenuView()
+void SchemeObliqueChartView::setMenuView(QMenu &menuView)
 {
-    return this->menuView;
+    menuView.addMenu(&menuZoom);
+    menuView.addMenu(&menuTo);
+    menuView.addMenu(&menuRotate);
 }
 
 void SchemeObliqueChartView::updateShortcut()
@@ -197,15 +199,9 @@ void SchemeObliqueChartView::commonCreate()
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     this->setMouseTracking(true);
 
-    this->menuView.setTitle("Вид");
-
     this->menuZoom.setTitle("Дальность");
     this->menuTo.setTitle("Перемещение");
     this->menuRotate.setTitle("Поворот");
-
-    this->menuView.addMenu(&menuZoom);
-    this->menuView.addMenu(&menuTo);
-    this->menuView.addMenu(&menuRotate);
 
     this->actionZoomOut.setText("Отдалить");
     this->actionZoomIn.setText("Приблизить");

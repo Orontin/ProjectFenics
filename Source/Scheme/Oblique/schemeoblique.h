@@ -5,6 +5,7 @@
 
 #include "Abstract/abstractscheme.h"
 #include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
 
 class SchemeOblique : public AbstractScheme
 {
@@ -24,7 +25,8 @@ public:
     SchemeOblique();
     ~SchemeOblique();
 
-    QAction &getActionCreate();
+    void setMenuCreate(QMenu &menuCreate);
+    void setMenuSettings(QMenu &menuSettings);
     void updateShortcut();
     QList<AbstractSchemeFileRead*> &getListFileRead();
     AbstractSchemeFileWrite &getFileWrite();
@@ -33,7 +35,12 @@ public:
 private:
     void commonCreate();
 
+    QMenu menuSettings;
+    QAction actionCreate;
+    QAction actionEditDirectionNewNode;
+
     SchemeObliqueWidgetCreateScheme schemeObliqueWidgetCreateScheme;
+    SchemeObliqueWidgetEditDirectionForNewNodeWindow schemeObliqueWidgetEditDirectionForNewNodeWindow;
 };
 
 #endif // SCHEMEOBLIQUE_H

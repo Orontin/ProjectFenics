@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>703</width>
-    <height>612</height>
+    <width>699</width>
+    <height>354</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>703</width>
+     <width>699</width>
      <height>17</height>
     </rect>
    </property>
@@ -41,13 +41,50 @@
       <string>Создать новую схему</string>
      </property>
     </widget>
+    <widget class="QMenu" name="managment">
+     <property name="title">
+      <string>Управление</string>
+     </property>
+    </widget>
+    <widget class="QMenu" name="settingsOpenScheme">
+     <property name="title">
+      <string>Настроить открытую схему</string>
+     </property>
+    </widget>
     <addaction name="createNewScheme"/>
     <addaction name="deleteOpenScheme"/>
     <addaction name="separator"/>
+    <addaction name="managment"/>
     <addaction name="separator"/>
+    <addaction name="settingsOpenScheme"/>
+   </widget>
+   <widget class="QMenu" name="settings">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <widget class="QMenu" name="settingsScheme">
+     <property name="title">
+      <string>Схем</string>
+     </property>
+    </widget>
+    <addaction name="settingsShortcut"/>
+    <addaction name="settingsScheme"/>
+   </widget>
+   <widget class="QMenu" name="view">
+    <property name="title">
+     <string>Вид</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="history">
+    <property name="title">
+     <string>История</string>
+    </property>
    </widget>
    <addaction name="file"/>
+   <addaction name="view"/>
+   <addaction name="history"/>
    <addaction name="scheme"/>
+   <addaction name="settings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="openFile">
@@ -63,6 +100,11 @@
   <action name="deleteOpenScheme">
    <property name="text">
     <string>Удалить открытую схему</string>
+   </property>
+  </action>
+  <action name="settingsShortcut">
+   <property name="text">
+    <string>Сочетания клавиш</string>
    </property>
   </action>
  </widget>

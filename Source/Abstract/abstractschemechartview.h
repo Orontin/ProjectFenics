@@ -14,14 +14,11 @@ public:
     AbstractSchemeChartView(const QString &name): name(name) {};
     ~AbstractSchemeChartView() {};
 
-    virtual QMenu &getMenuView() = 0;
+    virtual void setMenuView(QMenu &menuView) = 0;
     virtual void updateShortcut() = 0;
     virtual const QString &getTypeScheme() = 0;
 
     const QString name;
-
-protected:
-    QMenu menuView;
 };
 
 #endif // ABSTRACTSCHEMECHARTVIEW_H

@@ -14,6 +14,8 @@ SchemeOblique::SchemeOblique(): AbstractScheme{*(new QList<AbstractSchemeFileRea
     connect(&this->actionCreate, &QAction::triggered, &this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createIn);
     connect(&this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
 
+    connect(&this->actionEditDirectionNewNode, &QAction::triggered, &schemeObliqueWidgetEditDirectionForNewNodeWindow, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+
     this->commonCreate();
 }
 
@@ -22,14 +24,20 @@ SchemeOblique::~SchemeOblique()
 
 }
 
-QAction &SchemeOblique::getActionCreate()
+void SchemeOblique::setMenuCreate(QMenu &menuCreate)
 {
-    return this->actionCreate;
+    menuCreate.addAction(&this->actionCreate);
+}
+
+void SchemeOblique::setMenuSettings(QMenu &menuSettings)
+{
+    menuSettings.addAction(&this->actionEditDirectionNewNode);
 }
 
 void SchemeOblique::updateShortcut()
 {
     this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_Create());
+    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode());
 }
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()
@@ -50,6 +58,10 @@ const QString &SchemeOblique::getTypeScheme()
 void SchemeOblique::commonCreate()
 {
     this->actionCreate.setText(this->getTypeScheme());
+
+    this->menuSettings.setTitle(this->getTypeScheme());
+    this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
+    this->menuSettings.addAction(&this->actionEditDirectionNewNode);
 
     this->updateShortcut();
 }

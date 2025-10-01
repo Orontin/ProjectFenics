@@ -36,19 +36,21 @@ SchemeObliqueChartScene::~SchemeObliqueChartScene()
     this->removeScene();
 }
 
-QMenu &SchemeObliqueChartScene::getMenuHistory()
+void SchemeObliqueChartScene::setMenuHistory(QMenu &menuHistory)
 {
-    return this->menuHistory;
+    menuHistory.addAction(&this->actionBack);
+    menuHistory.addAction(&this->actionNext);
 }
 
-QMenu &SchemeObliqueChartScene::getMenuManagment()
+void SchemeObliqueChartScene::setMenuManagment(QMenu &menuManagment)
 {
-    return this->menuManagment;
+    menuManagment.addMenu(&menuThread);
+    menuManagment.addMenu(&menuHalfrow);
 }
 
-QMenu &SchemeObliqueChartScene::getMenuSettings()
+void SchemeObliqueChartScene::setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme)
 {
-    return this->menuSettings;
+    Q_UNUSED(menuSettingsOpenScheme);
 }
 
 void SchemeObliqueChartScene::updateShortcut()
@@ -63,7 +65,6 @@ void SchemeObliqueChartScene::updateShortcut()
     this->actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RemoveHalfrowTop());
     this->actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowDown());
     this->actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_AddHalfrowTop());
-    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode());
 }
 
 void SchemeObliqueChartScene::updateScene()
@@ -200,24 +201,14 @@ void SchemeObliqueChartScene::commonCreate()
     this->setBackgroundBrush(defaultBrush);
     this->setItemIndexMethod(NoIndex);
 
-    this->menuHistory.setTitle("История");
-
     this->actionBack.setText("Назад");
     this->actionNext.setText("Вперед");
-
-    this->menuHistory.addAction(&this->actionBack);
-    this->menuHistory.addAction(&this->actionNext);
 
     connect(&this->actionBack, &QAction::triggered, this, &SchemeObliqueChartScene::backHistory);
     connect(&this->actionNext, &QAction::triggered, this, &SchemeObliqueChartScene::nextHistory);
 
-    this->menuManagment.setTitle("Управление");
-
     this->menuThread.setTitle("Нити");
     this->menuHalfrow.setTitle("Полуряды");
-
-    this->menuManagment.addMenu(&menuThread);
-    this->menuManagment.addMenu(&menuHalfrow);
 
     this->actionRemoveThreadLeft.setText("Убрать нить слева");
     this->actionRemoveThreadRight.setText("Убрать нить справа");
@@ -247,14 +238,6 @@ void SchemeObliqueChartScene::commonCreate()
     connect(&this->actionRemoveHalfrowTop, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::REMOVE_TOP, true, true); });
     connect(&this->actionAddHalfrowDown, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_BOTTOM, true, true); });
     connect(&this->actionAddHalfrowTop, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_TOP, true, true); });
-
-    this->menuSettings.setTitle("Настройки");
-
-    this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
-
-    this->menuSettings.addAction(&actionEditDirectionNewNode);
-
-    connect(&this->actionEditDirectionNewNode, &QAction::triggered, &schemeObliqueWidgetEditDirectionForNewNodeWindow, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
 
     this->updateShortcut();
 }
