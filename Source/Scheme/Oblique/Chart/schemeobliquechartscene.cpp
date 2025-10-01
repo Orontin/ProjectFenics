@@ -86,7 +86,6 @@ void SchemeObliqueChartScene::nextHistory()
     this->history.next();
 }
 
-
 void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode)
 {
     this->nodes.setNodeDirection(numberRow, numberColumn, directionsNode);
