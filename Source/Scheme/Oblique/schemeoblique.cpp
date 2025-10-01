@@ -8,13 +8,15 @@
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 #include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
-SchemeOblique::SchemeOblique(): AbstractScheme{*(new QList<AbstractSchemeFileRead*>{new SchemeObliqueFileReadRNX(), new SchemeObliqueFileReadFBD(), new SchemeObliqueFileReadPFCO()}),
-                                               *(new SchemeObliqueFileWritePFCO())}
-{
-    connect(&this->actionCreate, &QAction::triggered, &this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createIn);
-    connect(&this->schemeObliqueWidgetCreateScheme, &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
+#include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
 
-    connect(&this->actionEditDirectionNewNode, &QAction::triggered, &schemeObliqueWidgetEditDirectionForNewNodeWindow, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(), &SchemeObliqueFileReadFBD::getInstance(), &SchemeObliqueFileReadPFCO::getInstance()}}
+{
+    connect(&this->actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createIn);
+    connect(&SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
+
+    connect(&this->actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
 
     this->commonCreate();
 }
@@ -42,12 +44,12 @@ void SchemeOblique::updateShortcut()
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()
 {
-    return *this->listFileRead;
+    return listFileRead;
 }
 
 AbstractSchemeFileWrite &SchemeOblique::getFileWrite()
 {
-    return *this->fileWrite;
+    return SchemeObliqueFileWritePFCO::getInstance();
 }
 
 const QString &SchemeOblique::getTypeScheme()

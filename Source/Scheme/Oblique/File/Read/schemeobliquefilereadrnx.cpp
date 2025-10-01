@@ -5,14 +5,14 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueFileReadRNX::SchemeObliqueFileReadRNX(): AbstractSchemeFileRead("rnx", "Renyxa")
+SchemeObliqueFileReadRNX *SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX{nullptr};
+
+SchemeObliqueFileReadRNX &SchemeObliqueFileReadRNX::getInstance()
 {
-
-}
-
-SchemeObliqueFileReadRNX::~SchemeObliqueFileReadRNX()
-{
-
+    if (!SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX) {
+        SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX = new SchemeObliqueFileReadRNX;
+    }
+    return *schemeObliqueFileReadRNX;
 }
 
 AbstractSchemeChartView &SchemeObliqueFileReadRNX::readScheme(QByteArray byteArray, QString name)
@@ -60,6 +60,16 @@ AbstractSchemeChartView &SchemeObliqueFileReadRNX::readScheme(QByteArray byteArr
     }
 
     return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+}
+
+SchemeObliqueFileReadRNX::SchemeObliqueFileReadRNX(): AbstractSchemeFileRead("rnx", "Renyxa")
+{
+
+}
+
+SchemeObliqueFileReadRNX::~SchemeObliqueFileReadRNX()
+{
+
 }
 
 int SchemeObliqueFileReadRNX::readCountLine(QByteArray &byteArray)

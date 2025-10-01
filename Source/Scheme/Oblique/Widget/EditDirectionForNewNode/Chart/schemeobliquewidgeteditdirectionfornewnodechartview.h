@@ -8,8 +8,13 @@ class SchemeObliqueWidgetEditDirectionForNewNodeChartView : public QGraphicsView
     Q_OBJECT
 
 public:
+    static SchemeObliqueWidgetEditDirectionForNewNodeChartView &getInstance();
+
+private:
     SchemeObliqueWidgetEditDirectionForNewNodeChartView();
     ~SchemeObliqueWidgetEditDirectionForNewNodeChartView();
+
+    static SchemeObliqueWidgetEditDirectionForNewNodeChartView *schemeObliqueWidgetEditDirectionForNewNodeChartView;
 };
 
 #endif // SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODECHARTVIEW_H

@@ -14,8 +14,7 @@ class SchemeObliqueWidgetCreateScheme: public QWidget
     Q_OBJECT
 
 public:
-    explicit SchemeObliqueWidgetCreateScheme();
-    ~SchemeObliqueWidgetCreateScheme();
+    static SchemeObliqueWidgetCreateScheme &getInstance();
 
 public slots:
     void createIn();
@@ -28,6 +27,11 @@ private slots:
     void onCreateClicked();
 
 private:
+    explicit SchemeObliqueWidgetCreateScheme();
+    ~SchemeObliqueWidgetCreateScheme();
+
+    static SchemeObliqueWidgetCreateScheme *schemeObliqueWidgetCreateScheme;
+
     Ui::SchemeObliqueWidgetCreateScheme *ui;
 };
 

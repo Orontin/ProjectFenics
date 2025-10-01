@@ -1,13 +1,13 @@
 #include "schemeobliquefilesetting.h"
 
-void SchemeObliqueFileSetting::setStandartDirectionObliqueNode(const SchemeObliqueObjectNode::DirectionsNode &standartDirectionObliqueNode)
+void SchemeObliqueFileSetting::setStandartDirectionObliqueNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &standartDirectionObliqueNode)
 {
     AbstractSchemeFileSetting::setValue("Scheme/Oblique/Common/standartDirectionObliqueNode", QString::number(static_cast<int>(standartDirectionObliqueNode)));
 }
 
-SchemeObliqueObjectNode::DirectionsNode SchemeObliqueFileSetting::getStandartDirectionObliqueNode()
+SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode SchemeObliqueFileSetting::getStandartDirectionObliqueNode()
 {
-    return static_cast<SchemeObliqueObjectNode::DirectionsNode>(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Common/standartDirectionObliqueNode", "7").toInt());
+    return static_cast<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode>(AbstractSchemeFileSetting::getValue("Scheme/Oblique/Common/standartDirectionObliqueNode", "7").toInt());
 }
 
 void SchemeObliqueFileSetting::setShortcut_Action_ZoomOut(const QList<QKeySequence> &valueParam)

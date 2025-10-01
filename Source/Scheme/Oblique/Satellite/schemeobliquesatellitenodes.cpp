@@ -12,7 +12,7 @@ SchemeObliqueSatelliteNodes::~SchemeObliqueSatelliteNodes()
 
 }
 
-void SchemeObliqueSatelliteNodes::setNodeDirection(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
+void SchemeObliqueSatelliteNodes::setNodeDirection(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode)
 {
     SchemeObliqueObjectNode *node = this->top.front();
 
@@ -43,31 +43,31 @@ void SchemeObliqueSatelliteNodes::setNodeDirections(const QList<int> &nodeDirect
     QList<SchemeObliqueObjectNode*> oldTopLocal = this->top;
     for (int halfrow = 0; halfrow < this->scene->info.getSizeHalfrow(); ++halfrow) {
         for (SchemeObliqueObjectNode *schemeObliqueObjectNode : oldTopLocal) {
-            SchemeObliqueObjectNode::DirectionsNode dirNode = SchemeObliqueObjectNode::DirectionsNode::GAP;
+            SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP;
             switch (nodeDirections[position]) {
             case 0:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::GAP;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP;
                 break;
             case 1:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::PARALLEL;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL;
                 break;
             case 2:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE;
                 break;
             case 3:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE;
                 break;
             case 4:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM;
                 break;
             case 5:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM;
                 break;
             case 6:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM;
                 break;
             case 7:
-                dirNode = SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM;
+                dirNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM;
                 break;
             }
             schemeObliqueObjectNode->editNode(dirNode);
@@ -114,9 +114,9 @@ QStringList SchemeObliqueSatelliteNodes::getNodeDirections()
     return listNodeDirections;
 }
 
-QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionLeft()
+QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionLeft()
 {
-    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+    QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> listDirection;
 
     for (const SchemeObliqueObjectNode *node : this->left) {
         listDirection.push_back(node->directionNode);
@@ -125,9 +125,9 @@ QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getN
     return listDirection;
 }
 
-QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionRight()
+QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionRight()
 {
-    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+    QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> listDirection;
 
     for (const SchemeObliqueObjectNode *node : this->right) {
         listDirection.push_back(node->directionNode);
@@ -136,9 +136,9 @@ QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getN
     return listDirection;
 }
 
-QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionTop()
+QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionTop()
 {
-    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+    QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> listDirection;
 
     for (const SchemeObliqueObjectNode *node : this->top) {
         listDirection.push_back(node->directionNode);
@@ -147,9 +147,9 @@ QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getN
     return listDirection;
 }
 
-QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionBottom()
+QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> SchemeObliqueSatelliteNodes::getNodeDirectionBottom()
 {
-    QList<SchemeObliqueObjectNode::DirectionsNode> listDirection;
+    QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> listDirection;
 
     for (const SchemeObliqueObjectNode *node : this->bottom) {
         listDirection.push_back(node->directionNode);
@@ -158,7 +158,7 @@ QList<SchemeObliqueObjectNode::DirectionsNode> SchemeObliqueSatelliteNodes::getN
     return listDirection;
 }
 
-void SchemeObliqueSatelliteNodes::setNodeDirectionLeft(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionLeft)
+void SchemeObliqueSatelliteNodes::setNodeDirectionLeft(const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionLeft)
 {
     for (int i = 0; i < directionLeft.size(); i++) {
         this->left[i]->editNode(directionLeft[i]);
@@ -167,7 +167,7 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionLeft(const QList<SchemeOblique
     }
 }
 
-void SchemeObliqueSatelliteNodes::setNodeDirectionRight(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionRight)
+void SchemeObliqueSatelliteNodes::setNodeDirectionRight(const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionRight)
 {
     for (int i = 0; i < directionRight.size(); i++) {
         this->right[i]->editNode(directionRight[i]);
@@ -176,7 +176,7 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionRight(const QList<SchemeObliqu
     }
 }
 
-void SchemeObliqueSatelliteNodes::setNodeDirectionTop(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionTop)
+void SchemeObliqueSatelliteNodes::setNodeDirectionTop(const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionTop)
 {
     for (int i = 0; i < directionTop.size(); i++) {
         this->top[i]->editNode(directionTop[i]);
@@ -185,7 +185,7 @@ void SchemeObliqueSatelliteNodes::setNodeDirectionTop(const QList<SchemeObliqueO
     }
 }
 
-void SchemeObliqueSatelliteNodes::setNodeDirectionBottom(const QList<SchemeObliqueObjectNode::DirectionsNode> &directionBottom)
+void SchemeObliqueSatelliteNodes::setNodeDirectionBottom(const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionBottom)
 {
     for (int i = 0; i < directionBottom.size(); i++) {
         this->bottom[i]->editNode(directionBottom[i]);
@@ -765,7 +765,7 @@ int SchemeObliqueSatelliteNodes::getSizeRight()
 
 SchemeObliqueObjectNode *SchemeObliqueSatelliteNodes::createNode(const QPoint &pos)
 {
-    SchemeObliqueObjectNode *node = new SchemeObliqueObjectNode(pos, SchemeObliqueObjectNode::getStandartDirectionObliqueNode());
+    SchemeObliqueObjectNode *node = new SchemeObliqueObjectNode(pos, SchemeObliqueWidgetEditDirectionForNewNodeChartScene::getInstance().getStandartDirectionObliqueNode());
 
     this->scene->addItem(node);
 

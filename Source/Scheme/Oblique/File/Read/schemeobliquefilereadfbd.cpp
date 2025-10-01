@@ -5,14 +5,14 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueFileReadFBD::SchemeObliqueFileReadFBD(): AbstractSchemeFileRead("fbd", "Friendship Bracelet Designer")
+SchemeObliqueFileReadFBD *SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD{nullptr};
+
+SchemeObliqueFileReadFBD &SchemeObliqueFileReadFBD::getInstance()
 {
-
-}
-
-SchemeObliqueFileReadFBD::~SchemeObliqueFileReadFBD()
-{
-
+    if (!SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD) {
+        SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD = new SchemeObliqueFileReadFBD;
+    }
+    return *schemeObliqueFileReadFBD;
 }
 
 AbstractSchemeChartView &SchemeObliqueFileReadFBD::readScheme(QByteArray byteArray, QString name)
@@ -85,6 +85,16 @@ AbstractSchemeChartView &SchemeObliqueFileReadFBD::readScheme(QByteArray byteArr
     }
 
     return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+}
+
+SchemeObliqueFileReadFBD::SchemeObliqueFileReadFBD(): AbstractSchemeFileRead("fbd", "Friendship Bracelet Designer")
+{
+
+}
+
+SchemeObliqueFileReadFBD::~SchemeObliqueFileReadFBD()
+{
+
 }
 
 int SchemeObliqueFileReadFBD::readCountThread(QByteArray &byteArray, int &countThread)

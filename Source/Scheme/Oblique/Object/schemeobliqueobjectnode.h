@@ -5,6 +5,7 @@
 #include <QBrush>
 
 #include "Scheme/Oblique/Object/schemeobliqueobjectpart.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h"
 
 class SchemeObliqueObjectPart;
 
@@ -13,29 +14,15 @@ class SchemeObliqueObjectNode: public QGraphicsObject
     Q_OBJECT
 
 public:
-    enum DirectionsNode {
-        GAP                                 = 0,
-        PARALLEL                            = 1,
-        LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE   = 2,
-        RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE   = 3,
-        LEFT_UP__IN__LEFT_BOTTOM            = 4,
-        RIGHT_UP__IN__RIGHT_BOTTOM          = 5,
-        LEFT_UP__IN__RIGHT_BOTTOM           = 6,
-        RIGHT_UP__IN__LEFT_BOTTOM           = 7,
-    };
-
-    SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueObjectNode::DirectionsNode &directionNode);
+    SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode);
     ~SchemeObliqueObjectNode();
-
-    static void setStandartDirectionObliqueNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);
-    static DirectionsNode getStandartDirectionObliqueNode();
 
     int getNumberRow();
     int getNumberColumn();
 
     void editNode();
-    void editNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);
-    void setDirectionNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode);
+    void editNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode);
+    void setDirectionNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode);
 
     void click();
 
@@ -54,7 +41,7 @@ public:
 
     QPoint pos;
 
-    SchemeObliqueObjectNode::DirectionsNode directionNode;
+    SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode directionNode;
 
 private:
     QRectF boundingRect() const;
@@ -73,8 +60,6 @@ private:
 
     QList<QLine> graphicObjectNodeRightUpPen;
     QList<QLine> graphicObjectNodeRightBottomPen;
-
-    static DirectionsNode standartDirectionObliqueNode;
 
     static QPolygon POLYGON_ROMB;
 

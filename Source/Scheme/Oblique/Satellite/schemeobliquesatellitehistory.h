@@ -28,9 +28,9 @@ public:
     int getIteratorMaximum();
     int getIteratorMinimum();
 
-    void addHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeNext, const SchemeObliqueObjectNode::DirectionsNode &directionsNodeBack);
+    void addHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeNext, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeBack);
     void addHistory(const int &numberThread, const QBrush &brushNext, const QBrush &brushBack);
-    void addHistory(const SchemeOblique::Directions &direction, const QBrush &brush, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode);
+    void addHistory(const SchemeOblique::Directions &direction, const QBrush &brush, const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionNode);
 
     void back();
     void next();

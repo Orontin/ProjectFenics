@@ -13,14 +13,8 @@ class AbstractScheme: public QObject {
     Q_OBJECT
 
 public:
-    AbstractScheme(QList<AbstractSchemeFileRead*> &listFileRead, AbstractSchemeFileWrite &fileWrite): listFileRead(&listFileRead), fileWrite(&fileWrite) {};
-    ~AbstractScheme() {
-        for (AbstractSchemeFileRead *abstractSchemeFileRead : *listFileRead) {
-            delete abstractSchemeFileRead;
-        }
-        delete listFileRead;
-        delete fileWrite;
-    };
+    AbstractScheme() {};
+    ~AbstractScheme() {};
 
     virtual void setMenuCreate(QMenu &menuCreate) = 0;
     virtual void setMenuSettings(QMenu &menuSettings) = 0;
@@ -31,10 +25,6 @@ public:
 
 signals:
     void createOut(AbstractSchemeChartView &view);
-
-protected:
-    QList<AbstractSchemeFileRead*> *listFileRead;
-    AbstractSchemeFileWrite *fileWrite;
 };
 
 #endif // ABSTRACTSCHEME_H

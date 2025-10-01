@@ -47,9 +47,9 @@ public:
     void backHistory() override final;
     void nextHistory() override final;
 
-    void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
+    void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode);
     void editFromHistory(const int &numberThread, const QBrush &brush);
-    void editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
+    void editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionNode, const QBrush &brush);
 
     SchemeObliqueSatelliteInfos info;
     SchemeObliqueSatelliteNodes nodes;

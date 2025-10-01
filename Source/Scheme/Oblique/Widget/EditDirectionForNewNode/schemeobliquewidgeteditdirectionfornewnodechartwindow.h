@@ -3,8 +3,6 @@
 
 #include <QWidget>
 
-#include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h"
-
 namespace Ui {
 class SchemeObliqueWidgetEditDirectionForNewNodeWindow;
 }
@@ -14,15 +12,17 @@ class SchemeObliqueWidgetEditDirectionForNewNodeWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit SchemeObliqueWidgetEditDirectionForNewNodeWindow(QWidget *parent = nullptr);
-    ~SchemeObliqueWidgetEditDirectionForNewNodeWindow();
+    static SchemeObliqueWidgetEditDirectionForNewNodeWindow &getInstance();
 
     void open();
 
 private:
-    Ui::SchemeObliqueWidgetEditDirectionForNewNodeWindow *ui;
+    explicit SchemeObliqueWidgetEditDirectionForNewNodeWindow(QWidget *parent = nullptr);
+    ~SchemeObliqueWidgetEditDirectionForNewNodeWindow();
 
-    SchemeObliqueWidgetEditDirectionForNewNodeChartView &schemeObliqueWidgetEditDirectionForNewNodeChartView;
+    static SchemeObliqueWidgetEditDirectionForNewNodeWindow *schemeObliqueWidgetEditDirectionForNewNodeWindow;
+
+    Ui::SchemeObliqueWidgetEditDirectionForNewNodeWindow *ui;
 };
 
 #endif // SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODEWINDOW_H

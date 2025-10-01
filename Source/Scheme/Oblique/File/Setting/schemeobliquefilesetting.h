@@ -3,13 +3,13 @@
 
 #include "Abstract/abstractschemefilesetting.h"
 
-#include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h"
 
 class SchemeObliqueFileSetting: public AbstractSchemeFileSetting
 {
 public:
-    static void setStandartDirectionObliqueNode(const SchemeObliqueObjectNode::DirectionsNode &standartDirectionObliqueNode);
-    static SchemeObliqueObjectNode::DirectionsNode getStandartDirectionObliqueNode();
+    static void setStandartDirectionObliqueNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &standartDirectionObliqueNode);
+    static SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode getStandartDirectionObliqueNode();
 
     static void setShortcut_Action_ZoomOut(const QList<QKeySequence> &valueParam);
     static void setShortcut_Action_ZoomIn(const QList<QKeySequence> &valueParam);

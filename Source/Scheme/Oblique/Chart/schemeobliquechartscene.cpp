@@ -87,7 +87,7 @@ void SchemeObliqueChartScene::nextHistory()
 }
 
 
-void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode)
+void SchemeObliqueChartScene::editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode)
 {
     this->nodes.setNodeDirection(numberRow, numberColumn, directionsNode);
 
@@ -104,7 +104,7 @@ void SchemeObliqueChartScene::editFromHistory(const int &numberThread, const QBr
     this->updateScene();
 }
 
-void SchemeObliqueChartScene::editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush)
+void SchemeObliqueChartScene::editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionNode, const QBrush &brush)
 {
     switch (direction) {
     case SchemeOblique::Directions::ADD_TOP:
@@ -172,7 +172,7 @@ void SchemeObliqueChartScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     SchemeObliqueObjectNode *node = dynamic_cast<SchemeObliqueObjectNode *>(item);
     SchemeObliqueObjectPart *part = dynamic_cast<SchemeObliqueObjectPart *>(item);
     if (node) {
-        SchemeObliqueObjectNode::DirectionsNode directionsNodeBack = node->directionNode;
+        SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode directionsNodeBack = node->directionNode;
         node->click();
         this->history.addHistory(node->getNumberRow(), node->getNumberColumn(), node->directionNode, directionsNodeBack);
         this->updateScene();

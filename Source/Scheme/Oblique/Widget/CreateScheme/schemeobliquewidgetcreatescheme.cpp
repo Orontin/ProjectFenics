@@ -4,6 +4,33 @@
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
+SchemeObliqueWidgetCreateScheme *SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme{nullptr};
+
+SchemeObliqueWidgetCreateScheme &SchemeObliqueWidgetCreateScheme::getInstance()
+{
+    if (!SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme) {
+        SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme;
+    }
+    return *SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme;
+}
+
+void SchemeObliqueWidgetCreateScheme::createIn()
+{
+    this->ui->name->setText(SchemeObliqueChartScene::defaultNameScheme);
+    this->show();
+}
+
+void SchemeObliqueWidgetCreateScheme::onCancelClicked()
+{
+    this->close();
+}
+
+void SchemeObliqueWidgetCreateScheme::onCreateClicked()
+{
+    emit this->createOut(*(new SchemeObliqueChartView(this->ui->countThreads->value(), this->ui->countHalfrow->value(), this->ui->nodeOf1_2->isChecked(), this->ui->name->text())));
+    this->onCancelClicked();
+}
+
 SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme():
     ui(new Ui::SchemeObliqueWidgetCreateScheme)
 {
@@ -25,21 +52,4 @@ SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme():
 SchemeObliqueWidgetCreateScheme::~SchemeObliqueWidgetCreateScheme()
 {
     delete this->ui;
-}
-
-void SchemeObliqueWidgetCreateScheme::createIn()
-{
-    this->ui->name->setText(SchemeObliqueChartScene::defaultNameScheme);
-    this->show();
-}
-
-void SchemeObliqueWidgetCreateScheme::onCancelClicked()
-{
-    this->close();
-}
-
-void SchemeObliqueWidgetCreateScheme::onCreateClicked()
-{
-    emit this->createOut(*(new SchemeObliqueChartView(this->ui->countThreads->value(), this->ui->countHalfrow->value(), this->ui->nodeOf1_2->isChecked(), this->ui->name->text())));
-    this->onCancelClicked();
 }

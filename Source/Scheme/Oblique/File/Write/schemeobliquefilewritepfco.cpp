@@ -6,13 +6,14 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-SchemeObliqueFileWritePFCO::SchemeObliqueFileWritePFCO(): AbstractSchemeFileWrite("pf.co", "Project Fenics - Complicated Oblique") {
+SchemeObliqueFileWritePFCO *SchemeObliqueFileWritePFCO::schemeObliqueFileWritePFCO{nullptr};
 
-}
-
-SchemeObliqueFileWritePFCO::~SchemeObliqueFileWritePFCO()
+SchemeObliqueFileWritePFCO &SchemeObliqueFileWritePFCO::getInstance()
 {
-
+    if (!SchemeObliqueFileWritePFCO::schemeObliqueFileWritePFCO) {
+        SchemeObliqueFileWritePFCO::schemeObliqueFileWritePFCO = new SchemeObliqueFileWritePFCO;
+    }
+    return *schemeObliqueFileWritePFCO;
 }
 
 QByteArray SchemeObliqueFileWritePFCO::writeScheme(const AbstractSchemeChartView &view)
@@ -40,3 +41,13 @@ QByteArray SchemeObliqueFileWritePFCO::writeScheme(const AbstractSchemeChartView
     QJsonDocument jsonDoc(jsonObject);
     return jsonDoc.toJson(QJsonDocument::Indented);
 }
+
+SchemeObliqueFileWritePFCO::SchemeObliqueFileWritePFCO(): AbstractSchemeFileWrite("pf.co", "Project Fenics - Complicated Oblique") {
+
+}
+
+SchemeObliqueFileWritePFCO::~SchemeObliqueFileWritePFCO()
+{
+
+}
+

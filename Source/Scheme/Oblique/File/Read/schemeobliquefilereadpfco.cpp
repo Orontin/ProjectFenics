@@ -6,13 +6,14 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueFileReadPFCO::SchemeObliqueFileReadPFCO(): AbstractSchemeFileRead("pf.co", "Project Fenics - Complicated Oblique") {
+SchemeObliqueFileReadPFCO *SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO{nullptr};
 
-}
-
-SchemeObliqueFileReadPFCO::~SchemeObliqueFileReadPFCO()
+SchemeObliqueFileReadPFCO &SchemeObliqueFileReadPFCO::getInstance()
 {
-
+    if (!SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO) {
+        SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO = new SchemeObliqueFileReadPFCO;
+    }
+    return *schemeObliqueFileReadPFCO;
 }
 
 AbstractSchemeChartView &SchemeObliqueFileReadPFCO::readScheme(QByteArray byteArray, QString name)
@@ -80,6 +81,15 @@ AbstractSchemeChartView &SchemeObliqueFileReadPFCO::readScheme(QByteArray byteAr
     }
 
     return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+}
+
+SchemeObliqueFileReadPFCO::SchemeObliqueFileReadPFCO(): AbstractSchemeFileRead("pf.co", "Project Fenics - Complicated Oblique") {
+
+}
+
+SchemeObliqueFileReadPFCO::~SchemeObliqueFileReadPFCO()
+{
+
 }
 
 void SchemeObliqueFileReadPFCO::setColorThreads(QList<QBrush> &colorThreads, const QJsonObject &jsonObject)
