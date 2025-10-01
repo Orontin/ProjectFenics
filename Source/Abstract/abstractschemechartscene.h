@@ -7,6 +7,7 @@
 class AbstractSchemeChartScene : public QGraphicsScene
 {
     Q_OBJECT
+
 public:
     virtual void updateScene() = 0;
     virtual void backHistory() = 0;

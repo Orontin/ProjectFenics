@@ -11,6 +11,8 @@
 #include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
 #include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
 
+SchemeOblique *SchemeOblique::schemeOblique{nullptr};
+
 SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(), &SchemeObliqueFileReadFBD::getInstance(), &SchemeObliqueFileReadPFCO::getInstance()}}
 {
     connect(&this->actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createIn);
@@ -24,6 +26,14 @@ SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSch
 SchemeOblique::~SchemeOblique()
 {
 
+}
+
+SchemeOblique &SchemeOblique::getInstance()
+{
+    if (!SchemeOblique::schemeOblique) {
+        SchemeOblique::schemeOblique = new SchemeOblique;
+    }
+    return *SchemeOblique::schemeOblique;
 }
 
 void SchemeOblique::setMenuCreate(QMenu &menuCreate)

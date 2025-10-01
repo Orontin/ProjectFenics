@@ -18,18 +18,16 @@ int main(int argc, char *argv[])
         a.installTranslator(&qtTranslator);
     }
 
-    SchemeOblique *schemeOblique = new SchemeOblique();
-    QList<AbstractScheme*> *schemes = new QList<AbstractScheme*>{schemeOblique};
+    QList<AbstractScheme*> schemes{QList<AbstractScheme*>{&SchemeOblique::getInstance()}};
 
-    MainWindow w(*schemes);
+    MainWindow w(schemes);
     w.show();
 
     int returnCode = a.exec();
 
-    for (AbstractScheme *scheme : *schemes) {
+    for (AbstractScheme *scheme : schemes) {
         delete scheme;
     }
-    delete schemes;
 
     return returnCode;
 }

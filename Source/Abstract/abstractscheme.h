@@ -9,13 +9,11 @@
 #include "Abstract/abstractschemefileread.h"
 #include "Abstract/abstractschemefilewrite.h"
 
-class AbstractScheme: public QObject {
+class AbstractScheme: public QObject
+{
     Q_OBJECT
 
 public:
-    AbstractScheme() {};
-    ~AbstractScheme() {};
-
     virtual void setMenuCreate(QMenu &menuCreate) = 0;
     virtual void setMenuSettings(QMenu &menuSettings) = 0;
     virtual void updateShortcut() = 0;

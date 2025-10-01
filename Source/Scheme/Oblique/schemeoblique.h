@@ -20,8 +20,7 @@ public:
         REMOVE_RIGHT  = 7
     };
 
-    SchemeOblique();
-    ~SchemeOblique();
+    static SchemeOblique &getInstance();
 
     void setMenuCreate(QMenu &menuCreate) override final;
     void setMenuSettings(QMenu &menuSettings) override final;
@@ -31,6 +30,9 @@ public:
     const QString &getTypeScheme() override final;
 
 private:
+    SchemeOblique();
+    ~SchemeOblique();
+
     void commonCreate();
 
     QMenu menuSettings;
@@ -38,6 +40,8 @@ private:
     QAction actionEditDirectionNewNode;
 
     QList<AbstractSchemeFileRead*> listFileRead;
+
+    static SchemeOblique *schemeOblique;
 };
 
 #endif // SCHEMEOBLIQUE_H
