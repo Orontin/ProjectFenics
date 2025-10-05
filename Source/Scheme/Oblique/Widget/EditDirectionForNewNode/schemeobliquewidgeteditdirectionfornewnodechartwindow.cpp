@@ -1,5 +1,4 @@
 #include "schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
-#include "ui_schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
 
 #include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h"
 
@@ -18,20 +17,23 @@ void SchemeObliqueWidgetEditDirectionForNewNodeWindow::open()
     this->show();
 }
 
-SchemeObliqueWidgetEditDirectionForNewNodeWindow::SchemeObliqueWidgetEditDirectionForNewNodeWindow(QWidget *parent):
-    QWidget(parent),
-    ui(new Ui::SchemeObliqueWidgetEditDirectionForNewNodeWindow)
+SchemeObliqueWidgetEditDirectionForNewNodeWindow::SchemeObliqueWidgetEditDirectionForNewNodeWindow(QWidget *parent): QWidget(parent)
 {
-    ui->setupUi(this);
+    this->setWindowTitle("Изменить направление новых узлов");
+    this->resize(380, 450);
+    this->setMinimumSize(380, 450);
+    this->setMaximumSize(380, 450);
 
     this->setWindowModality(Qt::ApplicationModal);
 
-    this->ui->centralWidget->addWidget(&SchemeObliqueWidgetEditDirectionForNewNodeChartView::getInstance());
+    this->setLayout(&this->gridLayout);
+    this->gridLayout.setSpacing(0);
+    this->gridLayout.setContentsMargins(0, 0, 0, 0);
 
-    this->setWindowTitle("Изменить направление новых узлов");
+    this->gridLayout.addWidget(&SchemeObliqueWidgetEditDirectionForNewNodeChartView::getInstance());
 }
 
 SchemeObliqueWidgetEditDirectionForNewNodeWindow::~SchemeObliqueWidgetEditDirectionForNewNodeWindow()
 {
-    delete this->ui;
+
 }

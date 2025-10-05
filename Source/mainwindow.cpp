@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 #include "Abstract/abstractschemechartscene.h"
 #include "Abstract/abstractschemechartview.h"
@@ -10,15 +9,51 @@
 
 MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
     schemes(schemes),
     tabWidget(schemes),
     fileRead(schemes),
     fileWrite(schemes)
 {
-    ui->setupUi(this);
+    this->setWindowTitle("Проект Феникс v3.0.0");
+    this->resize(800, 600);
 
-    this->setWindowTitle("Проект Феникс v3.0.0.0");
+    this->menubar.setGeometry(QRect(0, 0, 800, 600));
+    this->setMenuBar(&menubar);
+
+    this->setStatusBar(&statusbar);
+
+    this->menubar.addAction(file.menuAction());
+    this->file.addAction(&openFile);
+    this->file.addAction(&saveOpenScheme);
+    this->file.setTitle("Файл");
+    this->openFile.setText("Открыть файл");
+    this->saveOpenScheme.setText("Сохранить открытую схему");
+
+    this->menubar.addAction(view.menuAction());
+    this->view.setTitle("Вид");
+
+    this->menubar.addAction(history.menuAction());
+    this->history.setTitle("История");
+
+    this->menubar.addAction(scheme.menuAction());
+    this->scheme.addAction(createNewScheme.menuAction());
+    this->scheme.addAction(&deleteOpenScheme);
+    this->scheme.addSeparator();
+    this->scheme.addAction(managmentOpenScheme.menuAction());
+    this->scheme.addSeparator();
+    this->scheme.addAction(settingsOpenScheme.menuAction());
+    this->scheme.setTitle("Схема");
+    this->createNewScheme.setTitle("Создать новую схему");
+    this->deleteOpenScheme.setText("Удалить открытую схему");
+    this->managmentOpenScheme.setTitle("Управление открытой схемой");
+    this->settingsOpenScheme.setTitle("Настроить открытую схему");
+
+    this->menubar.addAction(settings.menuAction());
+    this->settings.addAction(&settingsShortcut);
+    this->settings.addAction(settingsScheme.menuAction());
+    this->settings.setTitle("Настройки");
+    this->settingsShortcut.setText("Сочетания клавиш");
+    this->settingsScheme.setTitle("Схем");
 
     this->connect(&this->fileRead, &FileRead::createOut, &this->tabWidget, &TabWidget::createOut);
 
@@ -28,26 +63,25 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     this->updateMenu(-1);
 
     for (AbstractScheme *scheme : schemes) {
-        scheme->setMenuCreate(*ui->createNewScheme);
+        scheme->setMenuCreate(this->createNewScheme);
     }
 
     for (AbstractScheme *scheme : schemes) {
-        scheme->setMenuSettings(*ui->settingsScheme);
+        scheme->setMenuSettings(this->settingsScheme);
     }
 
-    connect(this->ui->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
-    connect(this->ui->openFile, &QAction::triggered, this, &MainWindow::onOpenSchemeTriggered);
-    connect(this->ui->saveScheme, &QAction::triggered, this, &MainWindow::onSaveSchemeTriggered);
+    connect(&this->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
+    connect(&this->openFile, &QAction::triggered, this, &MainWindow::onOpenSchemeTriggered);
+    connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
 
-    this->ui->deleteOpenScheme->setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
-    this->ui->openFile->setShortcuts(Settings::getShortcut_Action_OpenFile());
-    this->ui->saveScheme->setShortcuts(Settings::getShortcut_Action_SaveScheme());
+    this->deleteOpenScheme.setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
+    this->openFile.setShortcuts(Settings::getShortcut_Action_OpenFile());
+    this->saveOpenScheme.setShortcuts(Settings::getShortcut_Action_SaveScheme());
 }
 
 MainWindow::~MainWindow()
 {
     disconnect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
-    delete this->ui;
 }
 
 void MainWindow::onOpenSchemeTriggered()
@@ -55,7 +89,7 @@ void MainWindow::onOpenSchemeTriggered()
     this->fileRead.readFile();
 }
 
-void MainWindow::onSaveSchemeTriggered()
+void MainWindow::onSaveOpenSchemeTriggered()
 {
     this->fileWrite.writeFile(this->tabWidget.getCurrentScheme());
 }
@@ -68,45 +102,44 @@ void MainWindow::onDeleteSchemeTriggered()
 void MainWindow::updateMenu(int index)
 {
     if (index == -1) {
-        this->ui->deleteOpenScheme->setEnabled(false);
-        this->ui->saveScheme->setEnabled(false);
+        this->deleteOpenScheme.setEnabled(false);
+        this->saveOpenScheme.setEnabled(false);
 
-        this->ui->view->setEnabled(false);
-        this->ui->history->setEnabled(false);
-        this->ui->managment->setEnabled(false);
-        this->ui->settingsOpenScheme->setEnabled(false);
+        this->view.setEnabled(false);
+        this->history.setEnabled(false);
+        this->managmentOpenScheme.setEnabled(false);
+        this->settingsOpenScheme.setEnabled(false);
     } else {
-        static_cast<AbstractSchemeChartView*>(&this->tabWidget.getCurrentScheme())->setMenuView(*this->ui->view);
+        static_cast<AbstractSchemeChartView*>(&this->tabWidget.getCurrentScheme())->setMenuView(this->view);
 
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuHistory(*this->ui->history);
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuManagment(*this->ui->managment);
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuSettingsOpenScheme(*this->ui->settingsOpenScheme);
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuHistory(this->history);
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuManagment(this->managmentOpenScheme);
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuSettingsOpenScheme(this->settingsOpenScheme);
 
         static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
 
-        this->ui->deleteOpenScheme->setEnabled(true);
-        this->ui->saveScheme->setEnabled(true);
+        this->deleteOpenScheme.setEnabled(true);
+        this->saveOpenScheme.setEnabled(true);
 
-        if (this->ui->view->actions().count()) {
-            this->ui->view->setEnabled(true);
+        if (this->view.actions().count()) {
+            this->view.setEnabled(true);
         } else {
-            this->ui->view->setEnabled(false);
+            this->view.setEnabled(false);
         }
-        if (this->ui->history->actions().count()) {
-            this->ui->history->setEnabled(true);
+        if (this->history.actions().count()) {
+            this->history.setEnabled(true);
         } else {
-            this->ui->history->setEnabled(false);
+            this->history.setEnabled(false);
         }
-        if (this->ui->managment->actions().count()) {
-            this->ui->managment->setEnabled(true);
+        if (this->managmentOpenScheme.actions().count()) {
+            this->managmentOpenScheme.setEnabled(true);
         } else {
-            this->ui->managment->setEnabled(false);
+            this->managmentOpenScheme.setEnabled(false);
         }
-        if (this->ui->settingsOpenScheme->actions().count()) {
-            this->ui->settingsOpenScheme->setEnabled(true);
+        if (this->settingsOpenScheme.actions().count()) {
+            this->settingsOpenScheme.setEnabled(true);
         } else {
-            this->ui->settingsOpenScheme->setEnabled(false);
+            this->settingsOpenScheme.setEnabled(false);
         }
     }
 }
-

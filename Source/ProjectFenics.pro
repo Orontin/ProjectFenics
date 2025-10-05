@@ -77,10 +77,7 @@ HEADERS += \
     tabwidget.h \
     mainwindow.h
 
-FORMS += \
-    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.ui \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.ui \
-    mainwindow.ui
+FORMS +=
 
 # INCLUDEPATH += "C:/Program Files (x86)/Visual Leak Detector/include/"
 # LIBS        += -L"C:/Program Files (x86)/Visual Leak Detector/lib/Win64"

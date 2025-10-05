@@ -2,10 +2,7 @@
 #define SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODEWINDOW_H
 
 #include <QWidget>
-
-namespace Ui {
-class SchemeObliqueWidgetEditDirectionForNewNodeWindow;
-}
+#include <QGridLayout>
 
 class SchemeObliqueWidgetEditDirectionForNewNodeWindow : public QWidget
 {
@@ -22,7 +19,7 @@ private:
 
     static SchemeObliqueWidgetEditDirectionForNewNodeWindow *schemeObliqueWidgetEditDirectionForNewNodeWindow;
 
-    Ui::SchemeObliqueWidgetEditDirectionForNewNodeWindow *ui;
+    QGridLayout gridLayout;
 };
 
 #endif // SCHEMEOBLIQUEWIDGETEDITDIRECTIONFORNEWNODEWINDOW_H
