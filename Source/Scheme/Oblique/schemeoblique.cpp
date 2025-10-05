@@ -43,7 +43,7 @@ void SchemeOblique::setMenuCreate(QMenu &menuCreate)
 
 void SchemeOblique::setMenuSettings(QMenu &menuSettings)
 {
-    menuSettings.addAction(&this->actionEditDirectionNewNode);
+    menuSettings.addMenu(&this->menuSettings);
 }
 
 void SchemeOblique::updateShortcut()
