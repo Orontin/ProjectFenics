@@ -15,7 +15,7 @@ SchemeObliqueWidgetCreateScheme &SchemeObliqueWidgetCreateScheme::getInstance()
 
 void SchemeObliqueWidgetCreateScheme::createIn()
 {
-    this->name->setText(SchemeObliqueChartScene::defaultNameScheme);
+    this->name.setText(SchemeObliqueChartScene::defaultNameScheme);
     this->show();
 }
 
@@ -26,7 +26,7 @@ void SchemeObliqueWidgetCreateScheme::onCancelClicked()
 
 void SchemeObliqueWidgetCreateScheme::onCreateClicked()
 {
-    emit this->createOut(*(new SchemeObliqueChartView(this->countThreads->value(), this->countHalfrow->value(), this->nodeOf1_2->isChecked(), this->name->text())));
+    emit this->createOut(*(new SchemeObliqueChartView(this->countThreads.value(), this->countHalfrow.value(), this->nodeOf1_2.isChecked(), this->name.text())));
     this->onCancelClicked();
 }
 
@@ -41,13 +41,13 @@ SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme()
 
     this->setWindowModality(Qt::ApplicationModal);
 
-    this->countHalfrow->setMinimum(SchemeObliqueChartScene::defaultCountHalfrow);
-    this->countHalfrow->setMaximum(SchemeObliqueChartScene::maximumCount);
-    this->countThreads->setMinimum(SchemeObliqueChartScene::defaultCountThread);
-    this->countThreads->setMaximum(SchemeObliqueChartScene::maximumCount);
+    this->countHalfrow.setMinimum(SchemeObliqueChartScene::defaultCountHalfrow);
+    this->countHalfrow.setMaximum(SchemeObliqueChartScene::maximumCount);
+    this->countThreads.setMinimum(SchemeObliqueChartScene::defaultCountThread);
+    this->countThreads.setMaximum(SchemeObliqueChartScene::maximumCount);
 
-    connect(this->create, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCreateClicked);
-    connect(this->cancel, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCancelClicked);
+    connect(&this->create, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCreateClicked);
+    connect(&this->cancel, &QPushButton::clicked, this, &SchemeObliqueWidgetCreateScheme::onCancelClicked);
 }
 
 SchemeObliqueWidgetCreateScheme::~SchemeObliqueWidgetCreateScheme()

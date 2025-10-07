@@ -37,135 +37,80 @@ private:
 
     static SchemeObliqueWidgetCreateScheme *schemeObliqueWidgetCreateScheme;
 
-    QGridLayout *gridLayout_3;
-    QGroupBox *groupBox;
-    QGridLayout *gridLayout;
-    QGroupBox *groupBoxFirstNode;
-    QGridLayout *gridLayout_2;
-    QRadioButton *nodeOf2_3;
-    QRadioButton *nodeOf1_2;
-    QHBoxLayout *horizontalLayoutCount;
-    QVBoxLayout *verticalLayoutLabel;
-    QLabel *labelCountThread;
-    QLabel *labelCountRow;
-    QVBoxLayout *verticalLayoutBox;
-    QSpinBox *countThreads;
-    QSpinBox *countHalfrow;
-    QHBoxLayout *horizontalLayoutName;
-    QLabel *label_name;
-    QLineEdit *name;
-    QHBoxLayout *horizontalLayoutButton;
-    QPushButton *create;
-    QPushButton *cancel;
+    QGridLayout gridLayout;
+    QGroupBox groupBox;
+    QGridLayout gridLayoutGroupBox;
+    QGroupBox groupBoxFirstNode;
+    QGridLayout gridLayoutFirstName;
+    QRadioButton nodeOf2_3;
+    QRadioButton nodeOf1_2;
+    QHBoxLayout horizontalLayoutCount;
+    QVBoxLayout verticalLayoutLabel;
+    QLabel labelCountThread;
+    QLabel labelCountRow;
+    QVBoxLayout verticalLayoutSpinBox;
+    QSpinBox countThreads;
+    QSpinBox countHalfrow;
+    QHBoxLayout horizontalLayoutName;
+    QLabel labelName;
+    QLineEdit name;
+    QHBoxLayout horizontalLayoutButton;
+    QPushButton create;
+    QPushButton cancel;
 
     void setupUi()
     {
-        gridLayout_3 = new QGridLayout(this);
-        gridLayout_3->setObjectName("gridLayout_3");
-        groupBox = new QGroupBox(this);
-        groupBox->setObjectName("groupBox");
-        groupBox->setEnabled(true);
-        groupBox->setCheckable(false);
-        gridLayout = new QGridLayout(groupBox);
-        gridLayout->setObjectName("gridLayout");
-        groupBoxFirstNode = new QGroupBox(groupBox);
-        groupBoxFirstNode->setObjectName("groupBoxFirstNode");
-        gridLayout_2 = new QGridLayout(groupBoxFirstNode);
-        gridLayout_2->setObjectName("gridLayout_2");
-        nodeOf2_3 = new QRadioButton(groupBoxFirstNode);
-        nodeOf2_3->setObjectName("nodeOf2_3");
+        this->labelCountThread.setText("Количество нитей");
+        this->verticalLayoutLabel.addWidget(&this->labelCountThread);
+        this->labelCountRow.setText("Количество строк");
+        this->verticalLayoutLabel.addWidget(&this->labelCountRow);
 
-        gridLayout_2->addWidget(nodeOf2_3, 1, 0, 1, 1);
+        this->horizontalLayoutCount.addLayout(&this->verticalLayoutLabel);
 
-        nodeOf1_2 = new QRadioButton(groupBoxFirstNode);
-        nodeOf1_2->setObjectName("nodeOf1_2");
-        nodeOf1_2->setChecked(true);
+        this->countThreads.setMinimum(3);
+        this->countThreads.setMaximum(2147483647);
+        this->verticalLayoutSpinBox.addWidget(&this->countThreads);
 
-        gridLayout_2->addWidget(nodeOf1_2, 0, 0, 1, 1);
+        this->countHalfrow.setMinimum(2);
+        this->countHalfrow.setMaximum(2147483647);
+        this->verticalLayoutSpinBox.addWidget(&this->countHalfrow);
 
+        this->horizontalLayoutCount.addLayout(&this->verticalLayoutSpinBox);
 
-        gridLayout->addWidget(groupBoxFirstNode, 1, 0, 1, 1);
+        this->nodeOf2_3.setText("Нити 2 - 3");
+        this->gridLayoutFirstName.addWidget(&this->nodeOf2_3, 1, 0, 1, 1);
 
-        horizontalLayoutCount = new QHBoxLayout();
-        horizontalLayoutCount->setObjectName("horizontalLayoutCount");
-        verticalLayoutLabel = new QVBoxLayout();
-        verticalLayoutLabel->setObjectName("verticalLayoutLabel");
-        labelCountThread = new QLabel(groupBox);
-        labelCountThread->setObjectName("labelCountThread");
+        this->nodeOf1_2.setChecked(true);
+        this->nodeOf1_2.setText("Нити 1 - 2");
+        this->gridLayoutFirstName.addWidget(&this->nodeOf1_2, 0, 0, 1, 1);
 
-        verticalLayoutLabel->addWidget(labelCountThread);
+        this->groupBoxFirstNode.setTitle("Первый узел");
+        this->groupBoxFirstNode.setLayout(&this->gridLayoutFirstName);
 
-        labelCountRow = new QLabel(groupBox);
-        labelCountRow->setObjectName("labelCountRow");
+        this->gridLayout.addWidget(&this->groupBoxFirstNode, 1, 0, 1, 1);
 
-        verticalLayoutLabel->addWidget(labelCountRow);
+        this->gridLayout.addLayout(&this->horizontalLayoutCount, 0, 0, 1, 1);
 
+        this->groupBox.setTitle(QString());
+        this->groupBox.setEnabled(true);
+        this->groupBox.setCheckable(false);
 
-        horizontalLayoutCount->addLayout(verticalLayoutLabel);
+        this->groupBox.setLayout(&this->gridLayout);
 
-        verticalLayoutBox = new QVBoxLayout();
-        verticalLayoutBox->setObjectName("verticalLayoutBox");
-        countThreads = new QSpinBox(groupBox);
-        countThreads->setObjectName("countThreads");
-        countThreads->setMinimum(3);
-        countThreads->setMaximum(2147483647);
+        this->gridLayoutGroupBox.addWidget(&this->groupBox, 0, 0, 1, 1);
 
-        verticalLayoutBox->addWidget(countThreads);
+        this->labelName.setText("Имя");
+        this->horizontalLayoutName.addWidget(&this->labelName);
+        this->horizontalLayoutName.addWidget(&this->name);
+        this->gridLayoutGroupBox.addLayout(&this->horizontalLayoutName, 1, 0, 1, 1);
 
-        countHalfrow = new QSpinBox(groupBox);
-        countHalfrow->setObjectName("countHalfrow");
-        countHalfrow->setMinimum(2);
-        countHalfrow->setMaximum(2147483647);
+        this->create.setText("Создать");
+        this->horizontalLayoutButton.addWidget(&this->create);
+        this->cancel.setText("Отменить");
+        this->horizontalLayoutButton.addWidget(&this->cancel);
+        this->gridLayoutGroupBox.addLayout(&this->horizontalLayoutButton, 2, 0, 1, 1);
 
-        verticalLayoutBox->addWidget(countHalfrow);
-
-
-        horizontalLayoutCount->addLayout(verticalLayoutBox);
-
-
-        gridLayout->addLayout(horizontalLayoutCount, 0, 0, 1, 1);
-
-
-        gridLayout_3->addWidget(groupBox, 0, 0, 1, 1);
-
-        horizontalLayoutName = new QHBoxLayout();
-        horizontalLayoutName->setObjectName("horizontalLayoutName");
-        label_name = new QLabel(this);
-        label_name->setObjectName("label_name");
-
-        horizontalLayoutName->addWidget(label_name);
-
-        name = new QLineEdit(this);
-        name->setObjectName("name");
-
-        horizontalLayoutName->addWidget(name);
-
-
-        gridLayout_3->addLayout(horizontalLayoutName, 1, 0, 1, 1);
-
-        horizontalLayoutButton = new QHBoxLayout();
-        horizontalLayoutButton->setObjectName("horizontalLayoutButton");
-        create = new QPushButton(this);
-        create->setObjectName("create");
-
-        horizontalLayoutButton->addWidget(create);
-
-        cancel = new QPushButton(this);
-        cancel->setObjectName("cancel");
-
-        horizontalLayoutButton->addWidget(cancel);
-
-        gridLayout_3->addLayout(horizontalLayoutButton, 2, 0, 1, 1);
-
-        this->groupBox->setTitle(QString());
-        this->groupBoxFirstNode->setTitle("Первый узел");
-        this->nodeOf2_3->setText("Нити 2 - 3");
-        this->nodeOf1_2->setText("Нити 1 - 2");
-        this->labelCountThread->setText("Количество нитей");
-        this->labelCountRow->setText("Количество строк");
-        this->label_name->setText("Имя");
-        this->create->setText("Создать");
-        this->cancel->setText("Отменить");
+        this->setLayout(&this->gridLayoutGroupBox);
     }
 };
 
