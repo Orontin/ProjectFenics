@@ -11,6 +11,7 @@
 #include "tabwidget.h"
 #include "fileread.h"
 #include "filewrite.h"
+#include "shortcutwidget.h"
 
 #include "Abstract/abstractscheme.h"
 
@@ -37,6 +38,7 @@ private:
     TabWidget tabWidget;
     FileRead fileRead;
     FileWrite fileWrite;
+    ShortcutWidget shortcutWidget;
 
     QMenu file;
     QAction openFile;

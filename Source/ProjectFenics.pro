@@ -36,6 +36,7 @@ SOURCES += \
     fileread.cpp \
     filewrite.cpp \
     settings.cpp \
+    shortcutwidget.cpp \
     tabwidget.cpp \
     mainwindow.cpp \
     main.cpp \
@@ -74,6 +75,7 @@ HEADERS += \
     fileread.h \
     filewrite.h \
     settings.h \
+    shortcutwidget.h \
     tabwidget.h \
     mainwindow.h
 
