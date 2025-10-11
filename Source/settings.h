@@ -15,9 +15,11 @@ public:
     static void setShortcut_Action_OpenFile(const QList<QKeySequence> &valueParam);
     static void setShortcut_Action_SaveScheme(const QList<QKeySequence> &valueParam);
     static void setShortcut_Action_DeleteOpenScheme(const QList<QKeySequence> &valueParam);
+    static void setShortcut_Action_OpenShortcutWidget(const QList<QKeySequence> &valueParam);
     static QList<QKeySequence> getShortcut_Action_OpenFile();
     static QList<QKeySequence> getShortcut_Action_SaveScheme();
     static QList<QKeySequence> getShortcut_Action_DeleteOpenScheme();
+    static QList<QKeySequence> getShortcut_Action_OpenShortcutWidget();
 };
 
 #endif // SETTINGS_H

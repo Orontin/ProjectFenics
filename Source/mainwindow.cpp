@@ -59,9 +59,6 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
 
     this->setCentralWidget(&this->tabWidget);
 
-    this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
-    this->updateMenu(-1);
-
     for (AbstractScheme *scheme : schemes) {
         scheme->setMenuCreate(this->createNewScheme);
     }
@@ -73,10 +70,10 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     connect(&this->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
     connect(&this->openFile, &QAction::triggered, this, &MainWindow::onOpenSchemeTriggered);
     connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
+    connect(&this->settingsShortcut, &QAction::triggered, this, &MainWindow::onOpenShortcutWidgetTriggered);
 
-    this->deleteOpenScheme.setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
-    this->openFile.setShortcuts(Settings::getShortcut_Action_OpenFile());
-    this->saveOpenScheme.setShortcuts(Settings::getShortcut_Action_SaveScheme());
+    this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+    this->updateMenu(-1);
 }
 
 MainWindow::~MainWindow()
@@ -94,6 +91,11 @@ void MainWindow::onSaveOpenSchemeTriggered()
     this->fileWrite.writeFile(this->tabWidget.getCurrentScheme());
 }
 
+void MainWindow::onOpenShortcutWidgetTriggered()
+{
+    this->shortcutWidget.show();
+}
+
 void MainWindow::onDeleteSchemeTriggered()
 {
     this->tabWidget.deleteScheme();
@@ -101,6 +103,11 @@ void MainWindow::onDeleteSchemeTriggered()
 
 void MainWindow::updateMenu(int index)
 {
+    this->deleteOpenScheme.setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
+    this->openFile.setShortcuts(Settings::getShortcut_Action_OpenFile());
+    this->saveOpenScheme.setShortcuts(Settings::getShortcut_Action_SaveScheme());
+    this->settingsShortcut.setShortcuts(Settings::getShortcut_Action_OpenShortcutWidget());
+
     if (index == -1) {
         this->deleteOpenScheme.setEnabled(false);
         this->saveOpenScheme.setEnabled(false);

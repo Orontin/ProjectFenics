@@ -4,7 +4,7 @@ ShortcutWidget::ShortcutWidget():
     verticalSpacer(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding)
 {
     this->setWindowTitle("Настройка сочетаний клавиш");
-    this->resize(800, 600);
+    this->resize(400, 800);
 
     this->labelOpenFile.setText("Открыть файл");
     this->labelSaveOpenScheme.setText("Сохранить открытую схему");

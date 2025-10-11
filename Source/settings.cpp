@@ -37,6 +37,11 @@ void Settings::setShortcut_Action_DeleteOpenScheme(const QList<QKeySequence> &va
     AbstractSchemeFileSetting::setValue("Shortcut/Coomon/DeleteOpenScheme", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
+void Settings::setShortcut_Action_OpenShortcutWidget(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/OpenShortcutWidget", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
 QList<QKeySequence> Settings::getShortcut_Action_OpenFile()
 {
     return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenFile", QStringList{"Ctrl+O"}));
@@ -50,4 +55,9 @@ QList<QKeySequence> Settings::getShortcut_Action_SaveScheme()
 QList<QKeySequence> Settings::getShortcut_Action_DeleteOpenScheme()
 {
     return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/DeleteOpenScheme", QStringList{"Ctrl+D"}));
+}
+
+QList<QKeySequence> Settings::getShortcut_Action_OpenShortcutWidget()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenShortcutWidget", QStringList{"Escape"}));
 }

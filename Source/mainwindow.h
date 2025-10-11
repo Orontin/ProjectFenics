@@ -27,6 +27,7 @@ private slots:
     // файл
     void onOpenSchemeTriggered();
     void onSaveOpenSchemeTriggered();
+    void onOpenShortcutWidgetTriggered();
 
     // схема
     void onDeleteSchemeTriggered();
