@@ -2,11 +2,12 @@
 #define SHORTCUTWIDGET_H
 
 #include <QLabel>
-#include <QKeySequenceEdit>
 #include <QWidget>
 #include <QGroupBox>
+#include <QScrollArea>
 #include <QGridLayout>
 #include <QSpacerItem>
+#include <QKeySequenceEdit>
 
 class ShortcutWidget : public QWidget
 {
@@ -19,7 +20,12 @@ public:
 private:
     QGridLayout gridLayout;
 
-    QLabel verticalLayoutLabel;
+    QScrollArea scrollArea;
+    QWidget widgetScrollArea;
+    QGridLayout widgetScrollAreaGridLayout;
+    QGridLayout gridLayouWidgetScrollArea;
+    QSpacerItem spacer;
+
     QLabel verticalLayoutKeySequenceEdit_1;
     QLabel verticalLayoutKeySequenceEdit_2;
     QLabel verticalLayoutKeySequenceEdit_3;
