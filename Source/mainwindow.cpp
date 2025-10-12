@@ -103,10 +103,10 @@ void MainWindow::onDeleteSchemeTriggered()
 
 void MainWindow::updateMenu(int index)
 {
-    this->deleteOpenScheme.setShortcuts(Settings::getShortcut_Action_DeleteOpenScheme());
-    this->openFile.setShortcuts(Settings::getShortcut_Action_OpenFile());
-    this->saveOpenScheme.setShortcuts(Settings::getShortcut_Action_SaveScheme());
-    this->settingsShortcut.setShortcuts(Settings::getShortcut_Action_OpenShortcutWidget());
+    this->deleteOpenScheme.setShortcuts(Settings::getListShortcutActionDeleteOpenScheme());
+    this->openFile.setShortcuts(Settings::getListShortcutActionOpenFile());
+    this->saveOpenScheme.setShortcuts(Settings::getListShortcutActionSaveScheme());
+    this->settingsShortcut.setShortcuts(Settings::getListShortcutActionOpenShortcutWidget());
 
     if (index == -1) {
         this->deleteOpenScheme.setEnabled(false);

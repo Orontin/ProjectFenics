@@ -20,7 +20,7 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
     for (AbstractScheme *scheme : this->schemes) {
         if (view.getTypeScheme() == scheme->getTypeScheme()) {
             QFileDialog dialog(nullptr, "Сохранить схему",
-                               Settings::getFileWriteDirectory(),
+                               Settings::getFileDirectoryWrite(),
                                scheme->getFileWrite().filter);
             dialog.setFileMode(QFileDialog::AnyFile);
             dialog.setAcceptMode(QFileDialog::AcceptSave);
@@ -28,7 +28,7 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
             dialog.selectFile(view.name);
 
             if (dialog.exec()) {
-                Settings::setFileWriteDirectory(dialog.directory().path());
+                Settings::setFileDirectoryWrite(dialog.directory().path());
                 QString filePath = dialog.selectedFiles().back();
                 if (!filePath.isEmpty()) {
                     QFile file(filePath);

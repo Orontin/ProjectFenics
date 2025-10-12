@@ -6,7 +6,6 @@
 #include <QGroupBox>
 #include <QScrollArea>
 #include <QGridLayout>
-#include <QSpacerItem>
 #include <QKeySequenceEdit>
 
 class ShortcutWidget : public QWidget
@@ -17,6 +16,10 @@ public:
     explicit ShortcutWidget();
     ~ShortcutWidget();
 
+protected:
+    void showEvent(QShowEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
+
 private:
     QGridLayout gridLayout;
 
@@ -24,7 +27,6 @@ private:
     QWidget widgetScrollArea;
     QGridLayout widgetScrollAreaGridLayout;
     QGridLayout gridLayouWidgetScrollArea;
-    QSpacerItem spacer;
 
     QLabel verticalLayoutKeySequenceEdit_1;
     QLabel verticalLayoutKeySequenceEdit_2;
@@ -34,28 +36,36 @@ private:
     QLabel labelName;
 
     QLabel labelOpenFile;
-    QKeySequenceEdit KeySequenceEditOpenFile_1;
-    QKeySequenceEdit KeySequenceEditOpenFile_2;
-    QKeySequenceEdit KeySequenceEditOpenFile_3;
-    QKeySequenceEdit KeySequenceEditOpenFile_4;
+    QKeySequenceEdit keySequenceEditOpenFile_1;
+    QKeySequenceEdit keySequenceEditOpenFile_2;
+    QKeySequenceEdit keySequenceEditOpenFile_3;
+    QKeySequenceEdit keySequenceEditOpenFile_4;
 
     QLabel labelSaveOpenScheme;
-    QKeySequenceEdit KeySequenceEditSaveOpenScheme_1;
-    QKeySequenceEdit KeySequenceEditSaveOpenScheme_2;
-    QKeySequenceEdit KeySequenceEditSaveOpenScheme_3;
-    QKeySequenceEdit KeySequenceEditSaveOpenScheme_4;
+    QKeySequenceEdit keySequenceEditSaveOpenScheme_1;
+    QKeySequenceEdit keySequenceEditSaveOpenScheme_2;
+    QKeySequenceEdit keySequenceEditSaveOpenScheme_3;
+    QKeySequenceEdit keySequenceEditSaveOpenScheme_4;
 
     QLabel labelDeleteOpenScheme;
-    QKeySequenceEdit KeySequenceEditDeleteOpenScheme_1;
-    QKeySequenceEdit KeySequenceEditDeleteOpenScheme_2;
-    QKeySequenceEdit KeySequenceEditDeleteOpenScheme_3;
-    QKeySequenceEdit KeySequenceEditDeleteOpenScheme_4;
+    QKeySequenceEdit keySequenceEditDeleteOpenScheme_1;
+    QKeySequenceEdit keySequenceEditDeleteOpenScheme_2;
+    QKeySequenceEdit keySequenceEditDeleteOpenScheme_3;
+    QKeySequenceEdit keySequenceEditDeleteOpenScheme_4;
 
     QLabel labelShortcutWidget;
-    QKeySequenceEdit KeySequenceEditShortcutWidget_1;
-    QKeySequenceEdit KeySequenceEditShortcutWidget_2;
-    QKeySequenceEdit KeySequenceEditShortcutWidget_3;
-    QKeySequenceEdit KeySequenceEditShortcutWidget_4;
+    QKeySequenceEdit keySequenceEditShortcutWidget_1;
+    QKeySequenceEdit keySequenceEditShortcutWidget_2;
+    QKeySequenceEdit keySequenceEditShortcutWidget_3;
+    QKeySequenceEdit keySequenceEditShortcutWidget_4;
+
+    QList<QKeySequenceEdit*> listShortcutOpenFile;
+    QList<QKeySequenceEdit*> listShortcutEditSaveOpenScheme;
+    QList<QKeySequenceEdit*> listShortcutDeleteOpenScheme;
+    QList<QKeySequenceEdit*> listShortcutShortcutWidget;
+
+    void setShortcutInWidget();
+    void saveShortcutInFile();
 };
 
 #endif // SHORTCUTWIDGET_H

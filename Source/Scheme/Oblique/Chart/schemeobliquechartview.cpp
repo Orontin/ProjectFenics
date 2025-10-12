@@ -47,14 +47,14 @@ void SchemeObliqueChartView::setMenuView(QMenu &menuView)
 
 void SchemeObliqueChartView::updateShortcut()
 {
-    this->actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ZoomOut());
-    this->actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ZoomIn());
-    this->actionToBottom.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ToBottom());
-    this->actionToTop.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ToTop());
-    this->actionToLeft.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ToLeft());
-    this->actionToRight.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_ToRight());
-    this->actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RotateLeft());
-    this->actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_RotateRight());
+    this->actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
+    this->actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
+    this->actionToBottom.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom());
+    this->actionToTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop());
+    this->actionToLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft());
+    this->actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
+    this->actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
+    this->actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
 }
 
 const QString &SchemeObliqueChartView::getTypeScheme()

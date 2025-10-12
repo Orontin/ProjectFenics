@@ -17,13 +17,13 @@ FileRead::~FileRead()
 void FileRead::readFile()
 {
     QFileDialog dialog(nullptr, "Выберите файл(ы) сохранений",
-                       Settings::getFileReadDirectory(),
+                       Settings::getFileDirectoryRead(),
                        this->filter);
     dialog.setFileMode(QFileDialog::ExistingFiles);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     if (dialog.exec()) {
-        Settings::setFileReadDirectory(dialog.directory().path());
+        Settings::setFileDirectoryRead(dialog.directory().path());
         for (const QString &filePath : dialog.selectedFiles()) {
             QFile file(filePath);
             if (file.open(QFile::OpenModeFlag::ReadOnly)) {

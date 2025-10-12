@@ -48,8 +48,8 @@ void SchemeOblique::setMenuSettings(QMenu &menuSettings)
 
 void SchemeOblique::updateShortcut()
 {
-    this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_Create());
-    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getShortcut_Action_EditDirectionNewNode());
+    this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
+    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowEditDirectionNewNode());
 }
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()

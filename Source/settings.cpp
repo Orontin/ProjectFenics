@@ -2,62 +2,86 @@
 
 #include <QDir>
 
-void Settings::setFileReadDirectory(const QString &valueParam)
+QString Settings::PATH_TO_FILE_DIRECTORY_READ{"File/Directory/Read"};
+QString Settings::PATH_TO_FILE_DIRECTORY_WRITE{"File/Directory/Write"};
+
+QString Settings::FILE_DIRECTORY_READ{QDir::homePath()};
+QString Settings::FILE_DIRECTORY_WRITE{QDir::homePath()};
+
+QString Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_FILE{"Shortcut/Coomon/OpenFile"};
+QString Settings::PATH_TO_LIST_SHORTCUT_ACTION_SAVE_SCHEME{"Shortcut/Coomon/SaveScheme"};
+QString Settings::PATH_TO_LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME{"Shortcut/Coomon/DeleteOpenScheme"};
+QString Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET{"Shortcut/Coomon/OpenShortcutWidget"};
+
+QStringList Settings::LIST_SHORTCUT_ACTION_OPEN_FILE{"Ctrl+O", "", "", ""};
+QStringList Settings::LIST_SHORTCUT_ACTION_SAVE_SCHEME{"Ctrl+S", "", "", ""};
+QStringList Settings::LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME{"Ctrl+D", "", "", ""};
+QStringList Settings::LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET{"Escape", "", "", ""};
+
+void Settings::setFileDirectoryRead(const QString &valueParam)
 {
-    return AbstractSchemeFileSetting::setValue("File/Directory/Read", valueParam);
+    return AbstractSchemeFileSetting::setValue(Settings::PATH_TO_FILE_DIRECTORY_READ, valueParam);
 }
 
-QString Settings::getFileReadDirectory()
+QString Settings::getFileDirectoryRead()
 {
-    return AbstractSchemeFileSetting::getValue("File/Directory/Read", QDir::homePath());
+    return AbstractSchemeFileSetting::getValue(Settings::PATH_TO_FILE_DIRECTORY_READ, Settings::FILE_DIRECTORY_READ);
 }
 
-void Settings::setFileWriteDirectory(const QString &valueParam)
+void Settings::setFileDirectoryWrite(const QString &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("File/Directory/Write", valueParam);
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_FILE_DIRECTORY_WRITE, valueParam);
 }
 
-QString Settings::getFileWriteDirectory()
+QString Settings::getFileDirectoryWrite()
 {
-    return AbstractSchemeFileSetting::getValue("File/Directory/Write", QDir::homePath());
+    return AbstractSchemeFileSetting::getValue(Settings::PATH_TO_FILE_DIRECTORY_WRITE, Settings::FILE_DIRECTORY_WRITE);
 }
 
-void Settings::setShortcut_Action_OpenFile(const QList<QKeySequence> &valueParam)
+void Settings::setListShortcutActionOpenFile(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/OpenFile", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_FILE, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void Settings::setShortcut_Action_SaveScheme(const QList<QKeySequence> &valueParam)
+void Settings::setListShortcutActionSaveScheme(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/SaveScheme", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_SAVE_SCHEME, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void Settings::setShortcut_Action_DeleteOpenScheme(const QList<QKeySequence> &valueParam)
+void Settings::setListShortcutActionDeleteOpenScheme(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/DeleteOpenScheme", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-void Settings::setShortcut_Action_OpenShortcutWidget(const QList<QKeySequence> &valueParam)
+void Settings::setListShortcutActionOpenShortcutWidget(const QList<QKeySequence> &valueParam)
 {
-    AbstractSchemeFileSetting::setValue("Shortcut/Coomon/OpenShortcutWidget", AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
 }
 
-QList<QKeySequence> Settings::getShortcut_Action_OpenFile()
+QList<QKeySequence> Settings::getListShortcutActionOpenFile()
 {
-    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenFile", QStringList{"Ctrl+O"}));
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_FILE, Settings::LIST_SHORTCUT_ACTION_OPEN_FILE));
 }
 
-QList<QKeySequence> Settings::getShortcut_Action_SaveScheme()
+QList<QKeySequence> Settings::getListShortcutActionSaveScheme()
 {
-    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/SaveScheme", QStringList{"Ctrl+S"}));
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_SAVE_SCHEME, Settings::LIST_SHORTCUT_ACTION_SAVE_SCHEME));
 }
 
-QList<QKeySequence> Settings::getShortcut_Action_DeleteOpenScheme()
+QList<QKeySequence> Settings::getListShortcutActionDeleteOpenScheme()
 {
-    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/DeleteOpenScheme", QStringList{"Ctrl+D"}));
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME, Settings::LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME));
 }
 
-QList<QKeySequence> Settings::getShortcut_Action_OpenShortcutWidget()
+QList<QKeySequence> Settings::getListShortcutActionOpenShortcutWidget()
 {
-    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue("Shortcut/Coomon/OpenShortcutWidget", QStringList{"Escape"}));
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET, Settings::LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET));
+}
+
+void Settings::setDefaultShrotcuts()
+{
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_FILE, Settings::LIST_SHORTCUT_ACTION_OPEN_FILE);
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_SAVE_SCHEME, Settings::LIST_SHORTCUT_ACTION_SAVE_SCHEME);
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME, Settings::LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME);
+    AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET, Settings::LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET);
 }
