@@ -68,11 +68,20 @@ ShortcutWidget::ShortcutWidget():
     this->scrollArea.setWidgetResizable(true);
     this->scrollArea.setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     this->scrollArea.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    this->gridLayout.addWidget(&this->scrollArea);
+    this->gridLayout.addWidget(&this->scrollArea, 0, 0, 1, 3);
+
+    this->setDefaultShortcut.setText("Вернуть дефолтные сочетания клавиш");
+    this->gridLayout.addWidget(&this->setDefaultShortcut, 1, 0);
+    this->cancel.setText("Отменить изменения");
+    this->gridLayout.addWidget(&this->cancel, 1, 1);
+    this->save.setText("Сохранить изменения");
+    this->gridLayout.addWidget(&this->save, 1, 2);
 
     this->setLayout(&this->gridLayout);
 
-    Settings::setDefaultShrotcuts();
+    connect(&this->setDefaultShortcut, &QPushButton::clicked, this, &ShortcutWidget::onClickedSetDefaultShortcut);
+    connect(&this->cancel, &QPushButton::clicked, this, &ShortcutWidget::onClickedCancel);
+    connect(&this->save, &QPushButton::clicked, this, &ShortcutWidget::onClickedSave);
 }
 
 ShortcutWidget::~ShortcutWidget()
@@ -82,16 +91,34 @@ ShortcutWidget::~ShortcutWidget()
 
 void ShortcutWidget::showEvent(QShowEvent *event)
 {
-    this->setShortcutInWidget();
-
+    onClickedCancel();
     QWidget::showEvent(event);
 }
 
 void ShortcutWidget::closeEvent(QCloseEvent *event)
 {
-    this->saveShortcutInFile();
-
+    onClickedCancel();
     QWidget::closeEvent(event);
+}
+
+void ShortcutWidget::onClickedSetDefaultShortcut()
+{
+    Settings::setDefaultShrotcuts();
+    setShortcutInWidget();
+    emit clickedSetDefaultShortcut();
+}
+
+void ShortcutWidget::onClickedCancel()
+{
+    setShortcutInWidget();
+    emit clickedCancel();
+}
+
+void ShortcutWidget::onClickedSave()
+{
+    saveShortcutInFile();
+    emit clickedSave();
+    this->close();
 }
 
 void ShortcutWidget::setShortcutInWidget()

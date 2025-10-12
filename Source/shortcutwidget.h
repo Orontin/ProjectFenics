@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <QGroupBox>
+#include <QPushButton>
 #include <QScrollArea>
 #include <QGridLayout>
 #include <QKeySequenceEdit>
@@ -16,12 +17,26 @@ public:
     explicit ShortcutWidget();
     ~ShortcutWidget();
 
+signals:
+    void clickedSetDefaultShortcut();
+    void clickedCancel();
+    void clickedSave();
+
 protected:
     void showEvent(QShowEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
 
+private slots:
+    void onClickedSetDefaultShortcut();
+    void onClickedCancel();
+    void onClickedSave();
+
 private:
     QGridLayout gridLayout;
+
+    QPushButton setDefaultShortcut;
+    QPushButton cancel;
+    QPushButton save;
 
     QScrollArea scrollArea;
     QWidget widgetScrollArea;
