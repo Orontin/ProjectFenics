@@ -24,7 +24,7 @@ public:
 
     void setMenuCreate(QMenu &menuCreate) override final;
     void setMenuSettings(QMenu &menuSettings) override final;
-    void updateShortcut() override final;
+    void onUpdateShortcut() override final;
     QList<AbstractSchemeFileRead*> &getListFileRead() override final;
     AbstractSchemeFileWrite &getFileWrite() override final;
     const QString &getTypeScheme() override final;
@@ -32,6 +32,8 @@ public:
 private:
     SchemeOblique();
     ~SchemeOblique();
+
+    void connectUpdateShortcutAndView(AbstractSchemeChartView &view);
 
     void commonCreate();
 

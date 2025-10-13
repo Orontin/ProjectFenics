@@ -42,7 +42,7 @@ public:
     void setMenuHistory(QMenu &menuHistory) override final;
     void setMenuManagment(QMenu &menuManagment) override final;
     void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) override final;
-    void updateShortcut() override final;
+    void onUpdateShortcut() override final;
     void updateScene() override final;
     void backHistory() override final;
     void nextHistory() override final;

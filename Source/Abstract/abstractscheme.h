@@ -16,12 +16,13 @@ class AbstractScheme: public QObject
 public:
     virtual void setMenuCreate(QMenu &menuCreate) = 0;
     virtual void setMenuSettings(QMenu &menuSettings) = 0;
-    virtual void updateShortcut() = 0;
+    virtual void onUpdateShortcut() = 0;
     virtual QList<AbstractSchemeFileRead*> &getListFileRead() = 0;
     virtual AbstractSchemeFileWrite &getFileWrite() = 0;
     virtual const QString &getTypeScheme() = 0;
 
 signals:
+    void updateShortcut();
     void createOut(AbstractSchemeChartView &view);
 };
 

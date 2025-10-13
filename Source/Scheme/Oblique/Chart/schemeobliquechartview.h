@@ -13,7 +13,7 @@ public:
     ~SchemeObliqueChartView();
 
     void setMenuView(QMenu &menuView) override final;
-    void updateShortcut() override final;
+    void onUpdateShortcut() override final;
     const QString &getTypeScheme() override final;
 
     static const QString &getTypeSchemeStatic();

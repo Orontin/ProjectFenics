@@ -15,7 +15,7 @@ public:
     ~AbstractSchemeChartView() {};
 
     virtual void setMenuView(QMenu &menuView) = 0;
-    virtual void updateShortcut() = 0;
+    virtual void onUpdateShortcut() = 0;
     virtual const QString &getTypeScheme() = 0;
 
     const QString name;

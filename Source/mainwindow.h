@@ -32,7 +32,13 @@ private slots:
     // схема
     void onDeleteSchemeTriggered();
 
+    // сочетания клавиш
+    void shortcutSetDefaultShortcut();
+    void shortcutCancel();
+    void shortcutSave();
+
 private:
+    void updateShortcut();
     void updateMenu(int index);
 
     QList<AbstractScheme*> &schemes;

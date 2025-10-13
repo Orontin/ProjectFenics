@@ -16,9 +16,11 @@ SchemeOblique *SchemeOblique::schemeOblique{nullptr};
 SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(), &SchemeObliqueFileReadFBD::getInstance(), &SchemeObliqueFileReadPFCO::getInstance()}}
 {
     connect(&this->actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createIn);
-    connect(&SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
+    connect(&SchemeObliqueWidgetCreateScheme::getInstance(), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::connectUpdateShortcutAndView);
 
     connect(&this->actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+
+    connect(this, &SchemeOblique::updateShortcut, this, &SchemeOblique::onUpdateShortcut);
 
     this->commonCreate();
 }
@@ -26,6 +28,12 @@ SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSch
 SchemeOblique::~SchemeOblique()
 {
 
+}
+
+void SchemeOblique::connectUpdateShortcutAndView(AbstractSchemeChartView &view)
+{
+    connect(this, &SchemeOblique::updateShortcut, &view, &AbstractSchemeChartView::onUpdateShortcut);
+    emit createOut(view);
 }
 
 SchemeOblique &SchemeOblique::getInstance()
@@ -46,7 +54,7 @@ void SchemeOblique::setMenuSettings(QMenu &menuSettings)
     menuSettings.addMenu(&this->menuSettings);
 }
 
-void SchemeOblique::updateShortcut()
+void SchemeOblique::onUpdateShortcut()
 {
     this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
     this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowEditDirectionNewNode());
@@ -75,5 +83,5 @@ void SchemeOblique::commonCreate()
     this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
     this->menuSettings.addAction(&this->actionEditDirectionNewNode);
 
-    this->updateShortcut();
+    this->onUpdateShortcut();
 }

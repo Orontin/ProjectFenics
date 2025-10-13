@@ -53,7 +53,7 @@ void SchemeObliqueChartScene::setMenuSettingsOpenScheme(QMenu &menuSettingsOpenS
     Q_UNUSED(menuSettingsOpenScheme);
 }
 
-void SchemeObliqueChartScene::updateShortcut()
+void SchemeObliqueChartScene::onUpdateShortcut()
 {
     this->actionBack.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack());
     this->actionNext.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext());
@@ -238,7 +238,7 @@ void SchemeObliqueChartScene::commonCreate()
     connect(&this->actionAddHalfrowDown, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_BOTTOM, true, true); });
     connect(&this->actionAddHalfrowTop, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_TOP, true, true); });
 
-    this->updateShortcut();
+    this->onUpdateShortcut();
 }
 
 void SchemeObliqueChartScene::editNodes(const SchemeOblique::Directions &direction, const bool &isUpdate, const bool &isSetHistory)

@@ -72,6 +72,10 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
     connect(&this->settingsShortcut, &QAction::triggered, this, &MainWindow::onOpenShortcutWidgetTriggered);
 
+    connect(&this->shortcutWidget, &ShortcutWidget::clickedSave, this, &MainWindow::shortcutSave);
+    connect(&this->shortcutWidget, &ShortcutWidget::clickedCancel, this, &MainWindow::shortcutCancel);
+    connect(&this->shortcutWidget, &ShortcutWidget::clickedSetDefaultShortcut, this, &MainWindow::shortcutSetDefaultShortcut);
+
     this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
     this->updateMenu(-1);
 }
@@ -99,6 +103,29 @@ void MainWindow::onOpenShortcutWidgetTriggered()
 void MainWindow::onDeleteSchemeTriggered()
 {
     this->tabWidget.deleteScheme();
+}
+
+void MainWindow::shortcutSetDefaultShortcut()
+{
+    updateShortcut();
+}
+
+void MainWindow::shortcutCancel()
+{
+    updateShortcut();
+}
+
+void MainWindow::shortcutSave()
+{
+    updateShortcut();
+}
+
+void MainWindow::updateShortcut()
+{
+    this->updateMenu(this->tabWidget.currentIndex());
+    for (AbstractScheme *scheme : schemes) {
+        emit scheme->updateShortcut();
+    }
 }
 
 void MainWindow::updateMenu(int index)

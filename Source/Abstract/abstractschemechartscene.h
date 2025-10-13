@@ -15,7 +15,7 @@ public:
     virtual void setMenuHistory(QMenu &menuHistory) = 0;
     virtual void setMenuManagment(QMenu &menuManagment) = 0;
     virtual void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) = 0;
-    virtual void updateShortcut() = 0;
+    virtual void onUpdateShortcut() = 0;
 };
 
 #endif // ABSTRACTSCHEMECHARTSCENE_H

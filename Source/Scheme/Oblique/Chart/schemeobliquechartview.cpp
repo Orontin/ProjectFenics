@@ -45,7 +45,7 @@ void SchemeObliqueChartView::setMenuView(QMenu &menuView)
     menuView.addMenu(&menuRotate);
 }
 
-void SchemeObliqueChartView::updateShortcut()
+void SchemeObliqueChartView::onUpdateShortcut()
 {
     this->actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
     this->actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
@@ -230,5 +230,5 @@ void SchemeObliqueChartView::commonCreate()
     connect(&this->actionRotateLeft, &QAction::triggered, this, &SchemeObliqueChartView::rotateLeft);
     connect(&this->actionRotateRight, &QAction::triggered, this, &SchemeObliqueChartView::rotateRight);
 
-    this->updateShortcut();
+    this->onUpdateShortcut();
 }
