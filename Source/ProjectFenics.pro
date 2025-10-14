@@ -33,6 +33,8 @@ SOURCES += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.cpp \
     Scheme/Oblique/schemeoblique.cpp \
+    Scheme/Oblique/schemeobliqueaction.cpp \
+    Scheme/Oblique/schemeobliqueshortcut.cpp \
     fileread.cpp \
     filewrite.cpp \
     settings.cpp \
@@ -72,6 +74,8 @@ HEADERS += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h \
     Scheme/Oblique/schemeoblique.h \
+    Scheme/Oblique/schemeobliqueaction.h \
+    Scheme/Oblique/schemeobliqueshortcut.h \
     fileread.h \
     filewrite.h \
     settings.h \

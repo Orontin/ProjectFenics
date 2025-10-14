@@ -59,10 +59,11 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
 
     for (AbstractScheme *scheme : schemes) {
         scheme->setMenuCreate(this->createNewScheme);
-    }
-
-    for (AbstractScheme *scheme : schemes) {
         scheme->setMenuSettings(this->settingsScheme);
+        scheme->setShortcut(ShortcutWidget::getInstance().getGridLayouWidgetScrollArea());
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, scheme, &AbstractScheme::onShortcutSetDefaultShortcut);
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, scheme, &AbstractScheme::onShortcutCancel);
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, scheme, &AbstractScheme::onShortcutSave);
     }
 
     connect(&this->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
@@ -70,11 +71,12 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
     connect(&this->settingsShortcut, &QAction::triggered, this, &MainWindow::onOpenShortcutWidgetTriggered);
 
-    connect(&this->shortcutWidget, &ShortcutWidget::clickedSave, this, &MainWindow::shortcutSave);
-    connect(&this->shortcutWidget, &ShortcutWidget::clickedCancel, this, &MainWindow::shortcutCancel);
-    connect(&this->shortcutWidget, &ShortcutWidget::clickedSetDefaultShortcut, this, &MainWindow::shortcutSetDefaultShortcut);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, this, &MainWindow::onShortcutSetDefaultShortcut);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, this, &MainWindow::onShortcutCancel);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, this, &MainWindow::onShortcutSave);
 
-    this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+    connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+
     this->updateMenu(-1);
 }
 
@@ -95,7 +97,7 @@ void MainWindow::onSaveOpenSchemeTriggered()
 
 void MainWindow::onOpenShortcutWidgetTriggered()
 {
-    this->shortcutWidget.show();
+    ShortcutWidget::getInstance().show();
 }
 
 void MainWindow::onDeleteSchemeTriggered()
@@ -103,27 +105,24 @@ void MainWindow::onDeleteSchemeTriggered()
     this->tabWidget.deleteView();
 }
 
-void MainWindow::shortcutSetDefaultShortcut()
+void MainWindow::onShortcutSetDefaultShortcut()
 {
     updateShortcut();
 }
 
-void MainWindow::shortcutCancel()
+void MainWindow::onShortcutCancel()
 {
     updateShortcut();
 }
 
-void MainWindow::shortcutSave()
+void MainWindow::onShortcutSave()
 {
     updateShortcut();
 }
 
 void MainWindow::updateShortcut()
 {
-    this->updateMenu(this->tabWidget.currentIndex());
-    for (AbstractScheme *scheme : schemes) {
-        emit scheme->onUpdateShortcut();
-    }
+    updateMenu(this->tabWidget.currentIndex());
 }
 
 void MainWindow::updateMenu(int index)

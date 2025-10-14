@@ -22,6 +22,11 @@ public:
     static QList<QKeySequence> getListShortcutActionDeleteOpenScheme();
     static QList<QKeySequence> getListShortcutActionOpenShortcutWidget();
 
+    static QList<QKeySequence> getListDefaultShortcutActionOpenFile();
+    static QList<QKeySequence> getListDefaultShortcutActionSaveScheme();
+    static QList<QKeySequence> getListDefaultShortcutActionDeleteOpenScheme();
+    static QList<QKeySequence> getListDefaultShortcutActionOpenShortcutWidget();
+
     static void setDefaultShrotcuts();
 
 private:

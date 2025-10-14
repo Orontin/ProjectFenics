@@ -2,11 +2,54 @@
 
 #include "settings.h"
 
-ShortcutWidget::ShortcutWidget():
-    listShortcutOpenFile{&keySequenceEditOpenFile_1, &keySequenceEditOpenFile_2, &keySequenceEditOpenFile_3, &keySequenceEditOpenFile_4},
-    listShortcutEditSaveOpenScheme{&keySequenceEditSaveOpenScheme_1, &keySequenceEditSaveOpenScheme_2, &keySequenceEditSaveOpenScheme_3, &keySequenceEditSaveOpenScheme_4},
-    listShortcutDeleteOpenScheme{&keySequenceEditDeleteOpenScheme_1, &keySequenceEditDeleteOpenScheme_2, &keySequenceEditDeleteOpenScheme_3, &keySequenceEditDeleteOpenScheme_4},
-    listShortcutShortcutWidget{&keySequenceEditShortcutWidget_1, &keySequenceEditShortcutWidget_2, &keySequenceEditShortcutWidget_3, &keySequenceEditShortcutWidget_4}
+ShortcutWidget *ShortcutWidget::shortcutWidget{nullptr};
+
+ShortcutWidget &ShortcutWidget::getInstance()
+{
+    if (!ShortcutWidget::shortcutWidget) {
+        ShortcutWidget::shortcutWidget = new ShortcutWidget;
+    }
+    return *ShortcutWidget::shortcutWidget;
+}
+
+QGridLayout &ShortcutWidget::getGridLayouWidgetScrollArea()
+{
+    return gridLayouWidgetScrollArea;
+}
+
+void ShortcutWidget::showEvent(QShowEvent *event)
+{
+    onClickedCancel();
+    QWidget::showEvent(event);
+}
+
+void ShortcutWidget::closeEvent(QCloseEvent *event)
+{
+    onClickedCancel();
+    QWidget::closeEvent(event);
+}
+
+void ShortcutWidget::onClickedSetDefaultShortcut()
+{
+    setDefaultShortcutInWidget();
+    emit this->clickedShortcutSetDefaultShortcut();
+}
+
+void ShortcutWidget::onClickedCancel()
+{
+    setShortcutInWidget();
+    emit this->clickedShortcutCancel();
+}
+
+void ShortcutWidget::onClickedSave()
+{
+    saveShortcutInFile();
+    emit this->clickedShortcutSave();
+    this->close();
+}
+
+
+ShortcutWidget::ShortcutWidget()
 {
     this->setWindowModality(Qt::ApplicationModal);
     this->setWindowTitle("Настройка сочетаний клавиш");
@@ -29,7 +72,7 @@ ShortcutWidget::ShortcutWidget():
 
     this->labelName.setText(" --- Общие сочетания клавиш --- ");
     this->labelName.setAlignment(Qt::AlignCenter);
-    this->labelName.setStyleSheet("font-weight: bold; text-decoration: underline;");
+    this->labelName.setStyleSheet("font-weight: bold; text-decoration: underline; font-style: italic;");
     this->gridLayouWidgetScrollArea.addWidget(&this->labelName, 1, 0, 1, 5);
 
     this->labelOpenFile.setText("Открыть файл");
@@ -89,59 +132,65 @@ ShortcutWidget::~ShortcutWidget()
 
 }
 
-void ShortcutWidget::showEvent(QShowEvent *event)
+void ShortcutWidget::setDefaultShortcutInWidget()
 {
-    onClickedCancel();
-    QWidget::showEvent(event);
-}
+    QList<QKeySequence> listShortcutOpenFile = Settings::getListDefaultShortcutActionOpenFile();
+    QList<QKeySequence> listShortcutEditSaveOpenScheme = Settings::getListDefaultShortcutActionSaveScheme();
+    QList<QKeySequence> listShortcutDeleteOpenScheme = Settings::getListDefaultShortcutActionDeleteOpenScheme();
+    QList<QKeySequence> listShortcutShortcutWidget = Settings::getListDefaultShortcutActionOpenShortcutWidget();
 
-void ShortcutWidget::closeEvent(QCloseEvent *event)
-{
-    onClickedCancel();
-    QWidget::closeEvent(event);
-}
+    this->keySequenceEditOpenFile_1.setKeySequence(listShortcutOpenFile[0]);
+    this->keySequenceEditOpenFile_2.setKeySequence(listShortcutOpenFile[1]);
+    this->keySequenceEditOpenFile_3.setKeySequence(listShortcutOpenFile[2]);
+    this->keySequenceEditOpenFile_4.setKeySequence(listShortcutOpenFile[3]);
 
-void ShortcutWidget::onClickedSetDefaultShortcut()
-{
-    Settings::setDefaultShrotcuts();
-    setShortcutInWidget();
-    emit clickedSetDefaultShortcut();
-}
+    this->keySequenceEditSaveOpenScheme_1.setKeySequence(listShortcutEditSaveOpenScheme[0]);
+    this->keySequenceEditSaveOpenScheme_2.setKeySequence(listShortcutEditSaveOpenScheme[1]);
+    this->keySequenceEditSaveOpenScheme_3.setKeySequence(listShortcutEditSaveOpenScheme[2]);
+    this->keySequenceEditSaveOpenScheme_4.setKeySequence(listShortcutEditSaveOpenScheme[3]);
 
-void ShortcutWidget::onClickedCancel()
-{
-    setShortcutInWidget();
-    emit clickedCancel();
-}
+    this->keySequenceEditDeleteOpenScheme_1.setKeySequence(listShortcutDeleteOpenScheme[0]);
+    this->keySequenceEditDeleteOpenScheme_2.setKeySequence(listShortcutDeleteOpenScheme[1]);
+    this->keySequenceEditDeleteOpenScheme_3.setKeySequence(listShortcutDeleteOpenScheme[2]);
+    this->keySequenceEditDeleteOpenScheme_4.setKeySequence(listShortcutDeleteOpenScheme[3]);
 
-void ShortcutWidget::onClickedSave()
-{
-    saveShortcutInFile();
-    emit clickedSave();
-    this->close();
+    this->keySequenceEditShortcutWidget_1.setKeySequence(listShortcutShortcutWidget[0]);
+    this->keySequenceEditShortcutWidget_2.setKeySequence(listShortcutShortcutWidget[1]);
+    this->keySequenceEditShortcutWidget_3.setKeySequence(listShortcutShortcutWidget[2]);
+    this->keySequenceEditShortcutWidget_4.setKeySequence(listShortcutShortcutWidget[3]);
 }
 
 void ShortcutWidget::setShortcutInWidget()
 {
     QList<QKeySequence> listShortcutOpenFile = Settings::getListShortcutActionOpenFile();
-    for (int i = 0; i < listShortcutOpenFile.size(); i++) {
-        this->listShortcutOpenFile[i]->setKeySequence(listShortcutOpenFile[i]);
-    }
-
     QList<QKeySequence> listShortcutEditSaveOpenScheme = Settings::getListShortcutActionSaveScheme();
-    for (int i = 0; i < listShortcutEditSaveOpenScheme.size(); i++) {
-        this->listShortcutEditSaveOpenScheme[i]->setKeySequence(listShortcutEditSaveOpenScheme[i]);
-    }
-
     QList<QKeySequence> listShortcutDeleteOpenScheme = Settings::getListShortcutActionDeleteOpenScheme();
-    for (int i = 0; i < listShortcutDeleteOpenScheme.size(); i++) {
-        this->listShortcutDeleteOpenScheme[i]->setKeySequence(listShortcutDeleteOpenScheme[i]);
-    }
-
     QList<QKeySequence> listShortcutShortcutWidget = Settings::getListShortcutActionOpenShortcutWidget();
-    for (int i = 0; i < listShortcutShortcutWidget.size(); i++) {
-        this->listShortcutShortcutWidget[i]->setKeySequence(listShortcutShortcutWidget[i]);
-    }
+
+    setInWidget(listShortcutOpenFile, listShortcutEditSaveOpenScheme, listShortcutDeleteOpenScheme, listShortcutShortcutWidget);
+}
+
+void ShortcutWidget::setInWidget(QList<QKeySequence> &listShortcutOpenFile, QList<QKeySequence> &listShortcutEditSaveOpenScheme, QList<QKeySequence> &listShortcutDeleteOpenScheme, QList<QKeySequence> &listShortcutShortcutWidget)
+{
+    this->keySequenceEditOpenFile_1.setKeySequence(listShortcutOpenFile[0]);
+    this->keySequenceEditOpenFile_2.setKeySequence(listShortcutOpenFile[1]);
+    this->keySequenceEditOpenFile_3.setKeySequence(listShortcutOpenFile[2]);
+    this->keySequenceEditOpenFile_4.setKeySequence(listShortcutOpenFile[3]);
+
+    this->keySequenceEditSaveOpenScheme_1.setKeySequence(listShortcutEditSaveOpenScheme[0]);
+    this->keySequenceEditSaveOpenScheme_2.setKeySequence(listShortcutEditSaveOpenScheme[1]);
+    this->keySequenceEditSaveOpenScheme_3.setKeySequence(listShortcutEditSaveOpenScheme[2]);
+    this->keySequenceEditSaveOpenScheme_4.setKeySequence(listShortcutEditSaveOpenScheme[3]);
+
+    this->keySequenceEditDeleteOpenScheme_1.setKeySequence(listShortcutDeleteOpenScheme[0]);
+    this->keySequenceEditDeleteOpenScheme_2.setKeySequence(listShortcutDeleteOpenScheme[1]);
+    this->keySequenceEditDeleteOpenScheme_3.setKeySequence(listShortcutDeleteOpenScheme[2]);
+    this->keySequenceEditDeleteOpenScheme_4.setKeySequence(listShortcutDeleteOpenScheme[3]);
+
+    this->keySequenceEditShortcutWidget_1.setKeySequence(listShortcutShortcutWidget[0]);
+    this->keySequenceEditShortcutWidget_2.setKeySequence(listShortcutShortcutWidget[1]);
+    this->keySequenceEditShortcutWidget_3.setKeySequence(listShortcutShortcutWidget[2]);
+    this->keySequenceEditShortcutWidget_4.setKeySequence(listShortcutShortcutWidget[3]);
 }
 
 void ShortcutWidget::saveShortcutInFile()

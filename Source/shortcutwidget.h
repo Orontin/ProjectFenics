@@ -14,13 +14,14 @@ class ShortcutWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ShortcutWidget();
-    ~ShortcutWidget();
+    static ShortcutWidget &getInstance();
+
+    QGridLayout &getGridLayouWidgetScrollArea();
 
 signals:
-    void clickedSetDefaultShortcut();
-    void clickedCancel();
-    void clickedSave();
+    void clickedShortcutSetDefaultShortcut();
+    void clickedShortcutCancel();
+    void clickedShortcutSave();
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -32,6 +33,14 @@ private slots:
     void onClickedSave();
 
 private:
+    explicit ShortcutWidget();
+    ~ShortcutWidget();
+
+    void setDefaultShortcutInWidget();
+    void setShortcutInWidget();
+    void setInWidget(QList<QKeySequence> &listShortcutOpenFile, QList<QKeySequence> &listShortcutEditSaveOpenScheme, QList<QKeySequence> &listShortcutDeleteOpenScheme, QList<QKeySequence> &listShortcutShortcutWidget);
+    void saveShortcutInFile();
+
     QGridLayout gridLayout;
 
     QPushButton setDefaultShortcut;
@@ -74,13 +83,7 @@ private:
     QKeySequenceEdit keySequenceEditShortcutWidget_3;
     QKeySequenceEdit keySequenceEditShortcutWidget_4;
 
-    QList<QKeySequenceEdit*> listShortcutOpenFile;
-    QList<QKeySequenceEdit*> listShortcutEditSaveOpenScheme;
-    QList<QKeySequenceEdit*> listShortcutDeleteOpenScheme;
-    QList<QKeySequenceEdit*> listShortcutShortcutWidget;
-
-    void setShortcutInWidget();
-    void saveShortcutInFile();
+    static ShortcutWidget *shortcutWidget;
 };
 
 #endif // SHORTCUTWIDGET_H

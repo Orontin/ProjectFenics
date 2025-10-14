@@ -1,5 +1,8 @@
 #include "schemeoblique.h"
 
+#include "Scheme/Oblique/schemeobliqueaction.h"
+#include "Scheme/Oblique/schemeobliqueshortcut.h"
+
 #include "Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h"
 #include "Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h"
 #include "Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h"
@@ -31,26 +34,26 @@ void SchemeOblique::onUpdateShortcut()
 
 void SchemeOblique::disconnects()
 {
-    this->actionZoomOut.disconnect();
-    this->actionZoomIn.disconnect();
-    this->actionToBottom.disconnect();
-    this->actionToTop.disconnect();
-    this->actionToLeft.disconnect();
-    this->actionToRight.disconnect();
-    this->actionRotateLeft.disconnect();
-    this->actionRotateRight.disconnect();
+    SchemeObliqueAction::getInstance().actionZoomOut.disconnect();
+    SchemeObliqueAction::getInstance().actionZoomIn.disconnect();
+    SchemeObliqueAction::getInstance().actionToBottom.disconnect();
+    SchemeObliqueAction::getInstance().actionToTop.disconnect();
+    SchemeObliqueAction::getInstance().actionToLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionToRight.disconnect();
+    SchemeObliqueAction::getInstance().actionRotateLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionRotateRight.disconnect();
 
-    this->actionBack.disconnect();
-    this->actionNext.disconnect();
+    SchemeObliqueAction::getInstance().actionBack.disconnect();
+    SchemeObliqueAction::getInstance().actionNext.disconnect();
 
-    this->actionRemoveThreadLeft.disconnect();
-    this->actionRemoveThreadRight.disconnect();
-    this->actionAddThreadLeft.disconnect();
-    this->actionAddThreadRight.disconnect();
-    this->actionRemoveHalfrowDown.disconnect();
-    this->actionRemoveHalfrowTop.disconnect();
-    this->actionAddHalfrowDown.disconnect();
-    this->actionAddHalfrowTop.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveThreadRight.disconnect();
+    SchemeObliqueAction::getInstance().actionAddThreadLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionAddThreadRight.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.disconnect();
+    SchemeObliqueAction::getInstance().actionAddHalfrowDown.disconnect();
+    SchemeObliqueAction::getInstance().actionAddHalfrowTop.disconnect();
 
     disconnect(connectActionEnableRemoveThreadLeftAndRight);
     disconnect(connectActionEnableRemoveHalfrowDownAndTop);
@@ -62,30 +65,33 @@ void SchemeOblique::disconnects()
 
 void SchemeOblique::connects(AbstractSchemeChartView &view)
 {
-    connectsView(view);
-    connectsScene(static_cast<AbstractSchemeChartScene&>(*view.scene()));
+    connectsView(static_cast<SchemeObliqueChartView&>(view));
+    connectsScene(static_cast<SchemeObliqueChartScene&>(*view.scene()));
+}
+
+void SchemeOblique::setShortcut(QGridLayout &gridLayouShortcut)
+{
+    SchemeObliqueShortcut::getInstance().setShortcut(gridLayouShortcut);
 }
 
 void SchemeOblique::setMenuCreate(QMenu &menuCreate)
 {
-    menuCreate.addAction(&this->actionCreate);
+    SchemeObliqueAction::getInstance().setMenuCreate(menuCreate);
 }
 
 void SchemeOblique::setMenuSettings(QMenu &menuSettings)
 {
-    menuSettings.addMenu(&this->menuSettings);
+    SchemeObliqueAction::getInstance().setMenuSettings(menuSettings);
 }
 
 void SchemeOblique::setMenuHistory(QMenu &menuHistory)
 {
-    menuHistory.addAction(&this->actionBack);
-    menuHistory.addAction(&this->actionNext);
+    SchemeObliqueAction::getInstance().setMenuHistory(menuHistory);
 }
 
 void SchemeOblique::setMenuManagment(QMenu &menuManagment)
 {
-    menuManagment.addMenu(&this->menuThread);
-    menuManagment.addMenu(&this->menuHalfrow);
+    SchemeObliqueAction::getInstance().setMenuManagment(menuManagment);
 }
 
 void SchemeOblique::setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme)
@@ -95,9 +101,7 @@ void SchemeOblique::setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme)
 
 void SchemeOblique::setMenuView(QMenu &menuView)
 {
-    menuView.addMenu(&this->menuZoom);
-    menuView.addMenu(&this->menuTo);
-    menuView.addMenu(&this->menuRotate);
+    SchemeObliqueAction::getInstance().setMenuView(menuView);
 }
 
 QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()
@@ -110,87 +114,34 @@ AbstractSchemeFileWrite &SchemeOblique::getFileWrite()
     return SchemeObliqueFileWritePFCO::getInstance();
 }
 
-void SchemeOblique::connectsView(AbstractSchemeChartView &view)
+void SchemeOblique::onShortcutSetDefaultShortcut()
 {
-    connect(&this->actionZoomOut, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::zoomOut);
-    connect(&this->actionZoomIn, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::zoomIn);
-    connect(&this->actionToBottom, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::toBottom);
-    connect(&this->actionToTop, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::toTop);
-    connect(&this->actionToLeft, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::toLeft);
-    connect(&this->actionToRight, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::toRight);
-    connect(&this->actionRotateLeft, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::rotateLeft);
-    connect(&this->actionRotateRight, &QAction::triggered, static_cast<SchemeObliqueChartView*>(&view), &SchemeObliqueChartView::rotateRight);
+    SchemeObliqueShortcut::getInstance().setDefaultShortcutInWidget();
 }
 
-void SchemeOblique::connectsScene(AbstractSchemeChartScene &scene)
+void SchemeOblique::onShortcutCancel()
 {
-    connect(&this->actionBack, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::backHistory);
-    connect(&this->actionNext, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::nextHistory);
-
-    connect(&this->actionRemoveThreadLeft, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsRemoveLeft);
-    connect(&this->actionRemoveThreadRight, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsRemoveRight);
-    connect(&this->actionAddThreadLeft, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddLeft);
-    connect(&this->actionAddThreadRight, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddRight);
-    connect(&this->actionRemoveHalfrowDown, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsRemoveBottom);
-    connect(&this->actionRemoveHalfrowTop, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsRemoveTop);
-    connect(&this->actionAddHalfrowDown, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddBottom);
-    connect(&this->actionAddHalfrowTop, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddTop);
-
-    this->connectActionEnableRemoveThreadLeftAndRight = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveThreadLeftAndRight, this, &SchemeOblique::onActionEnableRemoveThreadLeftAndRight);
-    this->connectActionEnableRemoveHalfrowDownAndTop = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveHalfrowDownAndTop, this, &SchemeOblique::onActionEnableRemoveHalfrowDownAndTop);
-    this->connectActionEnableAddThreadLeftAndRight = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddThreadLeftAndRight, this, &SchemeOblique::onActionEnableAddThreadLeftAndRight);
-    this->connectActionEnableAddHalfrowDownAndTop = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddHalfrowDownAndTop, this, &SchemeOblique::onActionEnableAddHalfrowDownAndTop);
-
-    this->connectActionEnableBack = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableBack, this, &SchemeOblique::onActionEnableBack);
-    this->connectActionEnableNext = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableNext, this, &SchemeOblique::onActionEnableNext);
+    SchemeObliqueShortcut::getInstance().setShortcutInWidget();
 }
 
-void SchemeOblique::onActionEnableRemoveThreadLeftAndRight(const bool enable)
+void SchemeOblique::onShortcutSave()
 {
-    this->actionRemoveThreadLeft.setEnabled(enable);
-    this->actionRemoveThreadRight.setEnabled(enable);
-}
-
-void SchemeOblique::onActionEnableRemoveHalfrowDownAndTop(const bool enable)
-{
-    this->actionRemoveHalfrowDown.setEnabled(enable);
-    this->actionRemoveHalfrowTop.setEnabled(enable);
-}
-
-void SchemeOblique::onActionEnableAddThreadLeftAndRight(const bool enable)
-{
-    this->actionAddThreadLeft.setEnabled(enable);
-    this->actionAddThreadRight.setEnabled(enable);
-}
-
-void SchemeOblique::onActionEnableAddHalfrowDownAndTop(const bool enable)
-{
-    this->actionAddHalfrowDown.setEnabled(enable);
-    this->actionAddHalfrowTop.setEnabled(enable);
-}
-
-void SchemeOblique::onActionEnableBack(const bool enable)
-{
-    this->actionBack.setEnabled(enable);
-}
-
-void SchemeOblique::onActionEnableNext(const bool enable)
-{
-    this->actionNext.setEnabled(enable);
+    SchemeObliqueShortcut::getInstance().saveShortcutInFile();
+    SchemeObliqueShortcut::getInstance().setShortcutInWidget();
+    this->onUpdateShortcut();
 }
 
 SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(*this), &SchemeObliqueFileReadFBD::getInstance(*this), &SchemeObliqueFileReadPFCO::getInstance(*this)}}
 {
-    connect(&this->actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createIn);
+    connect(&SchemeObliqueAction::getInstance().actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createIn);
     connect(&SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
 
     for (AbstractSchemeFileRead *fileRead : listFileRead) {
         connect(fileRead, &AbstractSchemeFileRead::createOut, this, &SchemeOblique::createOut);
     }
 
-    connect(&this->actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+    connect(&SchemeObliqueAction::getInstance().actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
 
-    this->createActions();
     this->onUpdateShortcut();
 }
 
@@ -199,104 +150,68 @@ SchemeOblique::~SchemeOblique()
 
 }
 
+void SchemeOblique::connectsView(SchemeObliqueChartView &view)
+{
+    connect(&SchemeObliqueAction::getInstance().actionZoomOut, &QAction::triggered, &view, &SchemeObliqueChartView::zoomOut);
+    connect(&SchemeObliqueAction::getInstance().actionZoomIn, &QAction::triggered, &view, &SchemeObliqueChartView::zoomIn);
+    connect(&SchemeObliqueAction::getInstance().actionToBottom, &QAction::triggered, &view, &SchemeObliqueChartView::toBottom);
+    connect(&SchemeObliqueAction::getInstance().actionToTop, &QAction::triggered, &view, &SchemeObliqueChartView::toTop);
+    connect(&SchemeObliqueAction::getInstance().actionToLeft, &QAction::triggered, &view, &SchemeObliqueChartView::toLeft);
+    connect(&SchemeObliqueAction::getInstance().actionToRight, &QAction::triggered, &view, &SchemeObliqueChartView::toRight);
+    connect(&SchemeObliqueAction::getInstance().actionRotateLeft, &QAction::triggered, &view, &SchemeObliqueChartView::rotateLeft);
+    connect(&SchemeObliqueAction::getInstance().actionRotateRight, &QAction::triggered, &view, &SchemeObliqueChartView::rotateRight);
+}
+
+void SchemeOblique::connectsScene(SchemeObliqueChartScene &scene)
+{
+    connect(&SchemeObliqueAction::getInstance().actionBack, &QAction::triggered, &scene, &SchemeObliqueChartScene::backHistory);
+    connect(&SchemeObliqueAction::getInstance().actionNext, &QAction::triggered, &scene, &SchemeObliqueChartScene::nextHistory);
+
+    connect(&SchemeObliqueAction::getInstance().actionRemoveThreadLeft, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsRemoveLeft);
+    connect(&SchemeObliqueAction::getInstance().actionRemoveThreadRight, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsRemoveRight);
+    connect(&SchemeObliqueAction::getInstance().actionAddThreadLeft, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddLeft);
+    connect(&SchemeObliqueAction::getInstance().actionAddThreadRight, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddRight);
+    connect(&SchemeObliqueAction::getInstance().actionRemoveHalfrowDown, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsRemoveBottom);
+    connect(&SchemeObliqueAction::getInstance().actionRemoveHalfrowTop, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsRemoveTop);
+    connect(&SchemeObliqueAction::getInstance().actionAddHalfrowDown, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddBottom);
+    connect(&SchemeObliqueAction::getInstance().actionAddHalfrowTop, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddTop);
+
+    this->connectActionEnableRemoveThreadLeftAndRight = connect(&scene, &SchemeObliqueChartScene::actionEnableRemoveThreadLeftAndRight, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableRemoveThreadLeftAndRight);
+    this->connectActionEnableRemoveHalfrowDownAndTop = connect(&scene, &SchemeObliqueChartScene::actionEnableRemoveHalfrowDownAndTop, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableRemoveHalfrowDownAndTop);
+    this->connectActionEnableAddThreadLeftAndRight = connect(&scene, &SchemeObliqueChartScene::actionEnableAddThreadLeftAndRight, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableAddThreadLeftAndRight);
+    this->connectActionEnableAddHalfrowDownAndTop = connect(&scene, &SchemeObliqueChartScene::actionEnableAddHalfrowDownAndTop, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableAddHalfrowDownAndTop);
+    this->connectActionEnableBack = connect(&scene, &SchemeObliqueChartScene::actionEnableBack,  &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableBack);
+    this->connectActionEnableNext = connect(&scene, &SchemeObliqueChartScene::actionEnableNext,  &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableNext);
+}
+
 void SchemeOblique::onUpdateShortcutOblique()
 {
-    this->actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
-    this->actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowEditDirectionNewNode());
+    SchemeObliqueAction::getInstance().actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
+    SchemeObliqueAction::getInstance().actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode());
 }
 
 void SchemeOblique::onUpdateShortcutView()
 {
-    this->actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
-    this->actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
-    this->actionToBottom.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom());
-    this->actionToTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop());
-    this->actionToLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft());
-    this->actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
-    this->actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
-    this->actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
+    SchemeObliqueAction::getInstance().actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
+    SchemeObliqueAction::getInstance().actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
+    SchemeObliqueAction::getInstance().actionToBottom.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom());
+    SchemeObliqueAction::getInstance().actionToTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop());
+    SchemeObliqueAction::getInstance().actionToLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft());
+    SchemeObliqueAction::getInstance().actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
+    SchemeObliqueAction::getInstance().actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
+    SchemeObliqueAction::getInstance().actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
 }
 
 void SchemeOblique::onUpdateShortcutScene()
 {
-    this->actionBack.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack());
-    this->actionNext.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext());
-    this->actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft());
-    this->actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight());
-    this->actionAddThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft());
-    this->actionAddThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight());
-    this->actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown());
-    this->actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop());
-    this->actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown());
-    this->actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop());
-}
-
-void SchemeOblique::createActions()
-{
-    createActionOblique();
-    createActionView();
-    createActionScene();
-}
-
-void SchemeOblique::createActionOblique()
-{
-    this->actionCreate.setText("Усложенная косая");
-    this->menuSettings.setTitle("Усложенная косая");
-    this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
-
-    this->menuSettings.addAction(&this->actionEditDirectionNewNode);
-}
-
-void SchemeOblique::createActionView()
-{
-    this->menuZoom.setTitle("Дальность");
-    this->menuTo.setTitle("Перемещение");
-    this->menuRotate.setTitle("Поворот");
-
-    this->actionZoomOut.setText("Отдалить");
-    this->actionZoomIn.setText("Приблизить");
-    this->actionToBottom.setText("Вниз");
-    this->actionToTop.setText("Вверх");
-    this->actionToLeft.setText("Влево");
-    this->actionToRight.setText("Вправо");
-    this->actionRotateLeft.setText("Влево");
-    this->actionRotateRight.setText("Вправо");
-
-    this->menuZoom.addAction(&this->actionZoomOut);
-    this->menuZoom.addAction(&this->actionZoomIn);
-    this->menuTo.addAction(&this->actionToBottom);
-    this->menuTo.addAction(&this->actionToTop);
-    this->menuTo.addAction(&this->actionToLeft);
-    this->menuTo.addAction(&this->actionToRight);
-    this->menuRotate.addAction(&this->actionRotateLeft);
-    this->menuRotate.addAction(&this->actionRotateRight);
-}
-
-void SchemeOblique::createActionScene()
-{
-    this->actionBack.setText("Назад");
-    this->actionNext.setText("Вперед");
-
-    this->menuThread.setTitle("Нити");
-    this->menuHalfrow.setTitle("Полуряды");
-
-    this->actionRemoveThreadLeft.setText("Убрать нить слева");
-    this->actionRemoveThreadRight.setText("Убрать нить справа");
-    this->actionAddThreadLeft.setText("Добавить нить слева");
-    this->actionAddThreadRight.setText("Добавить нить справа");
-    this->actionRemoveHalfrowDown.setText("Убрать полуряд снизу");
-    this->actionRemoveHalfrowTop.setText("Убрать полуряд сверху");
-    this->actionAddHalfrowDown.setText("Добавить полуряд снизу");
-    this->actionAddHalfrowTop.setText("Добавить полуряд сверху");
-
-    this->menuThread.addAction(&this->actionRemoveThreadLeft);
-    this->menuThread.addAction(&this->actionRemoveThreadRight);
-    this->menuThread.addSeparator();
-    this->menuThread.addAction(&this->actionAddThreadLeft);
-    this->menuThread.addAction(&this->actionAddThreadRight);
-    this->menuHalfrow.addAction(&this->actionRemoveHalfrowDown);
-    this->menuHalfrow.addAction(&this->actionRemoveHalfrowTop);
-    this->menuHalfrow.addSeparator();
-    this->menuHalfrow.addAction(&this->actionAddHalfrowDown);
-    this->menuHalfrow.addAction(&this->actionAddHalfrowTop);
+    SchemeObliqueAction::getInstance().actionBack.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack());
+    SchemeObliqueAction::getInstance().actionNext.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext());
+    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft());
+    SchemeObliqueAction::getInstance().actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight());
+    SchemeObliqueAction::getInstance().actionAddThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft());
+    SchemeObliqueAction::getInstance().actionAddThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight());
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown());
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop());
+    SchemeObliqueAction::getInstance().actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown());
+    SchemeObliqueAction::getInstance().actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop());
 }

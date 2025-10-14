@@ -22,7 +22,7 @@ public:
     static void setListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop(const QList<QKeySequence> &valueParam);
-    static void setListShortcutActionSchemeObliqueShortcutSceneHalfrowEditDirectionNewNode(const QList<QKeySequence> &valueParam);
+    static void setListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutViewZoomOut(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutViewZoomIn(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutViewToBottom(const QList<QKeySequence> &valueParam);
@@ -43,7 +43,7 @@ public:
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop();
-    static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutSceneHalfrowEditDirectionNewNode();
+    static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewZoomOut();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewZoomIn();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewToBottom();
@@ -52,6 +52,27 @@ public:
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewToRight();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewRotateLeft();
     static QList<QKeySequence> getListShortcutActionSchemeObliqueShortcutViewRotateRight();
+
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneCreate();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutHistoryBack();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutHistoryNext();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadAddLeft();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadAddRight();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewZoomOut();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewZoomIn();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewToBottom();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewToTop();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewToLeft();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewToRight();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewRotateLeft();
+    static QList<QKeySequence> getListDefaultShortcutActionSchemeObliqueShortcutViewRotateRight();
 
     static void setDefaultShrotcuts();
 
@@ -69,7 +90,7 @@ private:
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP;
-    static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_EDIT_DIRECTION_NEW_NODE;
+    static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM;
@@ -92,7 +113,7 @@ private:
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP;
-    static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_EDIT_DIRECTION_NEW_NODE;
+    static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM;

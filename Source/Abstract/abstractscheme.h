@@ -1,6 +1,7 @@
 #ifndef ABSTRACTSCHEME_H
 #define ABSTRACTSCHEME_H
 
+#include <QGridLayout>
 #include <QAction>
 #include <QList>
 #include <QMenu>
@@ -19,6 +20,7 @@ public:
     virtual void disconnects() = 0;
     virtual void connects(AbstractSchemeChartView &view) = 0;
 
+    virtual void setShortcut(QGridLayout &gridLayouShortcut) = 0;
     virtual void setMenuCreate(QMenu &menuCreate) = 0;
     virtual void setMenuSettings(QMenu &menuSettings) = 0;
     virtual void setMenuHistory(QMenu &menuHistory) = 0;
@@ -28,6 +30,11 @@ public:
 
     virtual QList<AbstractSchemeFileRead*> &getListFileRead() = 0;
     virtual AbstractSchemeFileWrite &getFileWrite() = 0;
+
+public slots:
+    virtual void onShortcutSetDefaultShortcut() = 0;
+    virtual void onShortcutCancel() = 0;
+    virtual void onShortcutSave() = 0;
 
 signals:
     void createOut(AbstractSchemeChartView &view);

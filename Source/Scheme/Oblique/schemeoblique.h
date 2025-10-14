@@ -2,11 +2,14 @@
 #define SCHEMEOBLIQUE_H
 
 #include <QObject>
+#include <QLabel>
+#include <QKeySequenceEdit>
 
 #include "Abstract/abstractscheme.h"
-
-#include "Abstract/abstractschemechartscene.h"
 #include "Abstract/abstractschemechartview.h"
+
+class SchemeObliqueChartView;
+class SchemeObliqueChartScene;
 
 class SchemeOblique : public AbstractScheme
 {
@@ -30,6 +33,7 @@ public:
     void disconnects() override final;
     void connects(AbstractSchemeChartView &view) override final;
 
+    void setShortcut(QGridLayout &gridLayouShortcut) override final;
     void setMenuCreate(QMenu &menuCreate) override final;
     void setMenuSettings(QMenu &menuSettings) override final;
     void setMenuHistory(QMenu &menuHistory) override final;
@@ -40,59 +44,21 @@ public:
     QList<AbstractSchemeFileRead*> &getListFileRead() override final;
     AbstractSchemeFileWrite &getFileWrite() override final;
 
-private slots:
-    void connectsView(AbstractSchemeChartView &view);
-    void connectsScene(AbstractSchemeChartScene &scene);
-
-    void onActionEnableRemoveThreadLeftAndRight(const bool enable);
-    void onActionEnableRemoveHalfrowDownAndTop(const bool enable);
-    void onActionEnableAddThreadLeftAndRight(const bool enable);
-    void onActionEnableAddHalfrowDownAndTop(const bool enable);
-
-    void onActionEnableBack(const bool enable);
-    void onActionEnableNext(const bool enable);
+public slots:
+    void onShortcutSetDefaultShortcut() override final;
+    void onShortcutCancel() override final;
+    void onShortcutSave() override final;
 
 private:
     SchemeOblique();
     ~SchemeOblique();
 
+    void connectsView(SchemeObliqueChartView &view);
+    void connectsScene(SchemeObliqueChartScene &scene);
+
     void onUpdateShortcutOblique();
     void onUpdateShortcutView();
     void onUpdateShortcutScene();
-
-    void createActions();
-    void createActionOblique();
-    void createActionView();
-    void createActionScene();
-
-    QMenu menuSettings;
-    QAction actionCreate;
-    QAction actionEditDirectionNewNode;
-
-    QMenu menuThread;
-    QMenu menuHalfrow;
-    QAction actionBack;
-    QAction actionNext;
-    QAction actionRemoveThreadLeft;
-    QAction actionRemoveThreadRight;
-    QAction actionAddThreadLeft;
-    QAction actionAddThreadRight;
-    QAction actionRemoveHalfrowDown;
-    QAction actionRemoveHalfrowTop;
-    QAction actionAddHalfrowDown;
-    QAction actionAddHalfrowTop;
-
-    QMenu menuZoom;
-    QMenu menuTo;
-    QMenu menuRotate;
-    QAction actionZoomOut;
-    QAction actionZoomIn;
-    QAction actionToBottom;
-    QAction actionToTop;
-    QAction actionToLeft;
-    QAction actionToRight;
-    QAction actionRotateLeft;
-    QAction actionRotateRight;
 
     QList<AbstractSchemeFileRead*> listFileRead;
 

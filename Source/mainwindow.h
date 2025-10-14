@@ -32,20 +32,14 @@ private slots:
     // схема
     void onDeleteSchemeTriggered();
 
-    // сочетания клавиш
-    void shortcutSetDefaultShortcut();
-    void shortcutCancel();
-    void shortcutSave();
+    // шорткаты
+    void onShortcutSetDefaultShortcut();
+    void onShortcutCancel();
+    void onShortcutSave();
 
 private:
     void updateShortcut();
     void updateMenu(int index);
-
-    QList<AbstractScheme*> &schemes;
-    TabWidget tabWidget;
-    FileRead fileRead;
-    FileWrite fileWrite;
-    ShortcutWidget shortcutWidget;
 
     QMenu file;
     QAction openFile;
@@ -68,5 +62,10 @@ private:
     QGridLayout gridLayout;
     QMenuBar menubar;
     QStatusBar statusbar;
+
+    TabWidget tabWidget;
+    FileRead fileRead;
+    FileWrite fileWrite;
+    QList<AbstractScheme*> &schemes;
 };
 #endif // MAINWINDOW_H

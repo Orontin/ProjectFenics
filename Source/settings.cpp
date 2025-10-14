@@ -78,6 +78,26 @@ QList<QKeySequence> Settings::getListShortcutActionOpenShortcutWidget()
     return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET, Settings::LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET));
 }
 
+QList<QKeySequence> Settings::getListDefaultShortcutActionOpenFile()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(Settings::LIST_SHORTCUT_ACTION_OPEN_FILE);
+}
+
+QList<QKeySequence> Settings::getListDefaultShortcutActionSaveScheme()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(Settings::LIST_SHORTCUT_ACTION_SAVE_SCHEME);
+}
+
+QList<QKeySequence> Settings::getListDefaultShortcutActionDeleteOpenScheme()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(Settings::LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME);
+}
+
+QList<QKeySequence> Settings::getListDefaultShortcutActionOpenShortcutWidget()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(Settings::LIST_SHORTCUT_ACTION_OPEN_SHORTCUT_WIDGET);
+}
+
 void Settings::setDefaultShrotcuts()
 {
     AbstractSchemeFileSetting::setValue(Settings::PATH_TO_LIST_SHORTCUT_ACTION_OPEN_FILE, Settings::LIST_SHORTCUT_ACTION_OPEN_FILE);
