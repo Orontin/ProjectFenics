@@ -29,6 +29,36 @@ void SchemeOblique::onUpdateShortcut()
     onUpdateShortcutScene();
 }
 
+void SchemeOblique::disconnects()
+{
+    this->actionZoomOut.disconnect();
+    this->actionZoomIn.disconnect();
+    this->actionToBottom.disconnect();
+    this->actionToTop.disconnect();
+    this->actionToLeft.disconnect();
+    this->actionToRight.disconnect();
+    this->actionRotateLeft.disconnect();
+    this->actionRotateRight.disconnect();
+
+    this->actionBack.disconnect();
+    this->actionNext.disconnect();
+
+    this->actionRemoveThreadLeft.disconnect();
+    this->actionRemoveThreadRight.disconnect();
+    this->actionAddThreadLeft.disconnect();
+    this->actionAddThreadRight.disconnect();
+    this->actionRemoveHalfrowDown.disconnect();
+    this->actionRemoveHalfrowTop.disconnect();
+    this->actionAddHalfrowDown.disconnect();
+    this->actionAddHalfrowTop.disconnect();
+}
+
+void SchemeOblique::connects(AbstractSchemeChartView &view)
+{
+    connectsView(view);
+    connectsScene(static_cast<AbstractSchemeChartScene&>(*view.scene()));
+}
+
 void SchemeOblique::setMenuCreate(QMenu &menuCreate)
 {
     menuCreate.addAction(&this->actionCreate);
@@ -71,14 +101,6 @@ QList<AbstractSchemeFileRead *> &SchemeOblique::getListFileRead()
 AbstractSchemeFileWrite &SchemeOblique::getFileWrite()
 {
     return SchemeObliqueFileWritePFCO::getInstance();
-}
-
-void SchemeOblique::connects(AbstractSchemeChartView &view)
-{
-    connectsView(view);
-    connectsScene(static_cast<AbstractSchemeChartScene&>(*view.scene()));
-
-    emit this->createOut(view);
 }
 
 void SchemeOblique::connectsView(AbstractSchemeChartView &view)
@@ -153,10 +175,10 @@ void SchemeOblique::onActionEnableNext(const bool enable)
 SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(*this), &SchemeObliqueFileReadFBD::getInstance(*this), &SchemeObliqueFileReadPFCO::getInstance(*this)}}
 {
     connect(&this->actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createIn);
-    connect(&SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::connects);
+    connect(&SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
 
     for (AbstractSchemeFileRead *fileRead : listFileRead) {
-        connect(fileRead, &AbstractSchemeFileRead::createOut, this, &SchemeOblique::connects);
+        connect(fileRead, &AbstractSchemeFileRead::createOut, this, &SchemeOblique::createOut);
     }
 
     connect(&this->actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);

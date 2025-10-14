@@ -128,6 +128,10 @@ void MainWindow::updateShortcut()
 
 void MainWindow::updateMenu(int index)
 {
+    for (AbstractScheme *scheme : schemes) {
+        scheme->disconnects();
+    }
+
     this->deleteOpenScheme.setShortcuts(Settings::getListShortcutActionDeleteOpenScheme());
     this->openFile.setShortcuts(Settings::getListShortcutActionOpenFile());
     this->saveOpenScheme.setShortcuts(Settings::getListShortcutActionSaveScheme());
@@ -146,6 +150,8 @@ void MainWindow::updateMenu(int index)
         static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuHistory(this->history);
         static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuManagment(this->managmentOpenScheme);
         static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuSettingsOpenScheme(this->settingsOpenScheme);
+
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().connects(static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()));
 
         static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentView().scene())->updateScene();
 

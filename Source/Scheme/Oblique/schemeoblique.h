@@ -27,6 +27,9 @@ public:
 
     void onUpdateShortcut() override final;
 
+    void disconnects() override final;
+    void connects(AbstractSchemeChartView &view) override final;
+
     void setMenuCreate(QMenu &menuCreate) override final;
     void setMenuSettings(QMenu &menuSettings) override final;
     void setMenuHistory(QMenu &menuHistory) override final;
@@ -38,7 +41,6 @@ public:
     AbstractSchemeFileWrite &getFileWrite() override final;
 
 private slots:
-    void connects(AbstractSchemeChartView &view);
     void connectsView(AbstractSchemeChartView &view);
     void connectsScene(AbstractSchemeChartScene &scene);
 

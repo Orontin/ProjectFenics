@@ -16,6 +16,9 @@ class AbstractScheme: public QObject
 public:
     virtual void onUpdateShortcut() = 0;
 
+    virtual void disconnects() = 0;
+    virtual void connects(AbstractSchemeChartView &view) = 0;
+
     virtual void setMenuCreate(QMenu &menuCreate) = 0;
     virtual void setMenuSettings(QMenu &menuSettings) = 0;
     virtual void setMenuHistory(QMenu &menuHistory) = 0;
