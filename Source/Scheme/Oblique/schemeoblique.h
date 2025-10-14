@@ -96,6 +96,13 @@ private:
 
     QList<AbstractSchemeFileRead*> listFileRead;
 
+    QMetaObject::Connection connectActionEnableRemoveThreadLeftAndRight;
+    QMetaObject::Connection connectActionEnableRemoveHalfrowDownAndTop;
+    QMetaObject::Connection connectActionEnableAddThreadLeftAndRight;
+    QMetaObject::Connection connectActionEnableAddHalfrowDownAndTop;
+    QMetaObject::Connection connectActionEnableBack;
+    QMetaObject::Connection connectActionEnableNext;
+
     static SchemeOblique *schemeOblique;
 };
 

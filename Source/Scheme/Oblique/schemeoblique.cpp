@@ -51,6 +51,13 @@ void SchemeOblique::disconnects()
     this->actionRemoveHalfrowTop.disconnect();
     this->actionAddHalfrowDown.disconnect();
     this->actionAddHalfrowTop.disconnect();
+
+    disconnect(connectActionEnableRemoveThreadLeftAndRight);
+    disconnect(connectActionEnableRemoveHalfrowDownAndTop);
+    disconnect(connectActionEnableAddThreadLeftAndRight);
+    disconnect(connectActionEnableAddHalfrowDownAndTop);
+    disconnect(connectActionEnableBack);
+    disconnect(connectActionEnableNext);
 }
 
 void SchemeOblique::connects(AbstractSchemeChartView &view)
@@ -129,13 +136,13 @@ void SchemeOblique::connectsScene(AbstractSchemeChartScene &scene)
     connect(&this->actionAddHalfrowDown, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddBottom);
     connect(&this->actionAddHalfrowTop, &QAction::triggered, static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::editNodesDirectionsAddTop);
 
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveThreadLeftAndRight, this, &SchemeOblique::onActionEnableRemoveThreadLeftAndRight);
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveHalfrowDownAndTop, this, &SchemeOblique::onActionEnableRemoveHalfrowDownAndTop);
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddThreadLeftAndRight, this, &SchemeOblique::onActionEnableAddThreadLeftAndRight);
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddHalfrowDownAndTop, this, &SchemeOblique::onActionEnableAddHalfrowDownAndTop);
+    this->connectActionEnableRemoveThreadLeftAndRight = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveThreadLeftAndRight, this, &SchemeOblique::onActionEnableRemoveThreadLeftAndRight);
+    this->connectActionEnableRemoveHalfrowDownAndTop = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableRemoveHalfrowDownAndTop, this, &SchemeOblique::onActionEnableRemoveHalfrowDownAndTop);
+    this->connectActionEnableAddThreadLeftAndRight = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddThreadLeftAndRight, this, &SchemeOblique::onActionEnableAddThreadLeftAndRight);
+    this->connectActionEnableAddHalfrowDownAndTop = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableAddHalfrowDownAndTop, this, &SchemeOblique::onActionEnableAddHalfrowDownAndTop);
 
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableBack, this, &SchemeOblique::onActionEnableBack);
-    connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableNext, this, &SchemeOblique::onActionEnableNext);
+    this->connectActionEnableBack = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableBack, this, &SchemeOblique::onActionEnableBack);
+    this->connectActionEnableNext = connect(static_cast<SchemeObliqueChartScene*>(&scene), &SchemeObliqueChartScene::actionEnableNext, this, &SchemeOblique::onActionEnableNext);
 }
 
 void SchemeOblique::onActionEnableRemoveThreadLeftAndRight(const bool enable)
