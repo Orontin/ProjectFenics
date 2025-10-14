@@ -1,7 +1,5 @@
 #include "tabwidget.h"
 
-#include "Abstract/abstractschemechartscene.h"
-
 TabWidget::TabWidget(QList<AbstractScheme*> &schemes): schemes(schemes)
 {
     for (AbstractScheme *scheme : schemes) {
@@ -12,16 +10,16 @@ TabWidget::TabWidget(QList<AbstractScheme*> &schemes): schemes(schemes)
 TabWidget::~TabWidget()
 {
     while (this->count()) {
-        deleteScheme();
+        deleteView();
     }
 }
 
-AbstractSchemeChartView &TabWidget::getCurrentScheme()
+AbstractSchemeChartView &TabWidget::getCurrentView()
 {
     return *static_cast<AbstractSchemeChartView*>(this->currentWidget());
 }
 
-void TabWidget::deleteScheme()
+void TabWidget::deleteView()
 {
     delete this->currentWidget();
 }

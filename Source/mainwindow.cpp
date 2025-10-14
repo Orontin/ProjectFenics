@@ -90,7 +90,7 @@ void MainWindow::onOpenSchemeTriggered()
 
 void MainWindow::onSaveOpenSchemeTriggered()
 {
-    this->fileWrite.writeFile(this->tabWidget.getCurrentScheme());
+    this->fileWrite.writeFile(this->tabWidget.getCurrentView());
 }
 
 void MainWindow::onOpenShortcutWidgetTriggered()
@@ -100,7 +100,7 @@ void MainWindow::onOpenShortcutWidgetTriggered()
 
 void MainWindow::onDeleteSchemeTriggered()
 {
-    this->tabWidget.deleteScheme();
+    this->tabWidget.deleteView();
 }
 
 void MainWindow::shortcutSetDefaultShortcut()
@@ -142,12 +142,12 @@ void MainWindow::updateMenu(int index)
         this->managmentOpenScheme.setEnabled(false);
         this->settingsOpenScheme.setEnabled(false);
     } else {
-        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuView(this->view);
-        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuHistory(this->history);
-        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuManagment(this->managmentOpenScheme);
-        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuSettingsOpenScheme(this->settingsOpenScheme);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuView(this->view);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuHistory(this->history);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuManagment(this->managmentOpenScheme);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuSettingsOpenScheme(this->settingsOpenScheme);
 
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentView().scene())->updateScene();
 
         this->deleteOpenScheme.setEnabled(true);
         this->saveOpenScheme.setEnabled(true);

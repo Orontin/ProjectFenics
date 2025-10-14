@@ -13,10 +13,10 @@ public:
     TabWidget(QList<AbstractScheme*> &schemes);
     ~TabWidget();
 
-    AbstractSchemeChartView &getCurrentScheme();
+    AbstractSchemeChartView &getCurrentView();
 
 public slots:
-    void deleteScheme();
+    void deleteView();
 
 public slots:
     void createOut(AbstractSchemeChartView &view);
