@@ -1,7 +1,6 @@
 #include "schemeobliquechartscene.h"
 
 #include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
-#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
 int SchemeObliqueChartScene::spaceBetweenNodeOne{68};
 int SchemeObliqueChartScene::spaceBetweenNodeTwo{spaceBetweenNodeOne * 2};
@@ -36,35 +35,47 @@ SchemeObliqueChartScene::~SchemeObliqueChartScene()
     this->removeScene();
 }
 
-void SchemeObliqueChartScene::setMenuHistory(QMenu &menuHistory)
+void SchemeObliqueChartScene::editNodesDirectionsRemoveLeft()
 {
-    menuHistory.addAction(&this->actionBack);
-    menuHistory.addAction(&this->actionNext);
+    if (this->isActive()) {
+
+    }
+    this->editNodes(SchemeOblique::Directions::REMOVE_LEFT, true, true);
 }
 
-void SchemeObliqueChartScene::setMenuManagment(QMenu &menuManagment)
+void SchemeObliqueChartScene::editNodesDirectionsRemoveRight()
 {
-    menuManagment.addMenu(&menuThread);
-    menuManagment.addMenu(&menuHalfrow);
+    this->editNodes(SchemeOblique::Directions::REMOVE_RIGHT, true, true);
 }
 
-void SchemeObliqueChartScene::setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme)
+void SchemeObliqueChartScene::editNodesDirectionsAddLeft()
 {
-    Q_UNUSED(menuSettingsOpenScheme);
+    this->editNodes(SchemeOblique::Directions::ADD_LEFT, true, true);
 }
 
-void SchemeObliqueChartScene::onUpdateShortcut()
+void SchemeObliqueChartScene::editNodesDirectionsAddRight()
 {
-    this->actionBack.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack());
-    this->actionNext.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext());
-    this->actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft());
-    this->actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight());
-    this->actionAddThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft());
-    this->actionAddThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight());
-    this->actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown());
-    this->actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop());
-    this->actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown());
-    this->actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop());
+    this->editNodes(SchemeOblique::Directions::ADD_RIGHT, true, true);
+}
+
+void SchemeObliqueChartScene::editNodesDirectionsRemoveBottom()
+{
+    this->editNodes(SchemeOblique::Directions::REMOVE_BOTTOM, true, true);
+}
+
+void SchemeObliqueChartScene::editNodesDirectionsRemoveTop()
+{
+    this->editNodes(SchemeOblique::Directions::REMOVE_TOP, true, true);
+}
+
+void SchemeObliqueChartScene::editNodesDirectionsAddBottom()
+{
+    this->editNodes(SchemeOblique::Directions::ADD_BOTTOM, true, true);
+}
+
+void SchemeObliqueChartScene::editNodesDirectionsAddTop()
+{
+    this->editNodes(SchemeOblique::Directions::ADD_TOP, true, true);
 }
 
 void SchemeObliqueChartScene::updateScene()
@@ -199,46 +210,6 @@ void SchemeObliqueChartScene::commonCreate()
 {
     this->setBackgroundBrush(defaultBrush);
     this->setItemIndexMethod(NoIndex);
-
-    this->actionBack.setText("Назад");
-    this->actionNext.setText("Вперед");
-
-    connect(&this->actionBack, &QAction::triggered, this, &SchemeObliqueChartScene::backHistory);
-    connect(&this->actionNext, &QAction::triggered, this, &SchemeObliqueChartScene::nextHistory);
-
-    this->menuThread.setTitle("Нити");
-    this->menuHalfrow.setTitle("Полуряды");
-
-    this->actionRemoveThreadLeft.setText("Убрать нить слева");
-    this->actionRemoveThreadRight.setText("Убрать нить справа");
-    this->actionAddThreadLeft.setText("Добавить нить слева");
-    this->actionAddThreadRight.setText("Добавить нить справа");
-    this->actionRemoveHalfrowDown.setText("Убрать полуряд снизу");
-    this->actionRemoveHalfrowTop.setText("Убрать полуряд сверху");
-    this->actionAddHalfrowDown.setText("Добавить полуряд снизу");
-    this->actionAddHalfrowTop.setText("Добавить полуряд сверху");
-
-    this->menuThread.addAction(&actionRemoveThreadLeft);
-    this->menuThread.addAction(&actionRemoveThreadRight);
-    this->menuThread.addSeparator();
-    this->menuThread.addAction(&actionAddThreadLeft);
-    this->menuThread.addAction(&actionAddThreadRight);
-    this->menuHalfrow.addAction(&actionRemoveHalfrowDown);
-    this->menuHalfrow.addAction(&actionRemoveHalfrowTop);
-    this->menuHalfrow.addSeparator();
-    this->menuHalfrow.addAction(&actionAddHalfrowDown);
-    this->menuHalfrow.addAction(&actionAddHalfrowTop);
-
-    connect(&this->actionRemoveThreadLeft, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::REMOVE_LEFT, true, true); });
-    connect(&this->actionRemoveThreadRight, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::REMOVE_RIGHT, true, true); });
-    connect(&this->actionAddThreadLeft, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_LEFT, true, true); });
-    connect(&this->actionAddThreadRight, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_RIGHT, true, true); });
-    connect(&this->actionRemoveHalfrowDown, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::REMOVE_BOTTOM, true, true); });
-    connect(&this->actionRemoveHalfrowTop, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::REMOVE_TOP, true, true); });
-    connect(&this->actionAddHalfrowDown, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_BOTTOM, true, true); });
-    connect(&this->actionAddHalfrowTop, &QAction::triggered, this, [=](){ this->editNodes(SchemeOblique::Directions::ADD_TOP, true, true); });
-
-    this->onUpdateShortcut();
 }
 
 void SchemeObliqueChartScene::editNodes(const SchemeOblique::Directions &direction, const bool &isUpdate, const bool &isSetHistory)
@@ -415,49 +386,41 @@ void SchemeObliqueChartScene::updateRectScene()
 void SchemeObliqueChartScene::updateEnabledEditNodeAndThread()
 {
     if (this->info.getSizeThread() == SchemeObliqueChartScene::defaultCountThread) {
-        this->actionRemoveThreadLeft.setEnabled(false);
-        this->actionRemoveThreadRight.setEnabled(false);
+        emit this->actionEnableRemoveThreadLeftAndRight(false);
     } else {
-        this->actionRemoveThreadLeft.setEnabled(true);
-        this->actionRemoveThreadRight.setEnabled(true);
+        emit this->actionEnableRemoveThreadLeftAndRight(true);
     }
 
     if (this->info.getSizeHalfrow() == SchemeObliqueChartScene::defaultCountHalfrow) {
-        this->actionRemoveHalfrowDown.setEnabled(false);
-        this->actionRemoveHalfrowTop.setEnabled(false);
+        emit this->actionEnableRemoveHalfrowDownAndTop(false);
     } else {
-        this->actionRemoveHalfrowDown.setEnabled(true);
-        this->actionRemoveHalfrowTop.setEnabled(true);
+        emit this->actionEnableRemoveHalfrowDownAndTop(true);
     }
 
     if (this->info.getSizeThread() == SchemeObliqueChartScene::maximumCount) {
-        this->actionAddThreadLeft.setEnabled(false);
-        this->actionAddThreadRight.setEnabled(false);
+        emit this->actionEnableAddThreadLeftAndRight(false);
     } else {
-        this->actionAddThreadLeft.setEnabled(true);
-        this->actionAddThreadRight.setEnabled(true);
+        emit this->actionEnableAddThreadLeftAndRight(true);
     }
 
     if (this->info.getSizeHalfrow() == SchemeObliqueChartScene::maximumCount) {
-        this->actionAddHalfrowDown.setEnabled(false);
-        this->actionAddHalfrowTop.setEnabled(false);
+        emit this->actionEnableAddHalfrowDownAndTop(false);
     } else {
-        this->actionAddHalfrowDown.setEnabled(true);
-        this->actionAddHalfrowTop.setEnabled(true);
+        emit this->actionEnableAddHalfrowDownAndTop(true);
     }
 }
 
 void SchemeObliqueChartScene::updateEnabledHistory()
 {
     if (this->history.getIterator() == this->history.getIteratorMinimum()) {
-        this->actionBack.setEnabled(false);
+        emit this->actionEnableBack(false);
     } else {
-        this->actionBack.setEnabled(true);
+        emit this->actionEnableBack(true);
     }
 
     if (this->history.getIterator() == this->history.getIteratorMaximum()) {
-        this->actionNext.setEnabled(false);
+        emit this->actionEnableNext(false);
     } else {
-        this->actionNext.setEnabled(true);
+        emit this->actionEnableNext(true);
     }
 }

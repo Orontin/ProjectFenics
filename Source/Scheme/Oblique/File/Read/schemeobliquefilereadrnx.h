@@ -9,12 +9,12 @@
 class SchemeObliqueFileReadRNX: public AbstractSchemeFileRead
 {
 public:
-    static SchemeObliqueFileReadRNX &getInstance();
+    static SchemeObliqueFileReadRNX &getInstance(AbstractScheme &scheme);
 
-    AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name);
+    void readScheme(QByteArray byteArray, QString name) override final;
 
 private:
-    SchemeObliqueFileReadRNX();
+    SchemeObliqueFileReadRNX(AbstractScheme &scheme);
     ~SchemeObliqueFileReadRNX();
 
     int readCountLine(QByteArray &byteArray);

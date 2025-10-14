@@ -19,7 +19,7 @@ class SchemeObliqueWidgetCreateScheme: public QWidget
     Q_OBJECT
 
 public:
-    static SchemeObliqueWidgetCreateScheme &getInstance();
+    static SchemeObliqueWidgetCreateScheme &getInstance(AbstractScheme &scheme);
 
 public slots:
     void createIn();
@@ -32,10 +32,11 @@ private slots:
     void onCreateClicked();
 
 private:
-    explicit SchemeObliqueWidgetCreateScheme();
+    explicit SchemeObliqueWidgetCreateScheme(AbstractScheme &scheme);
     ~SchemeObliqueWidgetCreateScheme();
 
     static SchemeObliqueWidgetCreateScheme *schemeObliqueWidgetCreateScheme;
+    AbstractScheme &scheme;
 
     QGridLayout gridLayout;
     QGroupBox groupBox;

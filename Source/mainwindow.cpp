@@ -55,8 +55,6 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     this->settingsShortcut.setText("Сочетания клавиш");
     this->settingsScheme.setTitle("Схем");
 
-    this->connect(&this->fileRead, &FileRead::createOut, &this->tabWidget, &TabWidget::createOut);
-
     this->setCentralWidget(&this->tabWidget);
 
     for (AbstractScheme *scheme : schemes) {
@@ -124,7 +122,7 @@ void MainWindow::updateShortcut()
 {
     this->updateMenu(this->tabWidget.currentIndex());
     for (AbstractScheme *scheme : schemes) {
-        emit scheme->updateShortcut();
+        emit scheme->onUpdateShortcut();
     }
 }
 
@@ -144,11 +142,10 @@ void MainWindow::updateMenu(int index)
         this->managmentOpenScheme.setEnabled(false);
         this->settingsOpenScheme.setEnabled(false);
     } else {
-        static_cast<AbstractSchemeChartView*>(&this->tabWidget.getCurrentScheme())->setMenuView(this->view);
-
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuHistory(this->history);
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuManagment(this->managmentOpenScheme);
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->setMenuSettingsOpenScheme(this->settingsOpenScheme);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuView(this->view);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuHistory(this->history);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuManagment(this->managmentOpenScheme);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentScheme()).getScheme().setMenuSettingsOpenScheme(this->settingsOpenScheme);
 
         static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
 

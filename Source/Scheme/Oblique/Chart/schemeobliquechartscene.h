@@ -39,13 +39,19 @@ public:
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
-    void setMenuHistory(QMenu &menuHistory) override final;
-    void setMenuManagment(QMenu &menuManagment) override final;
-    void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) override final;
-    void onUpdateShortcut() override final;
+    void editNodesDirectionsRemoveLeft();
+    void editNodesDirectionsRemoveRight();
+    void editNodesDirectionsAddLeft();
+    void editNodesDirectionsAddRight();
+    void editNodesDirectionsRemoveBottom();
+    void editNodesDirectionsRemoveTop();
+    void editNodesDirectionsAddBottom();
+    void editNodesDirectionsAddTop();
+
     void updateScene() override final;
-    void backHistory() override final;
-    void nextHistory() override final;
+
+    void backHistory();
+    void nextHistory();
 
     void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode);
     void editFromHistory(const int &numberThread, const QBrush &brush);
@@ -57,6 +63,15 @@ public:
     SchemeObliqueSatelliteConnects connects;
     SchemeObliqueSatelliteColors colors;
     SchemeObliqueSatelliteHistory history;
+
+signals:
+    void actionEnableRemoveThreadLeftAndRight(const bool enable);
+    void actionEnableRemoveHalfrowDownAndTop(const bool enable);
+    void actionEnableAddThreadLeftAndRight(const bool enable);
+    void actionEnableAddHalfrowDownAndTop(const bool enable);
+
+    void actionEnableBack(const bool enable);
+    void actionEnableNext(const bool enable);
 
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override final;
@@ -74,19 +89,6 @@ private:
     void updateRectScene();
     void updateEnabledEditNodeAndThread();
     void updateEnabledHistory();
-
-    QMenu menuThread;
-    QMenu menuHalfrow;
-    QAction actionBack;
-    QAction actionNext;
-    QAction actionRemoveThreadLeft;
-    QAction actionRemoveThreadRight;
-    QAction actionAddThreadLeft;
-    QAction actionAddThreadRight;
-    QAction actionRemoveHalfrowDown;
-    QAction actionRemoveHalfrowTop;
-    QAction actionAddHalfrowDown;
-    QAction actionAddHalfrowTop;
 };
 
 #endif // SCHEMEOBLIQUECHARTSCENE_H

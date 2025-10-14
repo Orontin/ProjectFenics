@@ -30,5 +30,4 @@ void TabWidget::createOut(AbstractSchemeChartView &view)
 {
     this->addTab(&view, view.name);
     this->setCurrentWidget(&view);
-    static_cast<AbstractSchemeChartScene&>(*view.scene()).updateScene();
 }

@@ -9,12 +9,12 @@
 class SchemeObliqueFileReadFBD: public AbstractSchemeFileRead
 {
 public:
-    static SchemeObliqueFileReadFBD &getInstance();
+    static SchemeObliqueFileReadFBD &getInstance(AbstractScheme &scheme);
 
-    AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name);
+    void readScheme(QByteArray byteArray, QString name) override final;;
 
 private:
-    SchemeObliqueFileReadFBD();
+    SchemeObliqueFileReadFBD(AbstractScheme &scheme);
     ~SchemeObliqueFileReadFBD();
 
     int readCountThread(QByteArray &byteArray, int &countThread);

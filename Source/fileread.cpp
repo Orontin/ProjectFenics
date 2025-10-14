@@ -56,7 +56,7 @@ void FileRead::workAbstractSchemeFileRead(QList<AbstractSchemeFileRead*> &listAb
         if (listAbstractSchemeFileRead.size() == 0) {
             showMessageBoxError(file.fileName(), QString("Файл не является файлом схемы фенички"));
         } else if (listAbstractSchemeFileRead.size() == 1)  {
-            emit createOut(listAbstractSchemeFileRead.back()->readScheme(file.readAll(), QFileInfo(file.fileName()).baseName()));
+            listAbstractSchemeFileRead.back()->readScheme(file.readAll(), QFileInfo(file.fileName()).baseName());
         } else {
             // задать вопрос какую схему создавать.
         }

@@ -7,15 +7,15 @@
 
 SchemeObliqueFileReadFBD *SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD{nullptr};
 
-SchemeObliqueFileReadFBD &SchemeObliqueFileReadFBD::getInstance()
+SchemeObliqueFileReadFBD &SchemeObliqueFileReadFBD::getInstance(AbstractScheme &scheme)
 {
     if (!SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD) {
-        SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD = new SchemeObliqueFileReadFBD;
+        SchemeObliqueFileReadFBD::schemeObliqueFileReadFBD = new SchemeObliqueFileReadFBD(scheme);
     }
     return *schemeObliqueFileReadFBD;
 }
 
-AbstractSchemeChartView &SchemeObliqueFileReadFBD::readScheme(QByteArray byteArray, QString name)
+void SchemeObliqueFileReadFBD::readScheme(QByteArray byteArray, QString name)
 {
     int isNode1_2;
     int countHalfrow;
@@ -84,10 +84,10 @@ AbstractSchemeChartView &SchemeObliqueFileReadFBD::readScheme(QByteArray byteArr
                       "В файле должно быть минимум 42 бита и количество битов в файле должно делиться на 2 без остатка.").arg(byteArrayHex.size());
     }
 
-    return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+    emit createOut(*(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name, this->getScheme())));
 }
 
-SchemeObliqueFileReadFBD::SchemeObliqueFileReadFBD(): AbstractSchemeFileRead("fbd", "Friendship Bracelet Designer")
+SchemeObliqueFileReadFBD::SchemeObliqueFileReadFBD(AbstractScheme &scheme): AbstractSchemeFileRead("fbd", "Friendship Bracelet Designer", scheme)
 {
 
 }

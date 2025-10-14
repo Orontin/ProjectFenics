@@ -11,14 +11,15 @@ class AbstractSchemeChartView : public QGraphicsView
     Q_OBJECT
 
 public:
-    AbstractSchemeChartView(const QString &name): name(name) {};
+    AbstractSchemeChartView(const QString &name, AbstractScheme &scheme): name(name), scheme(scheme) {};
     ~AbstractSchemeChartView() {};
 
-    virtual void setMenuView(QMenu &menuView) = 0;
-    virtual void onUpdateShortcut() = 0;
-    virtual const QString &getTypeScheme() = 0;
+    AbstractScheme &getScheme() { return this->scheme; };
 
     const QString name;
+
+private:
+    AbstractScheme &scheme;
 };
 
 #endif // ABSTRACTSCHEMECHARTVIEW_H

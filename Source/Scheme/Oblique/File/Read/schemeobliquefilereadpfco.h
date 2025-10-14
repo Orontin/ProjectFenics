@@ -6,12 +6,12 @@
 class SchemeObliqueFileReadPFCO : public AbstractSchemeFileRead
 {
 public:
-    static SchemeObliqueFileReadPFCO &getInstance();
+    static SchemeObliqueFileReadPFCO &getInstance(AbstractScheme &scheme);
 
-    AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name);
+    void readScheme(QByteArray byteArray, QString name) override final;;
 
 private:
-    SchemeObliqueFileReadPFCO();
+    SchemeObliqueFileReadPFCO(AbstractScheme &scheme);
     ~SchemeObliqueFileReadPFCO();
 
     void setColorThreads(QList<QBrush> &colorThreads, const QJsonObject &jsonObject);

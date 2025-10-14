@@ -5,10 +5,10 @@
 
 SchemeObliqueWidgetCreateScheme *SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme{nullptr};
 
-SchemeObliqueWidgetCreateScheme &SchemeObliqueWidgetCreateScheme::getInstance()
+SchemeObliqueWidgetCreateScheme &SchemeObliqueWidgetCreateScheme::getInstance(AbstractScheme &scheme)
 {
     if (!SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme) {
-        SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme;
+        SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme(scheme);
     }
     return *SchemeObliqueWidgetCreateScheme::schemeObliqueWidgetCreateScheme;
 }
@@ -26,11 +26,11 @@ void SchemeObliqueWidgetCreateScheme::onCancelClicked()
 
 void SchemeObliqueWidgetCreateScheme::onCreateClicked()
 {
-    emit this->createOut(*(new SchemeObliqueChartView(this->countThreads.value(), this->countHalfrow.value(), this->nodeOf1_2.isChecked(), this->name.text())));
+    emit this->createOut(*(new SchemeObliqueChartView(this->countThreads.value(), this->countHalfrow.value(), this->nodeOf1_2.isChecked(), this->name.text(), scheme)));
     this->onCancelClicked();
 }
 
-SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme()
+SchemeObliqueWidgetCreateScheme::SchemeObliqueWidgetCreateScheme(AbstractScheme &scheme): scheme(scheme)
 {
     this->labelCountThread.setText("Количество нитей");
     this->verticalLayoutLabel.addWidget(&this->labelCountThread);
