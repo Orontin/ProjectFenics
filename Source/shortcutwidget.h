@@ -52,11 +52,6 @@ private:
     QGridLayout widgetScrollAreaGridLayout;
     QGridLayout gridLayouWidgetScrollArea;
 
-    QLabel verticalLayoutKeySequenceEdit_1;
-    QLabel verticalLayoutKeySequenceEdit_2;
-    QLabel verticalLayoutKeySequenceEdit_3;
-    QLabel verticalLayoutKeySequenceEdit_4;
-
     QLabel labelName;
 
     QLabel labelOpenFile;

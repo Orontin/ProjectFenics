@@ -16,16 +16,14 @@ void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
 {
 
     int rowCount = gridLayouShortcut.rowCount();
-
-    this->labelName.setText(" --- Сочетания клавиш усложненной косой схемы --- ");
+    this->labelName.setText("Сочетания клавиш усложненной косой схемы");
     this->labelName.setAlignment(Qt::AlignCenter);
     this->labelName.setStyleSheet("font-weight: bold; text-decoration: underline; font-style: italic;");
     gridLayouShortcut.addWidget(&this->labelName, rowCount, 0, 1, gridLayouShortcut.columnCount());
 
     rowCount = gridLayouShortcut.rowCount();
-    this->labelCommon.setAlignment(Qt::AlignCenter);
     this->labelCommon.setStyleSheet("font-weight: bold; text-decoration: underline;");
-    this->labelCommon.setText(" -- Общие -- ");
+    this->labelCommon.setText("Общие");
     gridLayouShortcut.addWidget(&this->labelCommon, rowCount, 0, 1, gridLayouShortcut.columnCount());
 
     rowCount = gridLayouShortcut.rowCount();
@@ -45,9 +43,8 @@ void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
     gridLayouShortcut.addWidget(&this->keySequenceEditEditDirectionNewNode_4, rowCount, 4, 1, 1);
 
     rowCount = gridLayouShortcut.rowCount();
-    this->labelView.setAlignment(Qt::AlignCenter);
     this->labelView.setStyleSheet("font-weight: bold; text-decoration: underline;");
-    this->labelView.setText(" -- Вид -- ");
+    this->labelView.setText("Вид");
     gridLayouShortcut.addWidget(&this->labelView, rowCount, 0, 1, gridLayouShortcut.columnCount());
 
     rowCount = gridLayouShortcut.rowCount();
@@ -115,9 +112,8 @@ void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
     gridLayouShortcut.addWidget(&this->keySequenceEditRotateRight_4, rowCount, 4, 1, 1);
 
     rowCount = gridLayouShortcut.rowCount();
-    this->labelHistory.setAlignment(Qt::AlignCenter);
     this->labelHistory.setStyleSheet("font-weight: bold; text-decoration: underline;");
-    this->labelHistory.setText(" -- История -- ");
+    this->labelHistory.setText("История");
     gridLayouShortcut.addWidget(&this->labelHistory, rowCount, 0, 1, gridLayouShortcut.columnCount());
 
     rowCount = gridLayouShortcut.rowCount();
@@ -137,9 +133,8 @@ void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
     gridLayouShortcut.addWidget(&this->keySequenceEditNext_4, rowCount, 4, 1, 1);
 
     rowCount = gridLayouShortcut.rowCount();
-    this->labelManagment.setAlignment(Qt::AlignCenter);
     this->labelManagment.setStyleSheet("font-weight: bold; text-decoration: underline;");
-    this->labelManagment.setText(" -- Управление -- ");
+    this->labelManagment.setText("Управление");
     gridLayouShortcut.addWidget(&this->labelManagment, rowCount, 0, 1, gridLayouShortcut.columnCount());
 
     rowCount = gridLayouShortcut.rowCount();
