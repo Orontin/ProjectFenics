@@ -63,9 +63,9 @@ private:
     QMenuBar menubar;
     QStatusBar statusbar;
 
+    QList<AbstractScheme*> &schemes;
     TabWidget tabWidget;
     FileRead fileRead;
-    FileWrite fileWrite;
-    QList<AbstractScheme*> &schemes;
+    FileWrite fileWrite;    
 };
 #endif // MAINWINDOW_H

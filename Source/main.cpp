@@ -11,12 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-    const auto & styles = QStyleFactory::keys();
-    for(const auto & s : styles)
-    {
-        qDebug() << s;
-    }
-
     QApplication a(argc, argv);
     a.setStyle("windows11");
 
