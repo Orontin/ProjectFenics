@@ -34,39 +34,16 @@ void SchemeOblique::onUpdateShortcut()
 
 void SchemeOblique::disconnects()
 {
-    SchemeObliqueAction::getInstance().actionZoomOut.disconnect();
-    SchemeObliqueAction::getInstance().actionZoomIn.disconnect();
-    SchemeObliqueAction::getInstance().actionToBottom.disconnect();
-    SchemeObliqueAction::getInstance().actionToTop.disconnect();
-    SchemeObliqueAction::getInstance().actionToLeft.disconnect();
-    SchemeObliqueAction::getInstance().actionToRight.disconnect();
-    SchemeObliqueAction::getInstance().actionRotateLeft.disconnect();
-    SchemeObliqueAction::getInstance().actionRotateRight.disconnect();
-
-    SchemeObliqueAction::getInstance().actionBack.disconnect();
-    SchemeObliqueAction::getInstance().actionNext.disconnect();
-
-    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.disconnect();
-    SchemeObliqueAction::getInstance().actionRemoveThreadRight.disconnect();
-    SchemeObliqueAction::getInstance().actionAddThreadLeft.disconnect();
-    SchemeObliqueAction::getInstance().actionAddThreadRight.disconnect();
-    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.disconnect();
-    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.disconnect();
-    SchemeObliqueAction::getInstance().actionAddHalfrowDown.disconnect();
-    SchemeObliqueAction::getInstance().actionAddHalfrowTop.disconnect();
-
-    disconnect(connectActionEnableRemoveThreadLeftAndRight);
-    disconnect(connectActionEnableRemoveHalfrowDownAndTop);
-    disconnect(connectActionEnableAddThreadLeftAndRight);
-    disconnect(connectActionEnableAddHalfrowDownAndTop);
-    disconnect(connectActionEnableBack);
-    disconnect(connectActionEnableNext);
+    disconnectsView();
+    disconnectsScene();
+    disconnectsOblique();
 }
 
 void SchemeOblique::connects(AbstractSchemeChartView &view)
 {
     connectsView(static_cast<SchemeObliqueChartView&>(view));
     connectsScene(static_cast<SchemeObliqueChartScene&>(*view.scene()));
+    connectsOblique(static_cast<SchemeObliqueChartScene&>(*view.scene()));
 }
 
 void SchemeOblique::setShortcut(QGridLayout &gridLayouShortcut)
@@ -150,6 +127,43 @@ SchemeOblique::~SchemeOblique()
 
 }
 
+void SchemeOblique::disconnectsView()
+{
+    SchemeObliqueAction::getInstance().actionZoomOut.disconnect();
+    SchemeObliqueAction::getInstance().actionZoomIn.disconnect();
+    SchemeObliqueAction::getInstance().actionToBottom.disconnect();
+    SchemeObliqueAction::getInstance().actionToTop.disconnect();
+    SchemeObliqueAction::getInstance().actionToLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionToRight.disconnect();
+    SchemeObliqueAction::getInstance().actionRotateLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionRotateRight.disconnect();
+}
+
+void SchemeOblique::disconnectsScene()
+{
+    SchemeObliqueAction::getInstance().actionBack.disconnect();
+    SchemeObliqueAction::getInstance().actionNext.disconnect();
+
+    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveThreadRight.disconnect();
+    SchemeObliqueAction::getInstance().actionAddThreadLeft.disconnect();
+    SchemeObliqueAction::getInstance().actionAddThreadRight.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.disconnect();
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.disconnect();
+    SchemeObliqueAction::getInstance().actionAddHalfrowDown.disconnect();
+    SchemeObliqueAction::getInstance().actionAddHalfrowTop.disconnect();
+}
+
+void SchemeOblique::disconnectsOblique()
+{
+    disconnect(connectActionEnableRemoveThreadLeftAndRight);
+    disconnect(connectActionEnableRemoveHalfrowDownAndTop);
+    disconnect(connectActionEnableAddThreadLeftAndRight);
+    disconnect(connectActionEnableAddHalfrowDownAndTop);
+    disconnect(connectActionEnableBack);
+    disconnect(connectActionEnableNext);
+}
+
 void SchemeOblique::connectsView(SchemeObliqueChartView &view)
 {
     connect(&SchemeObliqueAction::getInstance().actionZoomOut, &QAction::triggered, &view, &SchemeObliqueChartView::zoomOut);
@@ -175,13 +189,16 @@ void SchemeOblique::connectsScene(SchemeObliqueChartScene &scene)
     connect(&SchemeObliqueAction::getInstance().actionRemoveHalfrowTop, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsRemoveTop);
     connect(&SchemeObliqueAction::getInstance().actionAddHalfrowDown, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddBottom);
     connect(&SchemeObliqueAction::getInstance().actionAddHalfrowTop, &QAction::triggered, &scene, &SchemeObliqueChartScene::editNodesDirectionsAddTop);
+}
 
+void SchemeOblique::connectsOblique(SchemeObliqueChartScene &scene)
+{
     this->connectActionEnableRemoveThreadLeftAndRight = connect(&scene, &SchemeObliqueChartScene::actionEnableRemoveThreadLeftAndRight, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableRemoveThreadLeftAndRight);
     this->connectActionEnableRemoveHalfrowDownAndTop = connect(&scene, &SchemeObliqueChartScene::actionEnableRemoveHalfrowDownAndTop, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableRemoveHalfrowDownAndTop);
     this->connectActionEnableAddThreadLeftAndRight = connect(&scene, &SchemeObliqueChartScene::actionEnableAddThreadLeftAndRight, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableAddThreadLeftAndRight);
     this->connectActionEnableAddHalfrowDownAndTop = connect(&scene, &SchemeObliqueChartScene::actionEnableAddHalfrowDownAndTop, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableAddHalfrowDownAndTop);
-    this->connectActionEnableBack = connect(&scene, &SchemeObliqueChartScene::actionEnableBack,  &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableBack);
-    this->connectActionEnableNext = connect(&scene, &SchemeObliqueChartScene::actionEnableNext,  &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableNext);
+    this->connectActionEnableBack = connect(&scene, &SchemeObliqueChartScene::actionEnableBack, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableBack);
+    this->connectActionEnableNext = connect(&scene, &SchemeObliqueChartScene::actionEnableNext, &SchemeObliqueAction::getInstance(), &SchemeObliqueAction::onActionEnableNext);
 }
 
 void SchemeOblique::onUpdateShortcutOblique()

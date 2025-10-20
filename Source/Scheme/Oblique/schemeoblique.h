@@ -53,8 +53,13 @@ private:
     SchemeOblique();
     ~SchemeOblique();
 
+    void disconnectsView();
+    void disconnectsScene();
+    void disconnectsOblique();
+
     void connectsView(SchemeObliqueChartView &view);
     void connectsScene(SchemeObliqueChartScene &scene);
+    void connectsOblique(SchemeObliqueChartScene &scene);
 
     void onUpdateShortcutOblique();
     void onUpdateShortcutView();
