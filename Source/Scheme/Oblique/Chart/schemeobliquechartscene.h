@@ -7,6 +7,8 @@
 
 #include "Abstract/abstractschemechartscene.h"
 
+#include "Scheme/Oblique/schemeoblique.h"
+
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h"
 #include "Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h"
@@ -37,27 +39,23 @@ public:
     SchemeObliqueChartScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
     ~SchemeObliqueChartScene();
 
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
-    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2,const  QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
-    void removeScene();
+    void editNodesDirectionsRemoveLeft();
+    void editNodesDirectionsRemoveRight();
+    void editNodesDirectionsAddLeft();
+    void editNodesDirectionsAddRight();
+    void editNodesDirectionsRemoveBottom();
+    void editNodesDirectionsRemoveTop();
+    void editNodesDirectionsAddBottom();
+    void editNodesDirectionsAddTop();
 
-    void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueObjectNode::DirectionsNode &directionsNode);
-    void editFromHistory(const int &numberThread, const QBrush &brush);
-    void editFromHistory(const Directions &direction, const QList<SchemeObliqueObjectNode::DirectionsNode> &directionNode, const QBrush &brush);
-
-    void editNodes(const AbstractSchemeChartScene::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
-    void updateScene() final;
+    void updateScene() override final;
 
     void backHistory();
     void nextHistory();
 
-    int getSizeThread();
-    int getSizeHalfrow();
-
-    bool getIsNode1_2();
-
-    QStringList getNodeDirections();
-    QStringList getThreadColors();
+    void editFromHistory(const int &numberRow, const int &numberColumn, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNode);
+    void editFromHistory(const int &numberThread, const QBrush &brush);
+    void editFromHistory(const SchemeOblique::Directions &direction, const QList<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode> &directionNode, const QBrush &brush);
 
     SchemeObliqueSatelliteInfos info;
     SchemeObliqueSatelliteNodes nodes;
@@ -66,12 +64,28 @@ public:
     SchemeObliqueSatelliteColors colors;
     SchemeObliqueSatelliteHistory history;
 
+signals:
+    void actionEnableRemoveThreadLeftAndRight(const bool enable);
+    void actionEnableRemoveHalfrowDownAndTop(const bool enable);
+    void actionEnableAddThreadLeftAndRight(const bool enable);
+    void actionEnableAddHalfrowDownAndTop(const bool enable);
+
+    void actionEnableBack(const bool enable);
+    void actionEnableNext(const bool enable);
+
 protected:
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override final;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override final;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override final;
 
 private:
+    void commonCreate();
+
+    void editNodes(const SchemeOblique::Directions &direction, const bool &isUpdate, const bool &isSetHistory);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2);
+    void editScene(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads);
+    void removeScene();
+
     void updateRectScene();
     void updateEnabledEditNodeAndThread();
     void updateEnabledHistory();

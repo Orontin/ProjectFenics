@@ -6,16 +6,17 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueFileReadPFCO::SchemeObliqueFileReadPFCO(): AbstractSchemeFileRead("pf.co", "Project Fenics - Complicated Oblique") {
+SchemeObliqueFileReadPFCO *SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO{nullptr};
 
-}
-
-SchemeObliqueFileReadPFCO::~SchemeObliqueFileReadPFCO()
+SchemeObliqueFileReadPFCO &SchemeObliqueFileReadPFCO::getInstance(AbstractScheme &scheme)
 {
-
+    if (!SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO) {
+        SchemeObliqueFileReadPFCO::schemeObliqueFileReadPFCO = new SchemeObliqueFileReadPFCO(scheme);
+    }
+    return *schemeObliqueFileReadPFCO;
 }
 
-AbstractSchemeChartView &SchemeObliqueFileReadPFCO::readScheme(QByteArray byteArray, QString name)
+void SchemeObliqueFileReadPFCO::readScheme(QByteArray byteArray, QString name)
 {
     bool isNode1_2;
     int countHalfrow;
@@ -79,7 +80,16 @@ AbstractSchemeChartView &SchemeObliqueFileReadPFCO::readScheme(QByteArray byteAr
                       "Код ошибки %1.").arg(parseError.error);
     }
 
-    return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+    emit createOut(*(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name, this->getScheme())));
+}
+
+SchemeObliqueFileReadPFCO::SchemeObliqueFileReadPFCO(AbstractScheme &scheme): AbstractSchemeFileRead("pf.co", "Project Fenics - Complicated Oblique", scheme) {
+
+}
+
+SchemeObliqueFileReadPFCO::~SchemeObliqueFileReadPFCO()
+{
+
 }
 
 void SchemeObliqueFileReadPFCO::setColorThreads(QList<QBrush> &colorThreads, const QJsonObject &jsonObject)

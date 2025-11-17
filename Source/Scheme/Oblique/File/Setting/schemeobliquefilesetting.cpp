@@ -1,11 +1,380 @@
 #include "schemeobliquefilesetting.h"
 
-void SchemeObliqueFileSetting::setStandartDirectionObliqueNode(const SchemeObliqueObjectNode::DirectionsNode &standartDirectionObliqueNode)
+QString SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE{"Scheme/Oblique/Common/standartDirectionObliqueNode"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE{"Scheme/Oblique/Shortcut/Scene/Create"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK{"Scheme/Oblique/Shortcut/History/Back"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT{"Scheme/Oblique/Shortcut/History/Next"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT{"Scheme/Oblique/Shortcut/Scene/Thread/RemoveLeft"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT{"Scheme/Oblique/Shortcut/Scene/Thread/RemoveRight"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT{"Scheme/Oblique/Shortcut/Scene/Thread/AddLeft"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT{"Scheme/Oblique/Shortcut/Scene/Thread/AddRight"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN{"Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveDown"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP{"Scheme/Oblique/Shortcut/Scene/Halfrow/RemoveTop"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN{"Scheme/Oblique/Shortcut/Scene/Halfrow/AddDown"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP{"Scheme/Oblique/Shortcut/Scene/Halfrow/AddTop"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE{"Scheme/Oblique/Shortcut/Scene/Setting/EditDirectionNewNode"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT{"Scheme/Oblique/Shortcut/View/Zoom/Out"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN{"Scheme/Oblique/Shortcut/View/Zoom/In"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM{"Scheme/Oblique/Shortcut/View/To/Bottom"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP{"Scheme/Oblique/Shortcut/View/To/Top"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT{"Scheme/Oblique/Shortcut/View/To/Left"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT{"Scheme/Oblique/Shortcut/View/To/Right"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT{"Scheme/Oblique/Shortcut/View/Rotate/Left"};
+QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT{"Scheme/Oblique/Shortcut/View/Rotate/Right"};
+
+QString SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE{"7"};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE{"F1", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK{"Ctrl+Z", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT{"Ctrl+Y", "Ctrl+Shift+Z", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT{"Alt+Left", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT{"Alt+Right", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT{"Ctrl+Left", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT{"Ctrl+Right", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN{"Alt+Down", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP{"Alt+Up", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN{"Ctrl+Down", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP{"Ctrl+Up", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE{"Ctrl+F1", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT{"Ctrl+-", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN{"Ctrl+=", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM{"Down", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP{"Up", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT{"Left", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT{"Right", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT{"Shift+Left", "", "", ""};
+QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT{"Shift+Right", "", "", ""};
+
+void SchemeObliqueFileSetting::setStandartDirectionObliqueNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &standartDirectionObliqueNode)
 {
-    AbstractSchemeFileSetting::setValue("standartDirectionObliqueNode", QString::number(static_cast<int>(standartDirectionObliqueNode)));
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE, QString::number(static_cast<int>(standartDirectionObliqueNode)));
 }
 
-SchemeObliqueObjectNode::DirectionsNode SchemeObliqueFileSetting::getStandartDirectionObliqueNode()
+SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode SchemeObliqueFileSetting::getStandartDirectionObliqueNode()
 {
-    return static_cast<SchemeObliqueObjectNode::DirectionsNode>(AbstractSchemeFileSetting::getValue("standartDirectionObliqueNode", "7").toInt());
+    return static_cast<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode>(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE, SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE).toInt());
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneCreate(const QList<QKeySequence> &valueParam)
+{
+    return AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutHistoryBack(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutHistoryNext(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneThreadAddRight(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewZoomOut(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewZoomIn(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewToBottom(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewToTop(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewToLeft(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewToRight(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewRotateLeft(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewRotateRight(const QList<QKeySequence> &valueParam)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT, AbstractSchemeFileSetting::convertListKeySequenceToStringList(valueParam));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT));
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT));
+}
+
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneCreate()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutHistoryBack()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutHistoryNext()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadAddLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneThreadAddRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewZoomOut()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewZoomIn()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewToBottom()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewToTop()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewToLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewToRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewRotateLeft()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT);
+}
+
+QList<QKeySequence> SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewRotateRight()
+{
+    return AbstractSchemeFileSetting::convertStringListToListKeySequence(SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT);
+}
+
+void SchemeObliqueFileSetting::setDefaultShrotcuts()
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_LEFT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_REMOVE_RIGHT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_LEFT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_THREAD_ADD_RIGHT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_DOWN);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_REMOVE_TOP);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_DOWN);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_HALFROW_ADD_TOP);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_EDIT_DIRECTION_NEW_NODE);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_OUT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ZOOM_IN);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_BOTTOM);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_TOP);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_LEFT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_TO_RIGHT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_LEFT);
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT, SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT);
 }

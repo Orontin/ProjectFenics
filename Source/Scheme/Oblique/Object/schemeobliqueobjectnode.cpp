@@ -2,10 +2,6 @@
 
 #include <QPainter>
 
-#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
-
-SchemeObliqueObjectNode::DirectionsNode SchemeObliqueObjectNode::standartDirectionObliqueNode{SchemeObliqueFileSetting::getStandartDirectionObliqueNode()};
-
 QPolygon SchemeObliqueObjectNode::POLYGON_ROMB{QPoint(0, -40), QPoint(40, 0), QPoint(0, 40), QPoint(-40, 0), QPoint(0, -40)};
 
 QPolygon SchemeObliqueObjectNode::POLYGON_PARALLEL_LEFT_PART{QPoint(-24, 12), QPoint(-24, -12), QPoint(-12, -24), QPoint(-6, -18), QPoint(-6, 18), QPoint(-12, 24)};
@@ -42,7 +38,7 @@ QList<QLine> SchemeObliqueObjectNode::LINES_GAP_LEFT_BOTTOM{{QPoint(-12, 24), QP
 QList<QLine> SchemeObliqueObjectNode::LINES_GAP_RIGHT_UP{{QPoint(12, -24), QPoint(24, -12)}};
 QList<QLine> SchemeObliqueObjectNode::LINES_GAP_RIGHT_BOTTOM{{QPoint(12, 24), QPoint(24, 12)}};
 
-SchemeObliqueObjectNode::SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueObjectNode::DirectionsNode &directionNode):
+SchemeObliqueObjectNode::SchemeObliqueObjectNode(const QPoint &pos, const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode):
     pos(pos),
     directionNode(directionNode)
 {
@@ -98,39 +94,39 @@ int SchemeObliqueObjectNode::getNumberColumn()
 
 void SchemeObliqueObjectNode::editNode()
 {
-    SchemeObliqueObjectNode::DirectionsNode directionsNode = SchemeObliqueObjectNode::DirectionsNode::GAP;
+    SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP;
 
     switch (this->directionNode) {
-        case SchemeObliqueObjectNode::DirectionsNode::PARALLEL:
-            directionsNode = SchemeObliqueObjectNode::LEFT_UP__IN__RIGHT_BOTTOM;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
-            directionsNode = SchemeObliqueObjectNode::RIGHT_UP__IN__LEFT_BOTTOM;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
-            directionsNode = SchemeObliqueObjectNode::LEFT_UP__IN__LEFT_BOTTOM;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
-            directionsNode = SchemeObliqueObjectNode::RIGHT_UP__IN__RIGHT_BOTTOM;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
-            directionsNode = SchemeObliqueObjectNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
-            directionsNode = SchemeObliqueObjectNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
-            directionsNode = SchemeObliqueObjectNode::GAP;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP;
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::GAP:
-            directionsNode = SchemeObliqueObjectNode::PARALLEL;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP:
+            directionsNode = SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL;
             break;
     }
 
     this->editNode(directionsNode);
 }
 
-void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode)
+void SchemeObliqueObjectNode::editNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode)
 {
     setDirectionNode(directionNode);
 
@@ -143,7 +139,7 @@ void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::Directions
     this->graphicObjectNodeRightBottomPen.clear();
 
     switch (this->directionNode) {
-        case SchemeObliqueObjectNode::DirectionsNode::PARALLEL:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL:
             this->graphicObjectNodeLeftBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_PARALLEL_LEFT_PART.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_PARALLEL_LEFT) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
@@ -153,35 +149,35 @@ void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::Directions
                 this->graphicObjectNodeRightUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
             this->graphicObjectArrow.addPolygon(SchemeObliqueObjectNode::POLYGON_LEFT_UP__IN__LEFT_BOTTOM_ARROW.translated(pos));
             this->graphicObjectNodeLeftBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_LEFT_UP__IN__LEFT_BOTTOM.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_LEFT_UP__IN__LEFT_BOTTOM) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
             this->graphicObjectArrow.addPolygon(SchemeObliqueObjectNode::POLYGON_RIGHT_UP__IN__RIGHT_BOTTOM_ARROW.translated(pos));
             this->graphicObjectNodeRightBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_RIGHT_UP__IN__RIGHT_BOTTOM.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_RIGHT_UP__IN__RIGHT_BOTTOM) {
                 this->graphicObjectNodeRightUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
             this->graphicObjectArrow.addPolygon(SchemeObliqueObjectNode::POLYGON_LEFT_UP__IN__RIGHT_BOTTOM_ARROW.translated(pos));
             this->graphicObjectNodeLeftBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_LEFT_UP__IN__RIGHT_BOTTOM.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_LEFT_UP__IN__RIGHT_BOTTOM) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
             this->graphicObjectArrow.addPolygon(SchemeObliqueObjectNode::POLYGON_RIGHT_UP__IN__LEFT_BOTTOM_ARROW.translated(pos));
             this->graphicObjectNodeRightBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_RIGHT_UP__IN__LEFT_BOTTOM.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_RIGHT_UP__IN__LEFT_BOTTOM) {
                 this->graphicObjectNodeRightUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
             this->graphicObjectNodeLeftBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE_LEFT.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE_LEFT) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
@@ -191,7 +187,7 @@ void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::Directions
                 this->graphicObjectNodeRightUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
             this->graphicObjectNodeLeftBrush.addPolygon(SchemeObliqueObjectNode::POLYGON_RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE_LEFT.translated(pos));
             for (QLine &line : SchemeObliqueObjectNode::LINES_RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE_LEFT) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
@@ -201,7 +197,7 @@ void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::Directions
                 this->graphicObjectNodeRightUpPen.push_back(line.translated(pos));
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::GAP:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP:
             for (QLine &line : SchemeObliqueObjectNode::LINES_GAP_LEFT_UP) {
                 this->graphicObjectNodeLeftUpPen.push_back(line.translated(pos));
             }
@@ -218,7 +214,7 @@ void SchemeObliqueObjectNode::editNode(const SchemeObliqueObjectNode::Directions
     }
 }
 
-void SchemeObliqueObjectNode::setDirectionNode(const SchemeObliqueObjectNode::DirectionsNode &directionNode)
+void SchemeObliqueObjectNode::setDirectionNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionNode)
 {
     this->directionNode = directionNode;
 }
@@ -246,9 +242,9 @@ SchemeObliqueObjectPart *SchemeObliqueObjectNode::searhPart(const SchemeObliqueO
     SchemeObliqueObjectPart *returnPart = nullptr;
 
     switch (this->directionNode) {
-        case SchemeObliqueObjectNode::DirectionsNode::PARALLEL:
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
             if (part == this->partLeftBottom) {
                 returnPart = this->partLeftTop;
             } else if (part == this->partRightBottom) {
@@ -259,10 +255,10 @@ SchemeObliqueObjectPart *SchemeObliqueObjectNode::searhPart(const SchemeObliqueO
                 returnPart = this->partRightBottom;
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
-        case SchemeObliqueObjectNode::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
-        case SchemeObliqueObjectNode::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
             if (part == this->partLeftBottom) {
                 returnPart = this->partRightTop;
             } else if (part == this->partRightBottom) {
@@ -273,7 +269,7 @@ SchemeObliqueObjectPart *SchemeObliqueObjectNode::searhPart(const SchemeObliqueO
                 returnPart = this->partLeftBottom;
             }
             break;
-        case SchemeObliqueObjectNode::DirectionsNode::GAP:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP:
             returnPart = nullptr;
             break;
     }

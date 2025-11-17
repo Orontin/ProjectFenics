@@ -5,17 +5,17 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 
-SchemeObliqueFileReadRNX::SchemeObliqueFileReadRNX(): AbstractSchemeFileRead("rnx", "Renyxa")
-{
+SchemeObliqueFileReadRNX *SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX{nullptr};
 
+SchemeObliqueFileReadRNX &SchemeObliqueFileReadRNX::getInstance(AbstractScheme &scheme)
+{
+    if (!SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX) {
+        SchemeObliqueFileReadRNX::schemeObliqueFileReadRNX = new SchemeObliqueFileReadRNX(scheme);
+    }
+    return *schemeObliqueFileReadRNX;
 }
 
-SchemeObliqueFileReadRNX::~SchemeObliqueFileReadRNX()
-{
-
-}
-
-AbstractSchemeChartView &SchemeObliqueFileReadRNX::readScheme(QByteArray byteArray, QString name)
+void SchemeObliqueFileReadRNX::readScheme(QByteArray byteArray, QString name)
 {
     int isNode1_2;
     int countHalfrow;
@@ -59,7 +59,17 @@ AbstractSchemeChartView &SchemeObliqueFileReadRNX::readScheme(QByteArray byteArr
                       "В файле должно быть минимум 24 бита и количество битов в файле должно делиться на 2 без остатка.").arg(byteArrayHex.size());
     }
 
-    return *(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name));
+   emit createOut(*(new SchemeObliqueChartView(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads, name, this->getScheme())));
+}
+
+SchemeObliqueFileReadRNX::SchemeObliqueFileReadRNX(AbstractScheme &scheme): AbstractSchemeFileRead("rnx", "Renyxa", scheme)
+{
+
+}
+
+SchemeObliqueFileReadRNX::~SchemeObliqueFileReadRNX()
+{
+
 }
 
 int SchemeObliqueFileReadRNX::readCountLine(QByteArray &byteArray)

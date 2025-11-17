@@ -13,8 +13,8 @@ public:
     EventAbstractSchemeChartSceneDirectionNode(SchemeObliqueChartScene &scene,
                                                const int &numberRow,
                                                const int &numberColumn,
-                                               const SchemeObliqueObjectNode::DirectionsNode &directionsNodeNext,
-                                               const SchemeObliqueObjectNode::DirectionsNode &directionsNodeBack);
+                                               const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeNext,
+                                               const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeBack);
     ~EventAbstractSchemeChartSceneDirectionNode();
 
     void next();
@@ -23,8 +23,8 @@ public:
 private:
     const int numberRow;
     const int numberColumn;
-    const SchemeObliqueObjectNode::DirectionsNode directionsNodeNext;
-    const SchemeObliqueObjectNode::DirectionsNode directionsNodeBack;
+    const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode directionsNodeNext;
+    const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode directionsNodeBack;
 };
 
 #endif // EVENTABSTRACTSCHEMECHARTSCENEDIRECTIONNODE_H

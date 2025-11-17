@@ -13,23 +13,13 @@ public:
     TabWidget(QList<AbstractScheme*> &schemes);
     ~TabWidget();
 
-    AbstractSchemeChartView &getCurrentScheme();
+    AbstractSchemeChartView &getCurrentView();
 
 public slots:
-    void addScheme(const QString &typeScheme);
-    void deleteScheme();
+    void deleteView();
 
 public slots:
     void createOut(AbstractSchemeChartView &view);
-
-signals:
-    void enabledRemoveHalfrow(const bool &enabled);
-    void enabledRemoveThread(const bool &enabled);
-    void enabledAddedThread(const bool &enabled);
-    void enabledAddedHalfrow(const bool &enabled);
-
-    void enabledHistoryBack(const bool &enabled);
-    void enabledHistoryNext(const bool &enabled);
 
 private:
     QList<AbstractScheme*> &schemes;

@@ -3,22 +3,16 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QStyleFactory>
 
 #include "mainwindow.h"
 
-#include "Abstract/abstractscheme.h"
-
-#include "Scheme/Oblique/Chart/schemeobliquechartview.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h"
-#include "Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h"
-#include "Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h"
-#include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
-#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodeview.h"
+#include "Scheme/Oblique/schemeoblique.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle("windows11");
 
     QString locale = QLocale::system().name();
     QTranslator qtTranslator;
@@ -26,28 +20,16 @@ int main(int argc, char *argv[])
         a.installTranslator(&qtTranslator);
     }
 
-    SchemeObliqueChartView view;
-    AbstractSchemeFileRead *schemeObliqueFileReadRNX = new SchemeObliqueFileReadRNX();
-    AbstractSchemeFileRead *schemeObliqueFileReadFBD = new SchemeObliqueFileReadFBD();
-    AbstractSchemeFileRead *schemeObliqueFileReadPFCO = new SchemeObliqueFileReadPFCO();
-    QList<AbstractSchemeFileRead*> *listFileRead = new QList<AbstractSchemeFileRead*>{schemeObliqueFileReadRNX, schemeObliqueFileReadFBD, schemeObliqueFileReadPFCO};
-    AbstractSchemeFileWrite *fileWrite = new SchemeObliqueFileWritePFCO();
-    QGraphicsView *schemeObliqueWidgetEditDirectionForNewNodeView = new SchemeObliqueWidgetEditDirectionForNewNodeView();
-    AbstractSchemeWidgetCreateScheme *schemeObliqueWidgetCreateScheme = new SchemeObliqueWidgetCreateScheme();
-    AbstractScheme *schemeOblique = new AbstractScheme(listFileRead, fileWrite, schemeObliqueWidgetCreateScheme, schemeObliqueWidgetEditDirectionForNewNodeView, view.getTypeScheme());
+    QList<AbstractScheme*> schemes{QList<AbstractScheme*>{&SchemeOblique::getInstance()}};
 
-    QList<AbstractScheme*> *schemes = new QList<AbstractScheme*>{schemeOblique};
-
-
-    MainWindow w(*schemes);
+    MainWindow w(schemes);
     w.show();
 
     int returnCode = a.exec();
 
-    for (AbstractScheme *scheme : *schemes) {
+    for (AbstractScheme *scheme : schemes) {
         delete scheme;
     }
-    delete schemes;
 
     return returnCode;
 }

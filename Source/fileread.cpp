@@ -1,6 +1,6 @@
 #include "fileread.h"
 
-#include "Abstract/abstractschemefilesetting.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -17,13 +17,13 @@ FileRead::~FileRead()
 void FileRead::readFile()
 {
     QFileDialog dialog(nullptr, "Выберите файл(ы) сохранений",
-                       AbstractSchemeFileSetting::getValue("FileReadDirectory", QDir::homePath()).isEmpty() ? QDir::homePath() : AbstractSchemeFileSetting::getValue("FileReadDirectory", QDir::homePath())
-                       , this->filter);
+                       Settings::getFileDirectoryRead(),
+                       this->filter);
     dialog.setFileMode(QFileDialog::ExistingFiles);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     if (dialog.exec()) {
-        AbstractSchemeFileSetting::setValue("FileReadDirectory", dialog.directory().path());
+        Settings::setFileDirectoryRead(dialog.directory().path());
         for (const QString &filePath : dialog.selectedFiles()) {
             QFile file(filePath);
             if (file.open(QFile::OpenModeFlag::ReadOnly)) {
@@ -42,7 +42,7 @@ void FileRead::readFile()
 void FileRead::searchAbstractSchemeFileRead(const QString &prefix, QList<AbstractSchemeFileRead *> &listAbstractSchemeFileRead)
 {
     for (AbstractScheme *scheme : schemes) {
-        for (AbstractSchemeFileRead *abstractSchemeFileRead : *scheme->listFileRead) {
+        for (AbstractSchemeFileRead *abstractSchemeFileRead : scheme->getListFileRead()) {
             if (abstractSchemeFileRead->prefix == prefix) {
                 listAbstractSchemeFileRead.push_back(abstractSchemeFileRead);
             }
@@ -56,7 +56,7 @@ void FileRead::workAbstractSchemeFileRead(QList<AbstractSchemeFileRead*> &listAb
         if (listAbstractSchemeFileRead.size() == 0) {
             showMessageBoxError(file.fileName(), QString("Файл не является файлом схемы фенички"));
         } else if (listAbstractSchemeFileRead.size() == 1)  {
-            emit createOut(listAbstractSchemeFileRead.back()->readScheme(file.readAll(), QFileInfo(file.fileName()).baseName()));
+            listAbstractSchemeFileRead.back()->readScheme(file.readAll(), QFileInfo(file.fileName()).baseName());
         } else {
             // задать вопрос какую схему создавать.
         }
@@ -79,7 +79,7 @@ void FileRead::setFilterRead()
     QString stringSupportFiles = "";
 
     for (AbstractScheme *scheme : schemes) {
-        for (AbstractSchemeFileRead *abstractSchemeFileRead : *scheme->listFileRead) {
+        for (AbstractSchemeFileRead *abstractSchemeFileRead : scheme->getListFileRead()) {
             stringFilters = stringFilters + patternFilters.arg(abstractSchemeFileRead->filter);
             stringSupportFiles = stringSupportFiles + patternSupportFiles.arg(abstractSchemeFileRead->prefix);
             stringSupportFiles = stringSupportFiles + QString(" ");

@@ -9,12 +9,14 @@
 class SchemeObliqueFileReadFBD: public AbstractSchemeFileRead
 {
 public:
-    SchemeObliqueFileReadFBD();
-    ~SchemeObliqueFileReadFBD();
+    static SchemeObliqueFileReadFBD &getInstance(AbstractScheme &scheme);
 
-    AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name);
+    void readScheme(QByteArray byteArray, QString name) override final;;
 
 private:
+    SchemeObliqueFileReadFBD(AbstractScheme &scheme);
+    ~SchemeObliqueFileReadFBD();
+
     int readCountThread(QByteArray &byteArray, int &countThread);
     int readCountHalfrow(QByteArray &byteArray);
     int readIsNode1_2(QByteArray &byteArray, int &countThreads);
@@ -29,6 +31,8 @@ private:
     QList<int> readListNodeDirections(QByteArray &byteArray, const int &countRows, const int &coutDirection);
 
     int countMatrixElemets(const int &countThread, const int &isNode1_2);
+
+    static SchemeObliqueFileReadFBD *schemeObliqueFileReadFBD;
 };
 
 #endif // SCHEMEOBLIQUEFILEREADFBD_H

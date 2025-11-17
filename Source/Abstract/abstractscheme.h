@@ -1,39 +1,43 @@
 #ifndef ABSTRACTSCHEME_H
 #define ABSTRACTSCHEME_H
 
-#include "abstractschemefileread.h"
-#include "abstractschemefilewrite.h"
-#include "abstractschemewidgetcreatescheme.h"
+#include <QGridLayout>
+#include <QAction>
+#include <QList>
+#include <QMenu>
 
-class AbstractScheme {
+#include "Abstract/abstractschemechartview.h"
+#include "Abstract/abstractschemefileread.h"
+#include "Abstract/abstractschemefilewrite.h"
+
+class AbstractScheme: public QObject
+{
+    Q_OBJECT
+
 public:
-    AbstractScheme(QList<AbstractSchemeFileRead*> *listFileRead,
-                   AbstractSchemeFileWrite *fileWrite,
-                   AbstractSchemeWidgetCreateScheme *widgetCreateScheme,
-                   QGraphicsView *editDirectionForNewNodeView,
-                   const QString &typeScheme):
-                                                listFileRead(listFileRead),
-                                                fileWrite(fileWrite),
-                                                widgetCreateScheme(widgetCreateScheme),
-                                                editDirectionForNewNodeView(editDirectionForNewNodeView),
-                                                typeScheme(typeScheme)
-    {};
-    ~AbstractScheme()
-    {
-        for (AbstractSchemeFileRead *fileRead : *listFileRead) {
-            delete fileRead;
-        }
-        delete listFileRead;
-        delete fileWrite;
-        delete widgetCreateScheme;
-        delete editDirectionForNewNodeView;
-    };
+    virtual void onUpdateShortcut() = 0;
 
-    QList<AbstractSchemeFileRead*> *listFileRead;
-    AbstractSchemeFileWrite *fileWrite;
-    AbstractSchemeWidgetCreateScheme *widgetCreateScheme;
-    QGraphicsView *editDirectionForNewNodeView;
-    const QString &typeScheme;
+    virtual void disconnects() = 0;
+    virtual void connects(AbstractSchemeChartView &view) = 0;
+
+    virtual void setShortcut(QGridLayout &gridLayouShortcut) = 0;
+    virtual void setMenuCreate(QMenu &menuCreate) = 0;
+    virtual void setMenuSettings(QMenu &menuSettings) = 0;
+    virtual void setMenuHistory(QMenu &menuHistory) = 0;
+    virtual void setMenuManagment(QMenu &menuManagment) = 0;
+    virtual void setMenuView(QMenu &menuView) = 0;
+    virtual void setMenuSettingsOpenScheme(QMenu &menuSettingsOpenScheme) = 0;
+
+    virtual QList<AbstractSchemeFileRead*> &getListFileRead() = 0;
+    virtual AbstractSchemeFileWrite &getFileWrite() = 0;
+
+public slots:
+    virtual void onShortcutSetDefaultShortcut() = 0;
+    virtual void onShortcutCancel() = 0;
+    virtual void onShortcutSave() = 0;
+
+signals:
+    void createOut(AbstractSchemeChartView &view);
 };
 
 #endif // ABSTRACTSCHEME_H

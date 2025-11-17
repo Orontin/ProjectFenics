@@ -1,257 +1,181 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 #include "Abstract/abstractschemechartscene.h"
 #include "Abstract/abstractschemechartview.h"
 
+#include "settings.h"
+
+#include <QKeySequence>
+
 MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
     schemes(schemes),
     tabWidget(schemes),
     fileRead(schemes),
-    fileWrite(schemes),
-    editDirectionForNewNodeWindow(schemes)
+    fileWrite(schemes)
 {
-    ui->setupUi(this);
+    this->setWindowTitle("Проект Феникс v3.0.0");
+    this->resize(800, 600);
 
-    this->setWindowTitle("Проект Феникс v3.0.0.0");
+    this->menubar.setGeometry(QRect(0, 0, 800, 600));
+    this->setMenuBar(&menubar);
 
-    for (AbstractScheme *scheme : schemes) {
-        QAction *actionCreateNewScheme = ui->menuCreateNewScheme->addAction(scheme->typeScheme);
-        QAction *actionEditDirectionNewNode = ui->menuEditDirectionNewNode->addAction(scheme->typeScheme);
+    this->setStatusBar(&statusbar);
 
-        connect(actionCreateNewScheme, &QAction::triggered, [=](){
-            this->tabWidget.addScheme(scheme->typeScheme);
-        });
+    this->menubar.addAction(file.menuAction());
+    this->file.addAction(&openFile);
+    this->file.addAction(&saveOpenScheme);
+    this->file.setTitle("Файл");
+    this->openFile.setText("Открыть файл");
+    this->saveOpenScheme.setText("Сохранить открытую схему");
 
-        connect(actionEditDirectionNewNode, &QAction::triggered, [=](){
-            this->editDirectionForNewNodeWindow.open(scheme->typeScheme);
-        });
-    }
+    this->menubar.addAction(view.menuAction());
+    this->view.setTitle("Вид");
 
-    this->connect(&this->fileRead, &FileRead::createOut, &this->tabWidget, &TabWidget::createOut);
+    this->menubar.addAction(history.menuAction());
+    this->history.setTitle("История");
+
+    this->menubar.addAction(scheme.menuAction());
+    this->scheme.addAction(createNewScheme.menuAction());
+    this->scheme.addAction(&deleteOpenScheme);
+    this->scheme.addSeparator();
+    this->scheme.addAction(managmentOpenScheme.menuAction());
+    this->scheme.addSeparator();
+    this->scheme.addAction(settingsOpenScheme.menuAction());
+    this->scheme.setTitle("Схема");
+    this->createNewScheme.setTitle("Создать новую схему");
+    this->deleteOpenScheme.setText("Удалить открытую схему");
+    this->managmentOpenScheme.setTitle("Управление открытой схемой");
+    this->settingsOpenScheme.setTitle("Настроить открытую схему");
+
+    this->menubar.addAction(settings.menuAction());
+    this->settings.addAction(&settingsShortcut);
+    this->settings.addAction(settingsScheme.menuAction());
+    this->settings.setTitle("Настройки");
+    this->settingsShortcut.setText("Сочетания клавиш");
+    this->settingsScheme.setTitle("Схем");
 
     this->setCentralWidget(&this->tabWidget);
 
-    this->connect(&this->tabWidget, &TabWidget::enabledRemoveHalfrow, this, &MainWindow::enabledRemoveHalfrow);
-    this->connect(&this->tabWidget, &TabWidget::enabledRemoveThread, this, &MainWindow::enabledRemoveThread);
-    this->connect(&this->tabWidget, &TabWidget::enabledAddedThread, this, &MainWindow::enabledAddedThread);
-    this->connect(&this->tabWidget, &TabWidget::enabledAddedHalfrow, this, &MainWindow::enabledAddedHalfrow);
+    for (AbstractScheme *scheme : schemes) {
+        scheme->setMenuCreate(this->createNewScheme);
+        scheme->setMenuSettings(this->settingsScheme);
+        scheme->setShortcut(ShortcutWidget::getInstance().getGridLayouWidgetScrollArea());
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, scheme, &AbstractScheme::onShortcutSetDefaultShortcut);
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, scheme, &AbstractScheme::onShortcutCancel);
+        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, scheme, &AbstractScheme::onShortcutSave);
+    }
 
-    this->connect(&this->tabWidget, &TabWidget::enabledHistoryBack, this, &MainWindow::enabledHistoryBack);
-    this->connect(&this->tabWidget, &TabWidget::enabledHistoryNext, this, &MainWindow::enabledHistoryNext);
+    connect(&this->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
+    connect(&this->openFile, &QAction::triggered, this, &MainWindow::onOpenSchemeTriggered);
+    connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
+    connect(&this->settingsShortcut, &QAction::triggered, this, &MainWindow::onOpenShortcutWidgetTriggered);
 
-    this->connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, this, &MainWindow::onShortcutSetDefaultShortcut);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, this, &MainWindow::onShortcutCancel);
+    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, this, &MainWindow::onShortcutSave);
+
+    connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+
     this->updateMenu(-1);
 }
 
 MainWindow::~MainWindow()
 {
     disconnect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
-    delete this->ui;
 }
 
-void MainWindow::enabledRemoveThread(bool enabled)
+void MainWindow::onOpenSchemeTriggered()
 {
-    this->ui->removeThreadLeft->setEnabled(enabled);
-    this->ui->removeThreadRight->setEnabled(enabled);
+    this->fileRead.readFile();
 }
 
-void MainWindow::enabledRemoveHalfrow(bool enabled)
+void MainWindow::onSaveOpenSchemeTriggered()
 {
-    this->ui->removeHalfrowDown->setEnabled(enabled);
-    this->ui->removeHalfrowTop->setEnabled(enabled);
+    this->fileWrite.writeFile(this->tabWidget.getCurrentView());
 }
 
-void MainWindow::enabledAddedThread(bool enabled)
+void MainWindow::onOpenShortcutWidgetTriggered()
 {
-    this->ui->addThreadLeft->setEnabled(enabled);
-    this->ui->addThreadRight->setEnabled(enabled);
+    ShortcutWidget::getInstance().show();
 }
 
-void MainWindow::enabledAddedHalfrow(bool enabled)
+void MainWindow::onDeleteSchemeTriggered()
 {
-    this->ui->addHalfrowDown->setEnabled(enabled);
-    this->ui->addHalfrowTop->setEnabled(enabled);
+    this->tabWidget.deleteView();
 }
 
-void MainWindow::enabledHistoryBack(bool enabled)
+void MainWindow::onShortcutSetDefaultShortcut()
 {
-    this->ui->historyBack->setEnabled(enabled);
+    updateShortcut();
 }
 
-void MainWindow::enabledHistoryNext(bool enabled)
+void MainWindow::onShortcutCancel()
 {
-    this->ui->historyNext->setEnabled(enabled);
+    updateShortcut();
 }
 
-void MainWindow::on_openScheme_triggered()
+void MainWindow::onShortcutSave()
 {
-    fileRead.readFile();
+    updateShortcut();
 }
 
-void MainWindow::on_saveScheme_triggered()
+void MainWindow::updateShortcut()
 {
-    fileWrite.writeFile(this->tabWidget.getCurrentScheme());
-}
-
-void MainWindow::on_zoomOut_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->zoomOut();
-}
-
-void MainWindow::on_zoomIn_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->zoomIn();
-}
-
-void MainWindow::on_movingDown_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->toBottom();
-}
-
-void MainWindow::on_movingUp_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->toTop();
-}
-
-void MainWindow::on_movingLeft_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->toLeft();
-}
-
-void MainWindow::on_movingRight_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->toRight();
-}
-
-void MainWindow::on_rotateLeft_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->rotateLeft();
-}
-
-void MainWindow::on_rotateRight_triggered()
-{
-    static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->rotateRight();
-}
-
-void MainWindow::on_deleteScheme_triggered()
-{
-    this->tabWidget.deleteScheme();
-}
-
-void MainWindow::on_removeThreadLeft_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_LEFT, true, true);
-}
-
-void MainWindow::on_removeThreadRight_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_RIGHT, true, true);
-}
-
-void MainWindow::on_addThreadLeft_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_LEFT, true, true);
-}
-
-void MainWindow::on_addThreadRight_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_RIGHT, true, true);
-}
-
-void MainWindow::on_removeHalfrowDown_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_BOTTOM, true, true);
-}
-
-void MainWindow::on_removeHalfrowTop_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::REMOVE_TOP, true, true);
-}
-
-void MainWindow::on_addHalfrowDown_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_BOTTOM, true, true);
-}
-
-void MainWindow::on_addHalfrowTop_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->editNodes(AbstractSchemeChartScene::Directions::ADD_TOP, true, true);
-}
-
-void MainWindow::on_historyBack_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->backHistory();
-}
-
-
-void MainWindow::on_historyNext_triggered()
-{
-    static_cast<AbstractSchemeChartScene*>(static_cast<AbstractSchemeChartView*>(this->tabWidget.currentWidget())->scene())->nextHistory();
+    updateMenu(this->tabWidget.currentIndex());
 }
 
 void MainWindow::updateMenu(int index)
 {
+    for (AbstractScheme *scheme : schemes) {
+        scheme->disconnects();
+    }
+
+    this->deleteOpenScheme.setShortcuts(Settings::getListShortcutActionDeleteOpenScheme());
+    this->openFile.setShortcuts(Settings::getListShortcutActionOpenFile());
+    this->saveOpenScheme.setShortcuts(Settings::getListShortcutActionSaveScheme());
+    this->settingsShortcut.setShortcuts(Settings::getListShortcutActionOpenShortcutWidget());
+
     if (index == -1) {
-        this->ui->saveScheme->setEnabled(false);
+        this->deleteOpenScheme.setEnabled(false);
+        this->saveOpenScheme.setEnabled(false);
 
-        this->ui->zoomIn->setEnabled(false);
-        this->ui->zoomOut->setEnabled(false);
-
-        this->ui->movingDown->setEnabled(false);
-        this->ui->movingUp->setEnabled(false);
-        this->ui->movingLeft->setEnabled(false);
-        this->ui->movingRight->setEnabled(false);
-
-        this->ui->rotateRight->setEnabled(false);
-        this->ui->rotateLeft->setEnabled(false);
-
-        this->ui->deleteScheme->setEnabled(false);
-
-        this->ui->addHalfrowDown->setEnabled(false);
-        this->ui->addHalfrowTop->setEnabled(false);
-        this->ui->addThreadLeft->setEnabled(false);
-        this->ui->addThreadRight->setEnabled(false);
-
-        this->ui->removeHalfrowDown->setEnabled(false);
-        this->ui->removeHalfrowTop->setEnabled(false);
-        this->ui->removeThreadLeft->setEnabled(false);
-        this->ui->removeThreadRight->setEnabled(false);
-
-        this->ui->historyBack->setEnabled(false);
-        this->ui->historyNext->setEnabled(false);
+        this->view.setEnabled(false);
+        this->history.setEnabled(false);
+        this->managmentOpenScheme.setEnabled(false);
+        this->settingsOpenScheme.setEnabled(false);
     } else {
-        this->ui->saveScheme->setEnabled(true);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuView(this->view);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuHistory(this->history);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuManagment(this->managmentOpenScheme);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().setMenuSettingsOpenScheme(this->settingsOpenScheme);
 
-        this->ui->zoomIn->setEnabled(true);
-        this->ui->zoomOut->setEnabled(true);
+        static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()).getScheme().connects(static_cast<AbstractSchemeChartView&>(this->tabWidget.getCurrentView()));
 
-        this->ui->movingDown->setEnabled(true);
-        this->ui->movingUp->setEnabled(true);
-        this->ui->movingLeft->setEnabled(true);
-        this->ui->movingRight->setEnabled(true);
+        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentView().scene())->updateScene();
 
-        this->ui->rotateRight->setEnabled(true);
-        this->ui->rotateLeft->setEnabled(true);
+        this->deleteOpenScheme.setEnabled(true);
+        this->saveOpenScheme.setEnabled(true);
 
-        this->ui->deleteScheme->setEnabled(true);
-
-        this->ui->addHalfrowDown->setEnabled(true);
-        this->ui->addHalfrowTop->setEnabled(true);
-        this->ui->addThreadLeft->setEnabled(true);
-        this->ui->addThreadRight->setEnabled(true);
-
-        this->ui->removeHalfrowDown->setEnabled(true);
-        this->ui->removeHalfrowTop->setEnabled(true);
-        this->ui->removeThreadLeft->setEnabled(true);
-        this->ui->removeThreadRight->setEnabled(true);
-
-        this->ui->historyBack->setEnabled(true);
-        this->ui->historyNext->setEnabled(true);
-
-        static_cast<AbstractSchemeChartScene*>(this->tabWidget.getCurrentScheme().scene())->updateScene();
+        if (this->view.actions().count()) {
+            this->view.setEnabled(true);
+        } else {
+            this->view.setEnabled(false);
+        }
+        if (this->history.actions().count()) {
+            this->history.setEnabled(true);
+        } else {
+            this->history.setEnabled(false);
+        }
+        if (this->managmentOpenScheme.actions().count()) {
+            this->managmentOpenScheme.setEnabled(true);
+        } else {
+            this->managmentOpenScheme.setEnabled(false);
+        }
+        if (this->settingsOpenScheme.actions().count()) {
+            this->settingsOpenScheme.setEnabled(true);
+        } else {
+            this->settingsOpenScheme.setEnabled(false);
+        }
     }
 }
-

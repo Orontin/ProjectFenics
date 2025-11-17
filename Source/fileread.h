@@ -16,9 +16,6 @@ public:
 
     void readFile();
 
-signals:
-    void createOut(AbstractSchemeChartView &view);
-
 private:
     void searchAbstractSchemeFileRead(const QString &prefix, QList<AbstractSchemeFileRead*> &listAbstractSchemeFileRead);
     void workAbstractSchemeFileRead(QList<AbstractSchemeFileRead*> &listAbstractSchemeFileRead, QFile &file);

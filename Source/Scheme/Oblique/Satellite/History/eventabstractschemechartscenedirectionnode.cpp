@@ -5,8 +5,8 @@
 EventAbstractSchemeChartSceneDirectionNode::EventAbstractSchemeChartSceneDirectionNode(SchemeObliqueChartScene &scene,
                                                                                        const int &numberRow,
                                                                                        const int &numberColumn,
-                                                                                       const SchemeObliqueObjectNode::DirectionsNode &directionsNodeNext,
-                                                                                       const SchemeObliqueObjectNode::DirectionsNode &directionsNodeBack):
+                                                                                       const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeNext,
+                                                                                       const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &directionsNodeBack):
     Event(scene),
     numberRow(numberRow),
     numberColumn(numberColumn),

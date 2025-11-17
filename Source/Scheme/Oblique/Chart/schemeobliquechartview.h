@@ -8,13 +8,11 @@ class SchemeObliqueChartView : public AbstractSchemeChartView
     Q_OBJECT
 
 public:
-    SchemeObliqueChartView();
-    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QString &name);
-    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads, const QString &name);
+    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QString &name, AbstractScheme &scheme);
+    SchemeObliqueChartView(const int &countThreads, const int &countHalfrow, const bool &isNode1_2, const QList<int> &nodeDirections, const QList<QBrush> &colorThreads, const QString &name, AbstractScheme &scheme);
     ~SchemeObliqueChartView();
 
-    const QString &getTypeScheme();
-
+public slots:
     void toRight();
     void toLeft();
     void toTop();
@@ -27,18 +25,17 @@ public:
     void rotateLeft();
 
 protected:
-    void wheelEvent(QWheelEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event) override final;
+    void mousePressEvent(QMouseEvent *event) override final;
+    void mouseMoveEvent(QMouseEvent *event) override final;
+    void mouseReleaseEvent(QMouseEvent *event) override final;
 
 private:
-    qreal originX;
-    qreal originY;
+    void commonCreate();
+
+    QPoint lastPos;
     bool isMovements = false;
     int skrooll = 5;
-
-    static const QString &typeScheme;
 };
 
 #endif // SCHEMEOBLIQUECHARTVIEW_H

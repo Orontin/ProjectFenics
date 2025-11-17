@@ -8,24 +8,15 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
-const QString &SchemeObliqueChartView::typeScheme = "Усложенная косая";
-
-SchemeObliqueChartView::SchemeObliqueChartView():
-    AbstractSchemeChartView("")
-{
-}
-
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const int &countHalfrow,
                                                const bool &isNode1_2,
-                                               const QString &name):
-    AbstractSchemeChartView(name)
+                                               const QString &name,
+                                               AbstractScheme &scheme):
+    AbstractSchemeChartView(name, scheme)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2));
-
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setMouseTracking(true);
+    this->commonCreate();
 }
 
 SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
@@ -33,23 +24,17 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const bool &isNode1_2,
                                                const QList<int> &nodeDirections,
                                                const QList<QBrush> &colorThreads,
-                                               const QString &name):
-    AbstractSchemeChartView(name)
+                                               const QString &name,
+                                               AbstractScheme &scheme):
+    AbstractSchemeChartView(name, scheme)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads));
-
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    this->setMouseTracking(true);
+    this->commonCreate();
 }
 
 SchemeObliqueChartView::~SchemeObliqueChartView()
 {
     delete this->scene();
-}
-
-const QString &SchemeObliqueChartView::getTypeScheme() {
-    return SchemeObliqueChartView::typeScheme;
 }
 
 void SchemeObliqueChartView::toRight()
@@ -147,11 +132,10 @@ void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)
 
 void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && this->isMovements == false) {
+    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && !this->isMovements) {
         this->setTransformationAnchor(QGraphicsView::NoAnchor);
         this->isMovements = true;
-        this->originX = event->position().x();
-        this->originY = event->position().y();
+        this->lastPos = event->pos();
     } else {
         QGraphicsView::mousePressEvent(event);
     }
@@ -159,15 +143,12 @@ void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
 
 void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->buttons().testFlag(Qt::LeftButton) && this->isMovements == true) {
-        QPoint oldP = this->mapToScene(this->originX, this->originY).toPoint();
-        QPoint newP = this->mapToScene(event->pos()).toPoint();
-        QPoint translation = newP - oldP;
-
-        this->translate(translation.x(), translation.y());
-
-        this->originX = event->position().x();
-        this->originY = event->position().y();
+    if (event->modifiers() & Qt::ControlModifier && event->buttons() == Qt::LeftButton && this->isMovements) {
+        QPointF delta = event->position() - this->lastPos;
+        QTransform transform = this->transform();
+        transform.translate(delta.x(), delta.y());
+        this->setTransform(transform);
+        this->lastPos = event->pos();
     } else {
         QGraphicsView::mouseMoveEvent(event);
     }
@@ -175,9 +156,16 @@ void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
 
 void SchemeObliqueChartView::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && this->isMovements == true) {
+    if (event->button() == Qt::LeftButton && this->isMovements) {
         this->isMovements = false;
     } else {
         QGraphicsView::mouseReleaseEvent(event);
     }
+}
+
+void SchemeObliqueChartView::commonCreate()
+{
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    this->setMouseTracking(true);
 }

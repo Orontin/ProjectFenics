@@ -10,13 +10,21 @@ class AbstractSchemeFileRead: public QObject
     Q_OBJECT
 
 public:
-    AbstractSchemeFileRead(const QString &prefix, const QString &filter): prefix(prefix), filter(QString("%1 (*.%2)").arg(filter).arg(prefix)) {};
+    AbstractSchemeFileRead(const QString &prefix, const QString &filter, AbstractScheme &scheme): prefix(prefix), filter(QString("%1 (*.%2)").arg(filter).arg(prefix)), scheme(scheme) {};
     ~AbstractSchemeFileRead() {};
 
-    virtual AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name) = 0;
+    virtual void readScheme(QByteArray byteArray, QString name) = 0;
+
+    AbstractScheme &getScheme() { return this->scheme; };
 
     const QString prefix;
     const QString filter;
+
+signals:
+    void createOut(AbstractSchemeChartView &view);
+
+private:
+    AbstractScheme &scheme;
 };
 
 #endif // ABSTRACTSCHEMEFILEREAD_H

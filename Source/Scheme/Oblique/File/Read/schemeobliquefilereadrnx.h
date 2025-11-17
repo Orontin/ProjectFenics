@@ -9,12 +9,14 @@
 class SchemeObliqueFileReadRNX: public AbstractSchemeFileRead
 {
 public:
-    SchemeObliqueFileReadRNX();
-    ~SchemeObliqueFileReadRNX();
+    static SchemeObliqueFileReadRNX &getInstance(AbstractScheme &scheme);
 
-    AbstractSchemeChartView &readScheme(QByteArray byteArray, QString name);
+    void readScheme(QByteArray byteArray, QString name) override final;
 
 private:
+    SchemeObliqueFileReadRNX(AbstractScheme &scheme);
+    ~SchemeObliqueFileReadRNX();
+
     int readCountLine(QByteArray &byteArray);
     int readCountRow(QByteArray &byteArray);
 
@@ -22,6 +24,8 @@ private:
 
     QList<QBrush> readListColorThreads(QByteArray &byteArray, int countThreads);
     QList<int> readListKnotDirections(QByteArray &byteArray, int countRows);
+
+    static SchemeObliqueFileReadRNX *schemeObliqueFileReadRNX;
 };
 
 #endif // SCHEMEOBLIQUEFILEREADRNX_H
