@@ -144,10 +144,14 @@ void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
 void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier && event->buttons() == Qt::LeftButton && this->isMovements) {
-        QPointF delta = event->position() - this->lastPos;
-        QTransform transform = this->transform();
-        transform.translate(delta.x(), delta.y());
-        this->setTransform(transform);
+        QPoint delta = event->pos() - this->lastPos;
+
+        int horizontalScrollBarValue = horizontalScrollBar()->value();
+        int verticalScrollBarValue = verticalScrollBar()->value();
+
+        horizontalScrollBar()->setValue(horizontalScrollBarValue - delta.x());
+        verticalScrollBar()->setValue(verticalScrollBarValue - delta.y());
+
         this->lastPos = event->pos();
     } else {
         QGraphicsView::mouseMoveEvent(event);
