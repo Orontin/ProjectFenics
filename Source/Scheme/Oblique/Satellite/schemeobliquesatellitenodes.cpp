@@ -233,8 +233,8 @@ QList<SchemeObliqueObjectNode*> SchemeObliqueSatelliteNodes::createNodes(const b
 
 void SchemeObliqueSatelliteNodes::removeNodes()
 {
-    this->top.back()->deleteLater();
-    this->bottom.back()->deleteLater();
+    this->deleteNode(this->top.back());
+    this->deleteNode(this->bottom.back());
 
     top.clear();
     right.clear();
@@ -498,8 +498,7 @@ void SchemeObliqueSatelliteNodes::removeNodeRight()
         this->right.front()->nodeLeftTop->nodeRightBottom = this->right.front()->nodeLeftBottom;
         this->right.front()->nodeLeftBottom->nodeRightTop = this->right.front()->nodeLeftTop;
 
-        delete this->right.front();
-        this->right.front() = nullptr;
+        this->deleteNode(this->right.front());
     } else if (this->right.front()->nodeLeftTop) {
         this->bottom.pop_back();
 
@@ -507,8 +506,7 @@ void SchemeObliqueSatelliteNodes::removeNodeRight()
 
         this->right.front()->nodeLeftTop->nodeRightBottom = nullptr;
 
-        delete this->right.front();
-        this->right.front() = nullptr;
+        this->deleteNode(this->right.front());
     } else if (this->right.front()->nodeLeftBottom) {
         this->top.pop_back();
 
@@ -516,8 +514,7 @@ void SchemeObliqueSatelliteNodes::removeNodeRight()
 
         this->right.front()->nodeLeftBottom->nodeRightTop = nullptr;
 
-        delete this->right.front();
-        this->right.front() = nullptr;
+        this->deleteNode(this->right.front());
     }
 
     for (int i = 1; i < this->right.size() - 1; ++i) {
@@ -526,8 +523,7 @@ void SchemeObliqueSatelliteNodes::removeNodeRight()
         this->right[i]->nodeLeftTop->nodeRightBottom = this->right[i]->nodeLeftBottom;
         this->right[i]->nodeLeftBottom->nodeRightTop = this->right[i]->nodeLeftTop;
 
-        delete this->right[i];
-        this->right[i] = nullptr;
+        this->deleteNode(this->right[i]);
     }
 
     if (this->right.back()) {
@@ -537,15 +533,13 @@ void SchemeObliqueSatelliteNodes::removeNodeRight()
             this->right.back()->nodeLeftTop->nodeRightBottom = this->right.back()->nodeLeftBottom;
             this->right.back()->nodeLeftBottom->nodeRightTop = this->right.back()->nodeLeftTop;
 
-            delete this->right.back();
-            this->right.back() = nullptr;
+            this->deleteNode(this->right.back());
         } else if (this->right.back()->nodeLeftTop) {
             this->bottom.pop_back();
 
             this->right.back()->nodeLeftTop->nodeRightBottom = nullptr;
 
-            delete this->right.back();
-            this->right.back() = nullptr;
+            this->deleteNode(this->right.back());
         }
     }
 
@@ -563,8 +557,7 @@ void SchemeObliqueSatelliteNodes::removeNodeLeft()
         this->left.front()->nodeRightTop->nodeLeftBottom = this->left.front()->nodeRightBottom;
         this->left.front()->nodeRightBottom->nodeLeftTop = this->left.front()->nodeRightTop;
 
-        delete this->left.front();
-        this->left.front() = nullptr;
+        this->deleteNode(this->left.front());
     } else if (this->left.front()->nodeRightTop) {
         this->bottom.pop_front();
 
@@ -572,8 +565,7 @@ void SchemeObliqueSatelliteNodes::removeNodeLeft()
 
         this->left.front()->nodeRightTop->nodeLeftBottom = nullptr;
 
-        delete this->left.front();
-        this->left.front() = nullptr;
+        this->deleteNode(this->left.front());
     } else if (this->left.front()->nodeRightBottom) {
         this->top.pop_front();
 
@@ -581,8 +573,7 @@ void SchemeObliqueSatelliteNodes::removeNodeLeft()
 
         this->left.front()->nodeRightBottom->nodeLeftTop = nullptr;
 
-        delete this->left.front();
-        this->left.front() = nullptr;
+        this->deleteNode(this->left.front());
     }
 
     for (int i = 1; i < this->left.size() - 1; ++i) {
@@ -591,8 +582,7 @@ void SchemeObliqueSatelliteNodes::removeNodeLeft()
         this->left[i]->nodeRightTop->nodeLeftBottom = this->left[i]->nodeRightBottom;
         this->left[i]->nodeRightBottom->nodeLeftTop = this->left[i]->nodeRightTop;
 
-        delete this->left[i];
-        this->left[i] = nullptr;
+        this->deleteNode(this->left[i]);
     }
 
     if (this->left.back()) {
@@ -602,15 +592,13 @@ void SchemeObliqueSatelliteNodes::removeNodeLeft()
             this->left.back()->nodeRightTop->nodeLeftBottom = this->left.back()->nodeRightBottom;
             this->left.back()->nodeRightBottom->nodeLeftTop = this->left.back()->nodeRightTop;
 
-            delete this->left.back();
-            this->left.back() = nullptr;
+            this->deleteNode(this->left.back());
         } else if (this->left.back()->nodeRightTop) {
             this->bottom.pop_front();
 
             this->left.back()->nodeRightTop->nodeLeftBottom = nullptr;
 
-            delete this->left.back();
-            this->left.back() = nullptr;
+            this->deleteNode(this->left.back());
         }
     }
 
@@ -637,8 +625,7 @@ void SchemeObliqueSatelliteNodes::removeNodeTop()
         this->top[i]->nodeRightBottom->nodeLeftTop = nullptr;
         this->top[i]->nodeRightBottom->nodeRightTop = nullptr;
 
-        delete this->top[i];
-        this->top[i] = nullptr;
+        this->deleteNode(this->top[i]);
     }
 
     if (this->top.back()->nodeRightBottom && this->top.back()->nodeRightBottom->nodeLeftTop && this->top.back()->nodeRightBottom->nodeLeftTop == this->top.back()) {
@@ -646,15 +633,13 @@ void SchemeObliqueSatelliteNodes::removeNodeTop()
 
         this->top.back()->nodeRightBottom->nodeLeftTop = nullptr;
 
-        delete this->top.back();
-        this->top.back() = nullptr;
+        this->deleteNode(this->top.back());
     } else {
         this->right.pop_front();
 
         this->top.back()->nodeRightBottom->nodeRightTop = nullptr;
 
-        delete this->top.back();
-        this->top.back() = nullptr;
+        this->deleteNode(this->top.back());
     }
 
     this->top = newTop;
@@ -680,8 +665,7 @@ void SchemeObliqueSatelliteNodes::removeNodeBottom()
         this->bottom[i]->nodeRightTop->nodeLeftBottom = nullptr;
         this->bottom[i]->nodeRightTop->nodeRightBottom = nullptr;
 
-        delete this->bottom[i];
-        this->bottom[i] = nullptr;
+        this->deleteNode(this->bottom[i]);
     }
 
     if (this->bottom.back()->nodeRightTop && this->bottom.back()->nodeRightTop->nodeLeftBottom && this->bottom.back()->nodeRightTop->nodeLeftBottom == this->bottom.back()) {
@@ -689,15 +673,13 @@ void SchemeObliqueSatelliteNodes::removeNodeBottom()
 
         this->bottom.back()->nodeRightTop->nodeLeftBottom = nullptr;
 
-        delete this->bottom.back();
-        this->bottom.back() = nullptr;
+        this->deleteNode(this->bottom.back());
     } else {
         this->right.pop_back();
 
         this->bottom.back()->nodeRightTop->nodeRightBottom = nullptr;
 
-        delete this->bottom.back();
-        this->bottom.back() = nullptr;
+        this->deleteNode(this->bottom.back());
     }
 
     this->bottom = newBottom;
@@ -769,5 +751,19 @@ SchemeObliqueObjectNode *SchemeObliqueSatelliteNodes::createNode(const QPoint &p
 
     this->scene->addItem(node);
 
+    this->all.push_back(node);
+
+    emit this->signalCreateNode(*node);
+
     return node;
+}
+
+void SchemeObliqueSatelliteNodes::deleteNode(SchemeObliqueObjectNode *&node)
+{
+    emit this->signalDeleteNode(*node);
+
+    this->all.removeAll(node);
+
+    delete node;
+    node = nullptr;
 }

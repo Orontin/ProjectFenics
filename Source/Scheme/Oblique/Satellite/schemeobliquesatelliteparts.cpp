@@ -171,19 +171,19 @@ void SchemeObliqueSatelliteParts::createParts(const bool isNode1_2, const QList<
 
 void SchemeObliqueSatelliteParts::removeParts(const SchemeObliqueObjectNode &topNodes, const SchemeObliqueObjectNode &bottom)
 {
-    topNodes.partLeftTop->deleteLater();
-    topNodes.partRightTop->deleteLater();
+    delete topNodes.partLeftTop;
+    delete topNodes.partRightTop;
 
     if (topNodes.partLeftBottom == bottom.partRightTop) {
-        topNodes.partRightBottom->deleteLater();
+        delete topNodes.partRightBottom;
     } else {
-        topNodes.partLeftBottom->deleteLater();
+        delete topNodes.partLeftBottom;
     }
-    bottom.partLeftTop->deleteLater();
-    bottom.partRightTop->deleteLater();
+    delete bottom.partLeftTop;
+    delete bottom.partRightTop;
 
-    bottom.partLeftBottom->deleteLater();
-    bottom.partRightBottom->deleteLater();
+    delete bottom.partLeftBottom;
+    delete bottom.partRightBottom;
 }
 
 void SchemeObliqueSatelliteParts::createPartsLeft(const QList<SchemeObliqueObjectNode *> &nodes)
