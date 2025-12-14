@@ -1,4 +1,4 @@
-#include "schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
+#include "schemeobliquewidgeteditdirectionfornewnodewindow.h"
 
 #include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h"
 

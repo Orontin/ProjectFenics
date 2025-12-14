@@ -13,7 +13,7 @@
 #include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
 
 #include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
-#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.h"
 
 SchemeOblique *SchemeOblique::schemeOblique{nullptr};
 
