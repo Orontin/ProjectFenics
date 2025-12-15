@@ -38,6 +38,7 @@ void SchemeOblique::disconnects()
     disconnectsView();
     disconnectsScene();
     disconnectsOblique();
+
     SchemeObliqueWidgetColorMapWindow::getInstance().visibleSchemeObliqueChartScene(nullptr);
 }
 
@@ -46,6 +47,7 @@ void SchemeOblique::connects(AbstractSchemeChartView &view)
     connectsView(static_cast<SchemeObliqueChartView&>(view));
     connectsScene(static_cast<SchemeObliqueChartScene&>(*view.scene()));
     connectsOblique(static_cast<SchemeObliqueChartScene&>(*view.scene()));
+
     SchemeObliqueWidgetColorMapWindow::getInstance().visibleSchemeObliqueChartScene(static_cast<SchemeObliqueChartScene*>(view.scene()));
 }
 
@@ -212,6 +214,7 @@ void SchemeOblique::onUpdateShortcutOblique()
     SchemeObliqueAction::getInstance().actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
     SchemeObliqueAction::getInstance().actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode());
     SchemeObliqueAction::getInstance().actionColorMap.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneColorMap());
+    SchemeObliqueAction::getInstance().actionColorMap.setShortcutContext(Qt::ShortcutContext::ApplicationShortcut);
 }
 
 void SchemeOblique::onUpdateShortcutView()
@@ -224,6 +227,8 @@ void SchemeOblique::onUpdateShortcutView()
     SchemeObliqueAction::getInstance().actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
     SchemeObliqueAction::getInstance().actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
     SchemeObliqueAction::getInstance().actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
+
+    SchemeObliqueWidgetColorMapWindow::getInstance().onUpdateShortcutView();
 }
 
 void SchemeOblique::onUpdateShortcutScene()
