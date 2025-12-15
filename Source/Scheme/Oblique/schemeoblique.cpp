@@ -205,6 +205,7 @@ void SchemeOblique::onUpdateShortcutOblique()
 {
     SchemeObliqueAction::getInstance().actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
     SchemeObliqueAction::getInstance().actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode());
+    SchemeObliqueAction::getInstance().actionColorMap.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneColorMap());
 }
 
 void SchemeOblique::onUpdateShortcutView()

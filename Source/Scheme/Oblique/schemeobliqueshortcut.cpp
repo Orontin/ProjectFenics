@@ -43,6 +43,14 @@ void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
     gridLayouShortcut.addWidget(&this->keySequenceEditEditDirectionNewNode_4, rowCount, 4, 1, 1);
 
     rowCount = gridLayouShortcut.rowCount();
+    this->labelColorMap.setText("Показывать цветовую карту открытой схемы");
+    gridLayouShortcut.addWidget(&this->labelColorMap, rowCount, 0, 1, 1);
+    gridLayouShortcut.addWidget(&this->keySequenceEditColorMap_1, rowCount, 1, 1, 1);
+    gridLayouShortcut.addWidget(&this->keySequenceEditColorMap_2, rowCount, 2, 1, 1);
+    gridLayouShortcut.addWidget(&this->keySequenceEditColorMap_3, rowCount, 3, 1, 1);
+    gridLayouShortcut.addWidget(&this->keySequenceEditColorMap_4, rowCount, 4, 1, 1);
+
+    rowCount = gridLayouShortcut.rowCount();
     this->labelView.setStyleSheet("font-weight: bold; text-decoration: underline;");
     this->labelView.setText("Вид");
     gridLayouShortcut.addWidget(&this->labelView, rowCount, 0, 1, gridLayouShortcut.columnCount());
@@ -216,6 +224,7 @@ void SchemeObliqueShortcut::setDefaultShortcutInWidget()
     QList<QKeySequence> listShortcutSceneHalfrowAddDown = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown();
     QList<QKeySequence> listShortcutSceneHalfrowAddTop = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop();
     QList<QKeySequence> listShortcutSceneEditDirectionNewNode = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode();
+    QList<QKeySequence> listShortcutSceneColorMap = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutSceneColorMap();
     QList<QKeySequence> listShortcutViewZoomOut = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewZoomOut();
     QList<QKeySequence> listShortcutViewZoomIn = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewZoomIn();
     QList<QKeySequence> listShortcutViewToBottom = SchemeObliqueFileSetting::getListDefaultShortcutActionSchemeObliqueShortcutViewToBottom();
@@ -237,6 +246,7 @@ void SchemeObliqueShortcut::setDefaultShortcutInWidget()
                       listShortcutSceneHalfrowAddDown,
                       listShortcutSceneHalfrowAddTop,
                       listShortcutSceneEditDirectionNewNode,
+                      listShortcutSceneColorMap,
                       listShortcutViewZoomOut,
                       listShortcutViewZoomIn,
                       listShortcutViewToBottom,
@@ -261,6 +271,7 @@ void SchemeObliqueShortcut::setShortcutInWidget()
     QList<QKeySequence> listShortcutSceneHalfrowAddDown = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown();
     QList<QKeySequence> listShortcutSceneHalfrowAddTop = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop();
     QList<QKeySequence> listShortcutSceneEditDirectionNewNode = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode();
+    QList<QKeySequence> listShortcutSceneColorMap = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneColorMap();
     QList<QKeySequence> listShortcutViewZoomOut = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut();
     QList<QKeySequence> listShortcutViewZoomIn = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn();
     QList<QKeySequence> listShortcutViewToBottom = SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom();
@@ -282,6 +293,7 @@ void SchemeObliqueShortcut::setShortcutInWidget()
                       listShortcutSceneHalfrowAddDown,
                       listShortcutSceneHalfrowAddTop,
                       listShortcutSceneEditDirectionNewNode,
+                      listShortcutSceneColorMap,
                       listShortcutViewZoomOut,
                       listShortcutViewZoomIn,
                       listShortcutViewToBottom,
@@ -306,6 +318,7 @@ void SchemeObliqueShortcut::saveShortcutInFile()
     QList<QKeySequence> listShortcutSceneHalfrowAddDown;
     QList<QKeySequence> listShortcutSceneHalfrowAddTop;
     QList<QKeySequence> listShortcutSceneEditDirectionNewNode;
+    QList<QKeySequence> listShortcutSceneColorMap;
     QList<QKeySequence> listShortcutViewZoomOut;
     QList<QKeySequence> listShortcutViewZoomIn;
     QList<QKeySequence> listShortcutViewToBottom;
@@ -375,6 +388,11 @@ void SchemeObliqueShortcut::saveShortcutInFile()
     listShortcutSceneEditDirectionNewNode.push_back(this->keySequenceEditEditDirectionNewNode_3.keySequence());
     listShortcutSceneEditDirectionNewNode.push_back(this->keySequenceEditEditDirectionNewNode_4.keySequence());
 
+    listShortcutSceneColorMap.push_back(this->keySequenceEditColorMap_1.keySequence());
+    listShortcutSceneColorMap.push_back(this->keySequenceEditColorMap_2.keySequence());
+    listShortcutSceneColorMap.push_back(this->keySequenceEditColorMap_3.keySequence());
+    listShortcutSceneColorMap.push_back(this->keySequenceEditColorMap_4.keySequence());
+
     listShortcutViewZoomOut.push_back(this->keySequenceEditZoomOut_1.keySequence());
     listShortcutViewZoomOut.push_back(this->keySequenceEditZoomOut_2.keySequence());
     listShortcutViewZoomOut.push_back(this->keySequenceEditZoomOut_3.keySequence());
@@ -427,6 +445,7 @@ void SchemeObliqueShortcut::saveShortcutInFile()
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown(listShortcutSceneHalfrowAddDown);
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop(listShortcutSceneHalfrowAddTop);
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode(listShortcutSceneEditDirectionNewNode);
+    SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneColorMap(listShortcutSceneColorMap);
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewZoomOut(listShortcutViewZoomOut);
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewZoomIn(listShortcutViewZoomIn);
     SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutViewToBottom(listShortcutViewToBottom);
@@ -459,6 +478,7 @@ void SchemeObliqueShortcut::setInWidget(QList<QKeySequence> listShortcutSceneCre
                                         QList<QKeySequence> listShortcutSceneHalfrowAddDown,
                                         QList<QKeySequence> listShortcutSceneHalfrowAddTop,
                                         QList<QKeySequence> listShortcutSceneEditDirectionNewNode,
+                                        QList<QKeySequence> listShortcutSceneColorMap,
                                         QList<QKeySequence> listShortcutViewZoomOut,
                                         QList<QKeySequence> listShortcutViewZoomIn,
                                         QList<QKeySequence> listShortcutViewToBottom,
@@ -527,6 +547,11 @@ void SchemeObliqueShortcut::setInWidget(QList<QKeySequence> listShortcutSceneCre
     this->keySequenceEditEditDirectionNewNode_2.setKeySequence(listShortcutSceneEditDirectionNewNode[1]);
     this->keySequenceEditEditDirectionNewNode_3.setKeySequence(listShortcutSceneEditDirectionNewNode[2]);
     this->keySequenceEditEditDirectionNewNode_4.setKeySequence(listShortcutSceneEditDirectionNewNode[3]);
+
+    this->keySequenceEditColorMap_1.setKeySequence(listShortcutSceneColorMap[0]);
+    this->keySequenceEditColorMap_2.setKeySequence(listShortcutSceneColorMap[1]);
+    this->keySequenceEditColorMap_3.setKeySequence(listShortcutSceneColorMap[2]);
+    this->keySequenceEditColorMap_4.setKeySequence(listShortcutSceneColorMap[3]);
 
     this->keySequenceEditZoomOut_1.setKeySequence(listShortcutViewZoomOut[0]);
     this->keySequenceEditZoomOut_2.setKeySequence(listShortcutViewZoomOut[1]);

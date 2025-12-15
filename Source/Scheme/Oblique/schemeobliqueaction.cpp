@@ -90,18 +90,28 @@ SchemeObliqueAction::~SchemeObliqueAction()
 
 void SchemeObliqueAction::createActions()
 {
-    this->createActionOblique();
+    this->createActionCreateOblique();
     this->createActionView();
     this->createActionScene();
+    this->createActionSettingsOblique();
 }
 
-void SchemeObliqueAction::createActionOblique()
+void SchemeObliqueAction::createActionCreateOblique()
 {
     this->actionCreate.setText("Усложенная косая");
+}
+
+void SchemeObliqueAction::createActionSettingsOblique()
+{
     this->menuSettings.setTitle("Усложенная косая");
+
     this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
+    this->actionColorMap.setText("Показывать цветовую карту открытой схемы");
+
+    this->actionColorMap.setCheckable(true);
 
     this->menuSettings.addAction(&this->actionEditDirectionNewNode);
+    this->menuSettings.addAction(&this->actionColorMap);
 }
 
 void SchemeObliqueAction::createActionView()

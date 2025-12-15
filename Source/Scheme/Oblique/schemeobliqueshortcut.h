@@ -34,6 +34,7 @@ private:
                      QList<QKeySequence> listShortcutSceneHalfrowAddDown,
                      QList<QKeySequence> listShortcutSceneHalfrowAddTop,
                      QList<QKeySequence> listShortcutSceneEditDirectionNewNode,
+                     QList<QKeySequence> listShortcutSceneColorMap,
                      QList<QKeySequence> listShortcutViewZoomOut,
                      QList<QKeySequence> listShortcutViewZoomIn,
                      QList<QKeySequence> listShortcutViewToBottom,
@@ -62,6 +63,12 @@ private:
     QKeySequenceEdit keySequenceEditEditDirectionNewNode_2;
     QKeySequenceEdit keySequenceEditEditDirectionNewNode_3;
     QKeySequenceEdit keySequenceEditEditDirectionNewNode_4;
+
+    QLabel labelColorMap;
+    QKeySequenceEdit keySequenceEditColorMap_1;
+    QKeySequenceEdit keySequenceEditColorMap_2;
+    QKeySequenceEdit keySequenceEditColorMap_3;
+    QKeySequenceEdit keySequenceEditColorMap_4;
 
     QLabel labelZoomOut;
     QKeySequenceEdit keySequenceEditZoomOut_1;
