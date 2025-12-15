@@ -38,6 +38,7 @@ void SchemeOblique::disconnects()
     disconnectsView();
     disconnectsScene();
     disconnectsOblique();
+    SchemeObliqueWidgetColorMapWindow::getInstance().visibleSchemeObliqueChartScene(nullptr);
 }
 
 void SchemeOblique::connects(AbstractSchemeChartView &view)
@@ -45,6 +46,7 @@ void SchemeOblique::connects(AbstractSchemeChartView &view)
     connectsView(static_cast<SchemeObliqueChartView&>(view));
     connectsScene(static_cast<SchemeObliqueChartScene&>(*view.scene()));
     connectsOblique(static_cast<SchemeObliqueChartScene&>(*view.scene()));
+    SchemeObliqueWidgetColorMapWindow::getInstance().visibleSchemeObliqueChartScene(static_cast<SchemeObliqueChartScene*>(view.scene()));
 }
 
 void SchemeOblique::setShortcut(QGridLayout &gridLayouShortcut)
@@ -120,7 +122,8 @@ SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSch
 
     connect(&SchemeObliqueAction::getInstance().actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
 
-    connect(&SchemeObliqueAction::getInstance().actionColorMap, &QAction::triggered, &SchemeObliqueWidgetColorMapWindow::getInstance(), &SchemeObliqueWidgetColorMapWindow::visible);
+    SchemeObliqueAction::getInstance().actionColorMap.setChecked(SchemeObliqueFileSetting::getVisibleColorMap());
+    connect(&SchemeObliqueAction::getInstance().actionColorMap, &QAction::toggled, &SchemeObliqueWidgetColorMapWindow::getInstance(), &SchemeObliqueWidgetColorMapWindow::visible);
 
     this->onUpdateShortcut();
 }

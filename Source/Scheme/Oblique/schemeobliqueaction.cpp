@@ -98,12 +98,12 @@ void SchemeObliqueAction::createActions()
 
 void SchemeObliqueAction::createActionCreateOblique()
 {
-    this->actionCreate.setText("Усложенная косая");
+    this->actionCreate.setText("Усложненная косая");
 }
 
 void SchemeObliqueAction::createActionSettingsOblique()
 {
-    this->menuSettings.setTitle("Усложенная косая");
+    this->menuSettings.setTitle("Усложненная косая");
 
     this->actionEditDirectionNewNode.setText("Изменить направление для новых узлов");
     this->actionColorMap.setText("Показывать цветовую карту открытой схемы");

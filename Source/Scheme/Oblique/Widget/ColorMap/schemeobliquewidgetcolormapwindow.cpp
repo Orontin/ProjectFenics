@@ -2,6 +2,8 @@
 
 #include "Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h"
 
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
+
 SchemeObliqueWidgetColorMapWindow *SchemeObliqueWidgetColorMapWindow::schemeObliqueWidgetColorMapWindow{nullptr};
 
 SchemeObliqueWidgetColorMapWindow &SchemeObliqueWidgetColorMapWindow::getInstance()
@@ -12,19 +14,16 @@ SchemeObliqueWidgetColorMapWindow &SchemeObliqueWidgetColorMapWindow::getInstanc
     return *SchemeObliqueWidgetColorMapWindow::schemeObliqueWidgetColorMapWindow;
 }
 
-void SchemeObliqueWidgetColorMapWindow::visible(const bool &isVisible)
+void SchemeObliqueWidgetColorMapWindow::visibleSchemeObliqueChartScene(SchemeObliqueChartScene *scene)
 {
-    if (isVisible) {
-        this->show();
-    } else {
-        this->close();
-    }
+    SchemeObliqueWidgetColorMapChartView::getInstance().setSchemeObliqueChartScene(scene);
+    setVisibleWidget(SchemeObliqueFileSetting::getVisibleColorMap());
 }
 
-void SchemeObliqueWidgetColorMapWindow::closeEvent(QCloseEvent *event)
+void SchemeObliqueWidgetColorMapWindow::visible(const bool &isVisible)
 {
-    Q_UNUSED(event)
-    emit this->closed();
+    SchemeObliqueFileSetting::setVisibleColorMap(isVisible);
+    setVisibleWidget(isVisible);
 }
 
 SchemeObliqueWidgetColorMapWindow::SchemeObliqueWidgetColorMapWindow(QWidget *parent): QWidget(parent)
@@ -42,4 +41,13 @@ SchemeObliqueWidgetColorMapWindow::SchemeObliqueWidgetColorMapWindow(QWidget *pa
 SchemeObliqueWidgetColorMapWindow::~SchemeObliqueWidgetColorMapWindow()
 {
 
+}
+
+void SchemeObliqueWidgetColorMapWindow::setVisibleWidget(const bool &isVisible)
+{
+    if (SchemeObliqueWidgetColorMapChartView::getInstance().scene() && isVisible) {
+        this->show();
+    } else {
+        this->close();
+    }
 }

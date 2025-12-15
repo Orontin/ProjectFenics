@@ -72,9 +72,9 @@ void SchemeObliqueWidgetColorMapChartView::rotateLeft()
     this->rotate(-45);
 }
 
-void SchemeObliqueWidgetColorMapChartView::setSchemeObliqueChartScene(SchemeObliqueChartScene &scene)
+void SchemeObliqueWidgetColorMapChartView::setSchemeObliqueChartScene(SchemeObliqueChartScene *scene)
 {
-    this->setScene(&scene);
+    this->setScene(scene);
 }
 
 void SchemeObliqueWidgetColorMapChartView::wheelEvent(QWheelEvent *event)

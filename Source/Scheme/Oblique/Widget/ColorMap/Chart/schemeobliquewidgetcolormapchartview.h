@@ -23,8 +23,7 @@ public:
     void rotateRight();
     void rotateLeft();
 
-public slots:
-    void setSchemeObliqueChartScene(SchemeObliqueChartScene &scene);
+    void setSchemeObliqueChartScene(SchemeObliqueChartScene *scene);
 
 protected:
     void wheelEvent(QWheelEvent *event) override final;

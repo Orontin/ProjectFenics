@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QGridLayout>
 
+#include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
+
 class SchemeObliqueWidgetColorMapWindow : public QWidget
 {
     Q_OBJECT
@@ -11,17 +13,14 @@ class SchemeObliqueWidgetColorMapWindow : public QWidget
 public:
     static SchemeObliqueWidgetColorMapWindow &getInstance();
 
+    void visibleSchemeObliqueChartScene(SchemeObliqueChartScene *scene);
     void visible(const bool &isVisible);
-
-signals:
-    void closed();
-
-protected:
-    void closeEvent(QCloseEvent *event) override;
 
 private:
     explicit SchemeObliqueWidgetColorMapWindow(QWidget *parent = nullptr);
     ~SchemeObliqueWidgetColorMapWindow();
+
+    void setVisibleWidget(const bool &isVisible);
 
     static SchemeObliqueWidgetColorMapWindow *schemeObliqueWidgetColorMapWindow;
 
