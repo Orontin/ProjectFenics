@@ -1,6 +1,7 @@
 #include "schemeobliquefilesetting.h"
 
 QString SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE{"Scheme/Oblique/Common/standartDirectionObliqueNode"};
+QString SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP{"Scheme/Oblique/Common/visibleColorMap"};
 QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE{"Scheme/Oblique/Shortcut/Scene/Create"};
 QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK{"Scheme/Oblique/Shortcut/History/Back"};
 QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT{"Scheme/Oblique/Shortcut/History/Next"};
@@ -24,6 +25,7 @@ QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SH
 QString SchemeObliqueFileSetting::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT{"Scheme/Oblique/Shortcut/View/Rotate/Right"};
 
 QString SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE{"7"};
+QString SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP{"0"};
 QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE{"F1", "", "", ""};
 QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK{"Ctrl+Z", "", "", ""};
 QStringList SchemeObliqueFileSetting::LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_NEXT{"Ctrl+Y", "Ctrl+Shift+Z", "", ""};
@@ -54,6 +56,16 @@ void SchemeObliqueFileSetting::setStandartDirectionObliqueNode(const SchemeObliq
 SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode SchemeObliqueFileSetting::getStandartDirectionObliqueNode()
 {
     return static_cast<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode>(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE, SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE).toInt());
+}
+
+void SchemeObliqueFileSetting::setVisibleColorMap(const bool &visibleColorMap)
+{
+    AbstractSchemeFileSetting::setValue(SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP, QString::number(visibleColorMap));
+}
+
+bool SchemeObliqueFileSetting::getVisibleColorMap()
+{
+    return static_cast<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode>(AbstractSchemeFileSetting::getValue(SchemeObliqueFileSetting::PATH_TO_SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP, SchemeObliqueFileSetting::SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP).toInt());
 }
 
 void SchemeObliqueFileSetting::setListShortcutActionSchemeObliqueShortcutSceneCreate(const QList<QKeySequence> &valueParam)

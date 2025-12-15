@@ -14,6 +14,7 @@
 
 #include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
 #include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.h"
+#include "Scheme/Oblique/Widget/ColorMap/schemeobliquewidgetcolormapwindow.h"
 
 SchemeOblique *SchemeOblique::schemeOblique{nullptr};
 
@@ -118,6 +119,8 @@ SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSch
     }
 
     connect(&SchemeObliqueAction::getInstance().actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
+
+    connect(&SchemeObliqueAction::getInstance().actionColorMap, &QAction::triggered, &SchemeObliqueWidgetColorMapWindow::getInstance(), &SchemeObliqueWidgetColorMapWindow::visible);
 
     this->onUpdateShortcut();
 }

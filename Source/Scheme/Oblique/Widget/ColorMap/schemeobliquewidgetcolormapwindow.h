@@ -14,7 +14,7 @@ public:
     void visible(const bool &isVisible);
 
 signals:
-    void closed(const bool &isClosed = false);
+    void closed();
 
 protected:
     void closeEvent(QCloseEvent *event) override;

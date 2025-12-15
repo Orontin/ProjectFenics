@@ -11,6 +11,9 @@ public:
     static void setStandartDirectionObliqueNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &standartDirectionObliqueNode);
     static SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode getStandartDirectionObliqueNode();
 
+    static void setVisibleColorMap(const bool &visibleColorMap);
+    static bool getVisibleColorMap();
+
     static void setListShortcutActionSchemeObliqueShortcutSceneCreate(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutHistoryBack(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutHistoryNext(const QList<QKeySequence> &valueParam);
@@ -81,6 +84,7 @@ public:
 
 private:
     static QString PATH_TO_SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE;
+    static QString PATH_TO_SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP;
 
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE;
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK;
@@ -105,6 +109,7 @@ private:
     static QString PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT;
 
     static QString SCHEME_OBLIQUE_COMMON_STANDART_DIRECTION_OBLIQUE_NODE;
+    static QString SCHEME_OBLIQUE_COMMON_VISIBLE_COLOR_MAP;
 
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_SCENE_CREATE;
     static QStringList LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_HISTORY_BACK;
