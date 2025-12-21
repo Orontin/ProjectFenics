@@ -1,5 +1,5 @@
-#ifndef SHORTCUTWIDGET_H
-#define SHORTCUTWIDGET_H
+#ifndef SHORTCUTWINDOW_H
+#define SHORTCUTWINDOW_H
 
 #include <QLabel>
 #include <QWidget>
@@ -9,14 +9,16 @@
 #include <QGridLayout>
 #include <QKeySequenceEdit>
 
-class ShortcutWidget : public QWidget
+class ShortcutWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    static ShortcutWidget &getInstance();
+    static ShortcutWindow &getInstance();
 
     QGridLayout &getGridLayouWidgetScrollArea();
+
+    void open();
 
 signals:
     void clickedShortcutSetDefaultShortcut();
@@ -24,8 +26,10 @@ signals:
     void clickedShortcutSave();
 
 protected:
-    void showEvent(QShowEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override final;
+    void closeEvent(QCloseEvent *event) override final;
+    void moveEvent(QMoveEvent *event) override final;
+    void resizeEvent(QResizeEvent *event) override final;
 
 private slots:
     void onClickedSetDefaultShortcut();
@@ -33,13 +37,16 @@ private slots:
     void onClickedSave();
 
 private:
-    explicit ShortcutWidget();
-    ~ShortcutWidget();
+    explicit ShortcutWindow();
+    ~ShortcutWindow();
 
     void setDefaultShortcutInWidget();
     void setShortcutInWidget();
     void setInWidget(QList<QKeySequence> &listShortcutOpenFile, QList<QKeySequence> &listShortcutEditSaveOpenScheme, QList<QKeySequence> &listShortcutDeleteOpenScheme, QList<QKeySequence> &listShortcutShortcutWidget);
     void saveShortcutInFile();
+
+    void visible();
+    void setPosition();
 
     QGridLayout gridLayout;
 
@@ -78,7 +85,7 @@ private:
     QKeySequenceEdit keySequenceEditShortcutWidget_3;
     QKeySequenceEdit keySequenceEditShortcutWidget_4;
 
-    static ShortcutWidget *shortcutWidget;
+    static ShortcutWindow *shortcutWindow;
 };
 
-#endif // SHORTCUTWIDGET_H
+#endif // SHORTCUTWINDOW_H

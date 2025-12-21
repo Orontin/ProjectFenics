@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMenuBar>
+#include <QMoveEvent>
 #include <QGridLayout>
 
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
@@ -14,21 +15,21 @@ class SchemeObliqueWidgetColorMapWindow : public QWidget
 public:
     static SchemeObliqueWidgetColorMapWindow &getInstance();
 
-    void visibleSchemeObliqueChartScene(SchemeObliqueChartScene *scene);
-    void visible(const bool &isVisible);
-
     void onUpdateShortcutView();
+
+    void visibleSchemeObliqueChartScene(SchemeObliqueChartScene *scene);
+    void visible(const bool &visible);
+
+protected:
+    void moveEvent(QMoveEvent *event) override final;
+    void resizeEvent(QResizeEvent *event) override final;
 
 private:
     explicit SchemeObliqueWidgetColorMapWindow(QWidget *parent = nullptr);
     ~SchemeObliqueWidgetColorMapWindow();
 
-    void setVisibleWidget(const bool &isVisible);
-
-    void createActionView();
-    void setMenuView();
-
-    void connects();
+    void setVisibleWidget(const bool &visible);
+    void setPosition();
 
     QGridLayout gridLayout;
 

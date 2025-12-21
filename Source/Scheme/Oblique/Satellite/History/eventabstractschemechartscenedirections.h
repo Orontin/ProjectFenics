@@ -4,7 +4,7 @@
 #include "event.h"
 
 #include "Scheme/Oblique/schemeoblique.h"
-#include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
+#include "Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h"
 
 class SchemeObliqueChartScene;
 

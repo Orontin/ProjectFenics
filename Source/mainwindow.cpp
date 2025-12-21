@@ -1,10 +1,12 @@
 #include "mainwindow.h"
+#include "shortcutwindow.h"
 
 #include "Abstract/abstractschemechartscene.h"
 #include "Abstract/abstractschemechartview.h"
 
 #include "settings.h"
 
+#include <QScreen>
 #include <QKeySequence>
 
 MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
@@ -15,9 +17,8 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     fileWrite(schemes)
 {
     this->setWindowTitle("Проект Феникс v3.0.0");
-    this->resize(800, 600);
+    this->setPosition();
 
-    this->menubar.setGeometry(QRect(0, 0, 800, 600));
     this->setMenuBar(&menubar);
 
     this->setStatusBar(&statusbar);
@@ -60,10 +61,10 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     for (AbstractScheme *scheme : schemes) {
         scheme->setMenuCreate(this->createNewScheme);
         scheme->setMenuSettings(this->settingsScheme);
-        scheme->setShortcut(ShortcutWidget::getInstance().getGridLayouWidgetScrollArea());
-        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, scheme, &AbstractScheme::onShortcutSetDefaultShortcut);
-        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, scheme, &AbstractScheme::onShortcutCancel);
-        connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, scheme, &AbstractScheme::onShortcutSave);
+        scheme->setShortcut(ShortcutWindow::getInstance().getGridLayouWidgetScrollArea());
+        connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutSetDefaultShortcut, scheme, &AbstractScheme::onShortcutSetDefaultShortcut);
+        connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutCancel, scheme, &AbstractScheme::onShortcutCancel);
+        connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutSave, scheme, &AbstractScheme::onShortcutSave);
     }
 
     connect(&this->deleteOpenScheme, &QAction::triggered, this, &MainWindow::onDeleteSchemeTriggered);
@@ -71,9 +72,9 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
     connect(&this->saveOpenScheme, &QAction::triggered, this, &MainWindow::onSaveOpenSchemeTriggered);
     connect(&this->settingsShortcut, &QAction::triggered, this, &MainWindow::onOpenShortcutWidgetTriggered);
 
-    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSetDefaultShortcut, this, &MainWindow::onShortcutSetDefaultShortcut);
-    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutCancel, this, &MainWindow::onShortcutCancel);
-    connect(&ShortcutWidget::getInstance(), &ShortcutWidget::clickedShortcutSave, this, &MainWindow::onShortcutSave);
+    connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutSetDefaultShortcut, this, &MainWindow::onShortcutSetDefaultShortcut);
+    connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutCancel, this, &MainWindow::onShortcutCancel);
+    connect(&ShortcutWindow::getInstance(), &ShortcutWindow::clickedShortcutSave, this, &MainWindow::onShortcutSave);
 
     connect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
 
@@ -83,6 +84,33 @@ MainWindow::MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent):
 MainWindow::~MainWindow()
 {
     disconnect(&this->tabWidget, &TabWidget::currentChanged, this, &MainWindow::updateMenu);
+}
+
+void MainWindow::open()
+{
+    this->visible();
+}
+
+void MainWindow::moveEvent(QMoveEvent *event)
+{
+    Q_UNUSED(event)
+
+    Settings::setMainWindowX(this->geometry().x());
+    Settings::setMainWindowY(this->geometry().y());
+
+    Settings::setMainWindowScreenWidth(this->screen()->geometry().width());
+    Settings::setMainWindowScreenHeight(this->screen()->geometry().height());
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event)
+
+    Settings::setMainWindowWidth(this->geometry().width());
+    Settings::setMainWindowHeight(this->geometry().height());
+
+    Settings::setMainWindowScreenWidth(this->screen()->geometry().width());
+    Settings::setMainWindowScreenHeight(this->screen()->geometry().height());
 }
 
 void MainWindow::onOpenSchemeTriggered()
@@ -97,7 +125,7 @@ void MainWindow::onSaveOpenSchemeTriggered()
 
 void MainWindow::onOpenShortcutWidgetTriggered()
 {
-    ShortcutWidget::getInstance().show();
+    ShortcutWindow::getInstance().open();
 }
 
 void MainWindow::onDeleteSchemeTriggered()
@@ -107,22 +135,25 @@ void MainWindow::onDeleteSchemeTriggered()
 
 void MainWindow::onShortcutSetDefaultShortcut()
 {
-    updateShortcut();
+    this->updateShortcut();
 }
 
 void MainWindow::onShortcutCancel()
 {
-    updateShortcut();
+    this->updateShortcut();
 }
 
 void MainWindow::onShortcutSave()
 {
-    updateShortcut();
+    this->updateShortcut();
 }
 
 void MainWindow::updateShortcut()
 {
-    updateMenu(this->tabWidget.currentIndex());
+    this->deleteOpenScheme.setShortcuts(Settings::getListShortcutActionDeleteOpenScheme());
+    this->openFile.setShortcuts(Settings::getListShortcutActionOpenFile());
+    this->saveOpenScheme.setShortcuts(Settings::getListShortcutActionSaveScheme());
+    this->settingsShortcut.setShortcuts(Settings::getListShortcutActionOpenShortcutWidget());
 }
 
 void MainWindow::updateMenu(int index)
@@ -130,11 +161,6 @@ void MainWindow::updateMenu(int index)
     for (AbstractScheme *scheme : schemes) {
         scheme->disconnects();
     }
-
-    this->deleteOpenScheme.setShortcuts(Settings::getListShortcutActionDeleteOpenScheme());
-    this->openFile.setShortcuts(Settings::getListShortcutActionOpenFile());
-    this->saveOpenScheme.setShortcuts(Settings::getListShortcutActionSaveScheme());
-    this->settingsShortcut.setShortcuts(Settings::getListShortcutActionOpenShortcutWidget());
 
     if (index == -1) {
         this->deleteOpenScheme.setEnabled(false);
@@ -178,4 +204,20 @@ void MainWindow::updateMenu(int index)
             this->settingsOpenScheme.setEnabled(false);
         }
     }
+}
+
+void MainWindow::visible()
+{
+    this->show();
+    this->setPosition();
+}
+
+void MainWindow::setPosition()
+{
+    this->setGeometry(
+        ((Settings::getMainWindowX() * this->screen()->geometry().width()) / Settings::getMainWindowScreenWidth()),
+        ((Settings::getMainWindowY() * this->screen()->geometry().height()) / Settings::getMainWindowScreenHeight()),
+        ((Settings::getMainWindowWidth() * this->screen()->geometry().width()) / Settings::getMainWindowScreenWidth()),
+        ((Settings::getMainWindowHeight() * this->screen()->geometry().height()) / Settings::getMainWindowScreenHeight())
+    );
 }

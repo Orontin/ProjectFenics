@@ -10,9 +10,9 @@
 
 #include "Scheme/Oblique/Chart/schemeobliquechartview.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
-#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesettings.h"
 
-#include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h"
+#include "Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreateschemewindow.h"
 #include "Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.h"
 #include "Scheme/Oblique/Widget/ColorMap/schemeobliquewidgetcolormapwindow.h"
 
@@ -115,8 +115,8 @@ void SchemeOblique::onShortcutSave()
 
 SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSchemeFileRead*>{&SchemeObliqueFileReadRNX::getInstance(*this), &SchemeObliqueFileReadFBD::getInstance(*this), &SchemeObliqueFileReadPFCO::getInstance(*this)}}
 {
-    connect(&SchemeObliqueAction::getInstance().actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createIn);
-    connect(&SchemeObliqueWidgetCreateScheme::getInstance(*this), &SchemeObliqueWidgetCreateScheme::createOut, this, &SchemeOblique::createOut);
+    connect(&SchemeObliqueAction::getInstance().actionCreate, &QAction::triggered, &SchemeObliqueWidgetCreateSchemeWindow::getInstance(*this), &SchemeObliqueWidgetCreateSchemeWindow::createIn);
+    connect(&SchemeObliqueWidgetCreateSchemeWindow::getInstance(*this), &SchemeObliqueWidgetCreateSchemeWindow::createOut, this, &SchemeOblique::createOut);
 
     for (AbstractSchemeFileRead *fileRead : listFileRead) {
         connect(fileRead, &AbstractSchemeFileRead::createOut, this, &SchemeOblique::createOut);
@@ -124,7 +124,7 @@ SchemeOblique::SchemeOblique(): AbstractScheme(), listFileRead{QList<AbstractSch
 
     connect(&SchemeObliqueAction::getInstance().actionEditDirectionNewNode, &QAction::triggered, &SchemeObliqueWidgetEditDirectionForNewNodeWindow::getInstance(), &SchemeObliqueWidgetEditDirectionForNewNodeWindow::open);
 
-    SchemeObliqueAction::getInstance().actionColorMap.setChecked(SchemeObliqueFileSetting::getVisibleColorMap());
+    SchemeObliqueAction::getInstance().actionColorMap.setChecked(SchemeObliqueFileSettings::getColorMapVisible());
     connect(&SchemeObliqueAction::getInstance().actionColorMap, &QAction::toggled, &SchemeObliqueWidgetColorMapWindow::getInstance(), &SchemeObliqueWidgetColorMapWindow::visible);
 
     this->onUpdateShortcut();
@@ -211,36 +211,36 @@ void SchemeOblique::connectsOblique(SchemeObliqueChartScene &scene)
 
 void SchemeOblique::onUpdateShortcutOblique()
 {
-    SchemeObliqueAction::getInstance().actionCreate.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneCreate());
-    SchemeObliqueAction::getInstance().actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode());
-    SchemeObliqueAction::getInstance().actionColorMap.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneColorMap());
+    SchemeObliqueAction::getInstance().actionCreate.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneCreate());
+    SchemeObliqueAction::getInstance().actionEditDirectionNewNode.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneEditDirectionNewNode());
+    SchemeObliqueAction::getInstance().actionColorMap.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneColorMap());
     SchemeObliqueAction::getInstance().actionColorMap.setShortcutContext(Qt::ShortcutContext::ApplicationShortcut);
 }
 
 void SchemeOblique::onUpdateShortcutView()
 {
-    SchemeObliqueAction::getInstance().actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
-    SchemeObliqueAction::getInstance().actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
-    SchemeObliqueAction::getInstance().actionToBottom.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom());
-    SchemeObliqueAction::getInstance().actionToTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop());
-    SchemeObliqueAction::getInstance().actionToLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft());
-    SchemeObliqueAction::getInstance().actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
-    SchemeObliqueAction::getInstance().actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
-    SchemeObliqueAction::getInstance().actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
+    SchemeObliqueAction::getInstance().actionZoomOut.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
+    SchemeObliqueAction::getInstance().actionZoomIn.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
+    SchemeObliqueAction::getInstance().actionToBottom.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToBottom());
+    SchemeObliqueAction::getInstance().actionToTop.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToTop());
+    SchemeObliqueAction::getInstance().actionToLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToLeft());
+    SchemeObliqueAction::getInstance().actionToRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToRight());
+    SchemeObliqueAction::getInstance().actionRotateLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
+    SchemeObliqueAction::getInstance().actionRotateRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
 
     SchemeObliqueWidgetColorMapWindow::getInstance().onUpdateShortcutView();
 }
 
 void SchemeOblique::onUpdateShortcutScene()
 {
-    SchemeObliqueAction::getInstance().actionBack.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryBack());
-    SchemeObliqueAction::getInstance().actionNext.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutHistoryNext());
-    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft());
-    SchemeObliqueAction::getInstance().actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight());
-    SchemeObliqueAction::getInstance().actionAddThreadLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft());
-    SchemeObliqueAction::getInstance().actionAddThreadRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight());
-    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown());
-    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop());
-    SchemeObliqueAction::getInstance().actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown());
-    SchemeObliqueAction::getInstance().actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop());
+    SchemeObliqueAction::getInstance().actionBack.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutHistoryBack());
+    SchemeObliqueAction::getInstance().actionNext.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutHistoryNext());
+    SchemeObliqueAction::getInstance().actionRemoveThreadLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveLeft());
+    SchemeObliqueAction::getInstance().actionRemoveThreadRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneThreadRemoveRight());
+    SchemeObliqueAction::getInstance().actionAddThreadLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneThreadAddLeft());
+    SchemeObliqueAction::getInstance().actionAddThreadRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneThreadAddRight());
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowDown.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveDown());
+    SchemeObliqueAction::getInstance().actionRemoveHalfrowTop.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneHalfrowRemoveTop());
+    SchemeObliqueAction::getInstance().actionAddHalfrowDown.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddDown());
+    SchemeObliqueAction::getInstance().actionAddHalfrowTop.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutSceneHalfrowAddTop());
 }

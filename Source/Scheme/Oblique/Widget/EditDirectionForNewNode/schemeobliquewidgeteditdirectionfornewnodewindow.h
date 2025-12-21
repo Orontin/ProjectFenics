@@ -13,9 +13,16 @@ public:
 
     void open();
 
+protected:
+    void moveEvent(QMoveEvent *event) override final;
+    void resizeEvent(QResizeEvent *event) override final;
+
 private:
     explicit SchemeObliqueWidgetEditDirectionForNewNodeWindow(QWidget *parent = nullptr);
     ~SchemeObliqueWidgetEditDirectionForNewNodeWindow();
+
+    void visible();
+    void setPosition();
 
     static SchemeObliqueWidgetEditDirectionForNewNodeWindow *schemeObliqueWidgetEditDirectionForNewNodeWindow;
 

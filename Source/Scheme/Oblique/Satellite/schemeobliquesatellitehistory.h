@@ -5,15 +5,10 @@
 
 #include "Scheme/Oblique/schemeoblique.h"
 
-#include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
-
 #include "Scheme/Oblique/Satellite/History/event.h"
 #include "Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.h"
 #include "Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h"
 #include "Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h"
-
-
-#include <QDebug>
 
 class SchemeObliqueChartScene;
 

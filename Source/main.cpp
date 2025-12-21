@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     QList<AbstractScheme*> schemes{QList<AbstractScheme*>{&SchemeOblique::getInstance()}};
 
     MainWindow w(schemes);
-    w.show();
+    w.open();
 
     int returnCode = a.exec();
 

@@ -12,7 +12,7 @@ SOURCES += \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.cpp \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.cpp \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.cpp \
-    Scheme/Oblique/File/Setting/schemeobliquefilesetting.cpp \
+    Scheme/Oblique/File/Setting/schemeobliquefilesettings.cpp \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.cpp \
     Scheme/Oblique/Satellite/History/event.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.cpp \
@@ -24,7 +24,7 @@ SOURCES += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.cpp \
-    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.cpp \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreateschemewindow.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.cpp \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.cpp \
@@ -40,7 +40,7 @@ SOURCES += \
     fileread.cpp \
     filewrite.cpp \
     settings.cpp \
-    shortcutwidget.cpp \
+    shortcutwindow.cpp \
     tabwidget.cpp \
     mainwindow.cpp \
     main.cpp \
@@ -50,12 +50,12 @@ HEADERS += \
     Abstract/abstractschemechartscene.h \
     Abstract/abstractschemechartview.h \
     Abstract/abstractschemefileread.h \
-    Abstract/abstractschemefilesetting.h \
+    Abstract/abstractschemefilesettings.h \
     Abstract/abstractschemefilewrite.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h \
-    Scheme/Oblique/File/Setting/schemeobliquefilesetting.h \
+    Scheme/Oblique/File/Setting/schemeobliquefilesettings.h \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h \
     Scheme/Oblique/Satellite/History/event.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.h \
@@ -67,7 +67,7 @@ HEADERS += \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h \
-    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreateschemewindow.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h \
     Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.h \
@@ -83,7 +83,7 @@ HEADERS += \
     fileread.h \
     filewrite.h \
     settings.h \
-    shortcutwidget.h \
+    shortcutwindow.h \
     tabwidget.h \
     mainwindow.h
 

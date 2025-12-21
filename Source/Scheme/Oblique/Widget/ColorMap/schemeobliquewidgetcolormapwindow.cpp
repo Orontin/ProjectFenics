@@ -2,7 +2,7 @@
 
 #include "Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h"
 
-#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesettings.h"
 
 SchemeObliqueWidgetColorMapWindow *SchemeObliqueWidgetColorMapWindow::schemeObliqueWidgetColorMapWindow{nullptr};
 
@@ -14,68 +14,71 @@ SchemeObliqueWidgetColorMapWindow &SchemeObliqueWidgetColorMapWindow::getInstanc
     return *SchemeObliqueWidgetColorMapWindow::schemeObliqueWidgetColorMapWindow;
 }
 
+void SchemeObliqueWidgetColorMapWindow::onUpdateShortcutView()
+{
+    actionZoomOut.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
+    actionZoomIn.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
+    actionToBottom.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToBottom());
+    actionToTop.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToTop());
+    actionToLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToLeft());
+    actionToRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewToRight());
+    actionRotateLeft.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
+    actionRotateRight.setShortcuts(SchemeObliqueFileSettings::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
+}
+
 void SchemeObliqueWidgetColorMapWindow::visibleSchemeObliqueChartScene(SchemeObliqueChartScene *scene)
 {
     SchemeObliqueWidgetColorMapChartView::getInstance().setSchemeObliqueChartScene(scene);
-    setVisibleWidget(SchemeObliqueFileSetting::getVisibleColorMap());
+    setVisibleWidget(SchemeObliqueFileSettings::getColorMapVisible());
 }
 
-void SchemeObliqueWidgetColorMapWindow::visible(const bool &isVisible)
+void SchemeObliqueWidgetColorMapWindow::visible(const bool &visible)
 {
-    SchemeObliqueFileSetting::setVisibleColorMap(isVisible);
-    setVisibleWidget(isVisible);
+    SchemeObliqueFileSettings::setColorMapVisible(visible);
+    setVisibleWidget(visible);
 }
 
-void SchemeObliqueWidgetColorMapWindow::onUpdateShortcutView()
+void SchemeObliqueWidgetColorMapWindow::moveEvent(QMoveEvent *event)
 {
-    actionZoomOut.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomOut());
-    actionZoomIn.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewZoomIn());
-    actionToBottom.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToBottom());
-    actionToTop.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToTop());
-    actionToLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToLeft());
-    actionToRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewToRight());
-    actionRotateLeft.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateLeft());
-    actionRotateRight.setShortcuts(SchemeObliqueFileSetting::getListShortcutActionSchemeObliqueShortcutViewRotateRight());
+    Q_UNUSED(event)
+
+    SchemeObliqueFileSettings::setColorMapWindowX(this->geometry().x());
+    SchemeObliqueFileSettings::setColorMapWindowY(this->geometry().y());
+
+    SchemeObliqueFileSettings::setColorMapWindowScreenWidth(this->screen()->geometry().width());
+    SchemeObliqueFileSettings::setColorMapWindowScreenHeight(this->screen()->geometry().height());
+}
+
+void SchemeObliqueWidgetColorMapWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event)
+
+    SchemeObliqueFileSettings::setColorMapWindowWidth(this->geometry().width());
+    SchemeObliqueFileSettings::setColorMapWindowHeight(this->geometry().height());
+
+    SchemeObliqueFileSettings::setColorMapWindowScreenWidth(this->screen()->geometry().width());
+    SchemeObliqueFileSettings::setColorMapWindowScreenHeight(this->screen()->geometry().height());
 }
 
 SchemeObliqueWidgetColorMapWindow::SchemeObliqueWidgetColorMapWindow(QWidget *parent): QWidget(parent)
 {
     this->setWindowTitle("Карта цветов");
-    this->resize(300, 600);
+    this->setWindowFlag(Qt::Window);
+    this->setWindowFlag(Qt::WindowCloseButtonHint, false);
+    this->setWindowFlag(Qt::WindowMinimizeButtonHint, false);
+    this->setWindowFlag(Qt::WindowMaximizeButtonHint, true);
+    this->setAttribute(Qt::WA_QuitOnClose, false);
+    this->setPosition();
 
-    this->setLayout(&this->gridLayout);
     this->gridLayout.setSpacing(0);
     this->gridLayout.setContentsMargins(0, 0, 0, 0);
+    this->gridLayout.setMenuBar(&this->menuBar);
+    this->gridLayout.addWidget(&SchemeObliqueWidgetColorMapChartView::getInstance());
+    this->setLayout(&this->gridLayout);
 
     this->view.setTitle("Вид");
-
-    this->createActionView();
-    this->setMenuView();
-
     this->menuBar.addMenu(&this->view);
-    this->gridLayout.setMenuBar(&this->menuBar);
 
-    this->gridLayout.addWidget(&SchemeObliqueWidgetColorMapChartView::getInstance());
-
-    this->connects();
-}
-
-SchemeObliqueWidgetColorMapWindow::~SchemeObliqueWidgetColorMapWindow()
-{
-
-}
-
-void SchemeObliqueWidgetColorMapWindow::setVisibleWidget(const bool &isVisible)
-{
-    if (SchemeObliqueWidgetColorMapChartView::getInstance().scene() && isVisible) {
-        this->show();
-    } else {
-        this->close();
-    }
-}
-
-void SchemeObliqueWidgetColorMapWindow::createActionView()
-{
     this->menuZoom.setTitle("Дальность");
     this->menuTo.setTitle("Перемещение");
     this->menuRotate.setTitle("Поворот");
@@ -97,17 +100,11 @@ void SchemeObliqueWidgetColorMapWindow::createActionView()
     this->menuTo.addAction(&this->actionToRight);
     this->menuRotate.addAction(&this->actionRotateLeft);
     this->menuRotate.addAction(&this->actionRotateRight);
-}
 
-void SchemeObliqueWidgetColorMapWindow::setMenuView()
-{
     this->view.addMenu(&this->menuZoom);
     this->view.addMenu(&this->menuTo);
     this->view.addMenu(&this->menuRotate);
-}
 
-void SchemeObliqueWidgetColorMapWindow::connects()
-{
     connect(&this->actionZoomOut, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::zoomOut);
     connect(&this->actionZoomIn, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::zoomIn);
     connect(&this->actionToBottom, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::toBottom);
@@ -116,4 +113,29 @@ void SchemeObliqueWidgetColorMapWindow::connects()
     connect(&this->actionToRight, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::toRight);
     connect(&this->actionRotateLeft, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::rotateLeft);
     connect(&this->actionRotateRight, &QAction::triggered, &SchemeObliqueWidgetColorMapChartView::getInstance(), &SchemeObliqueWidgetColorMapChartView::rotateRight);
+}
+
+SchemeObliqueWidgetColorMapWindow::~SchemeObliqueWidgetColorMapWindow()
+{
+
+}
+
+void SchemeObliqueWidgetColorMapWindow::setVisibleWidget(const bool &visible)
+{
+    if (SchemeObliqueWidgetColorMapChartView::getInstance().scene() && visible) {
+        this->show();
+        this->setPosition();
+    } else {
+        this->close();
+    }
+}
+
+void SchemeObliqueWidgetColorMapWindow::setPosition()
+{
+    this->setGeometry(
+        ((SchemeObliqueFileSettings::getColorMapWindowX() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getColorMapWindowScreenWidth()),
+        ((SchemeObliqueFileSettings::getColorMapWindowY() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getColorMapWindowScreenHeight()),
+        ((SchemeObliqueFileSettings::getColorMapWindowWidth() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getColorMapWindowScreenWidth()),
+        ((SchemeObliqueFileSettings::getColorMapWindowHeight() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getColorMapWindowScreenHeight())
+    );
 }
