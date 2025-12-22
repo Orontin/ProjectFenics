@@ -27,14 +27,14 @@ const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_X{"0"};
 const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_Y{"0"};
 const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_WIDTH{"800"};
 const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_HEIDGHT{"600"};
-const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_WIDTH{"800"};
-const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_HEIDGHT{"600"};
+const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_WIDTH{"-1"};
+const QString Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_HEIDGHT{"-1"};
 const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_X{"0"};
 const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_Y{"0"};
 const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_WIDTH{"800"};
 const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_HEIDGHT{"600"};
-const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_WIDTH{"800"};
-const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_HEIDGHT{"600"};
+const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_WIDTH{"-1"};
+const QString Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_HEIDGHT{"-1"};
 const QStringList Settings::DEFAULT_VALUE_LIST_SHORTCUT_ACTION_OPEN_FILE{"Ctrl+O", "", "", ""};
 const QStringList Settings::DEFAULT_VALUE_LIST_SHORTCUT_ACTION_SAVE_SCHEME{"Ctrl+S", "", "", ""};
 const QStringList Settings::DEFAULT_VALUE_LIST_SHORTCUT_ACTION_DELETE_OPEN_SCHEME{"Ctrl+D", "", "", ""};
@@ -105,9 +105,17 @@ void Settings::setMainWindowScreenWidth(const int &width)
     AbstractSchemeFileSettings::setValue(Settings::PATH_TO_WINDOW_MAIN_SCREEN_WIDTH, QString::number(width));
 };
 
-int Settings::getMainWindowScreenWidth()
+int Settings::getMainWindowScreenWidth(const int &screenWidth)
 {
-    return AbstractSchemeFileSettings::getValue(Settings::PATH_TO_WINDOW_MAIN_SCREEN_WIDTH, Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_WIDTH).toInt();
+    QString path = Settings::PATH_TO_WINDOW_MAIN_SCREEN_WIDTH;
+    QString defaultValue = Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_WIDTH;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        Settings::setMainWindowScreenWidth(screenWidth);
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 };
 
 void Settings::setMainWindowScreenHeight(const int &height)
@@ -115,9 +123,17 @@ void Settings::setMainWindowScreenHeight(const int &height)
     AbstractSchemeFileSettings::setValue(Settings::PATH_TO_WINDOW_MAIN_SCREEN_HEIDGHT, QString::number(height));
 };
 
-int Settings::getMainWindowScreenHeight()
+int Settings::getMainWindowScreenHeight(const int &screenHeight)
 {
-    return AbstractSchemeFileSettings::getValue(Settings::PATH_TO_WINDOW_MAIN_SCREEN_HEIDGHT, Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_HEIDGHT).toInt();
+    QString path = Settings::PATH_TO_WINDOW_MAIN_SCREEN_HEIDGHT;
+    QString defaultValue = Settings::DEFAULT_VALUE_WINDOW_MAIN_SCREEN_HEIDGHT;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        Settings::setMainWindowScreenHeight(screenHeight);
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 };
 
 void Settings::setShortcutWindowX(const int &x)
@@ -165,9 +181,17 @@ void Settings::setShortcutWindowScreenWidth(const int &width)
     AbstractSchemeFileSettings::setValue(Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_WIDTH, QString::number(width));
 };
 
-int Settings::getShortcutWindowScreenWidth()
+int Settings::getShortcutWindowScreenWidth(const int &screenWidth)
 {
-    return AbstractSchemeFileSettings::getValue(Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_WIDTH, Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_WIDTH).toInt();
+    QString path = Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_WIDTH;
+    QString defaultValue = Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_WIDTH;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        Settings::setShortcutWindowScreenWidth(screenWidth);
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 };
 
 void Settings::setShortcutWindowScreenHeight(const int &height)
@@ -175,9 +199,17 @@ void Settings::setShortcutWindowScreenHeight(const int &height)
     AbstractSchemeFileSettings::setValue(Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_HEIDGHT, QString::number(height));
 };
 
-int Settings::getShortcutWindowScreenHeight()
+int Settings::getShortcutWindowScreenHeight(const int &screenHeight)
 {
-    return AbstractSchemeFileSettings::getValue(Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_HEIDGHT, Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_HEIDGHT).toInt();
+    QString path = Settings::PATH_TO_WINDOW_SHORTCUT_SCREEN_HEIDGHT;
+    QString defaultValue = Settings::DEFAULT_VALUE_WINDOW_SHORTCUT_SCREEN_HEIDGHT;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        Settings::setShortcutWindowScreenHeight(screenHeight);
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 };
 
 void Settings::setListShortcutActionOpenFile(const QList<QKeySequence> &valueParam)

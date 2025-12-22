@@ -136,11 +136,17 @@ void SchemeObliqueWidgetCreateSchemeWindow::visible()
 
 void SchemeObliqueWidgetCreateSchemeWindow::setPosition()
 {
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = SchemeObliqueFileSettings::getCreateSchemeWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = SchemeObliqueFileSettings::getCreateSchemeWindowScreenHeight(screenHeight);
+
     this->setGeometry(
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowX() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getCreateSchemeWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowY() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getCreateSchemeWindowScreenHeight()),
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowWidth() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getCreateSchemeWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowHeight() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getCreateSchemeWindowScreenHeight())
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowX() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
     this->setMinimumSize(this->geometry().width(), this->geometry().height());
     this->setMaximumSize(this->geometry().width(), this->geometry().height());

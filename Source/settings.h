@@ -21,9 +21,9 @@ public:
     static void setMainWindowHeight(const int &height);
     static int getMainWindowHeight();
     static void setMainWindowScreenWidth(const int &width);
-    static int getMainWindowScreenWidth();
+    static int getMainWindowScreenWidth(const int &screenWidth);
     static void setMainWindowScreenHeight(const int &height);
-    static int getMainWindowScreenHeight();
+    static int getMainWindowScreenHeight(const int &screenHeight);
 
     static void setShortcutWindowX(const int &x);
     static int getShortcutWindowX();
@@ -34,9 +34,9 @@ public:
     static void setShortcutWindowHeight(const int &height);
     static int getShortcutWindowHeight();
     static void setShortcutWindowScreenWidth(const int &width);
-    static int getShortcutWindowScreenWidth();
+    static int getShortcutWindowScreenWidth(const int &screenWidth);
     static void setShortcutWindowScreenHeight(const int &height);
-    static int getShortcutWindowScreenHeight();
+    static int getShortcutWindowScreenHeight(const int &screenHeight);
 
     static void setListShortcutActionOpenFile(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSaveScheme(const QList<QKeySequence> &valueParam);

@@ -68,11 +68,17 @@ void SchemeObliqueWidgetEditDirectionForNewNodeWindow::visible()
 
 void SchemeObliqueWidgetEditDirectionForNewNodeWindow::setPosition()
 {
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenHeight(screenHeight);
+
     this->setGeometry(
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenHeight()),
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowWidth() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowHeight() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenHeight())
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
     this->setMinimumSize(this->geometry().width(), this->geometry().height());
     this->setMaximumSize(this->geometry().width(), this->geometry().height());

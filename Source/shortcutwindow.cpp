@@ -250,10 +250,16 @@ void ShortcutWindow::visible()
 
 void ShortcutWindow::setPosition()
 {
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = Settings::getShortcutWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = Settings::getShortcutWindowScreenHeight(screenHeight);
+
     this->setGeometry(
-        ((Settings::getShortcutWindowX() * this->screen()->geometry().width()) / Settings::getShortcutWindowScreenWidth()),
-        ((Settings::getShortcutWindowY() * this->screen()->geometry().height()) / Settings::getShortcutWindowScreenHeight()),
-        ((Settings::getShortcutWindowWidth() * this->screen()->geometry().width()) / Settings::getShortcutWindowScreenWidth()),
-        ((Settings::getShortcutWindowHeight() * this->screen()->geometry().height()) / Settings::getShortcutWindowScreenHeight())
+        ((Settings::getShortcutWindowX() * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getShortcutWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((Settings::getShortcutWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getShortcutWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
 }

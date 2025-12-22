@@ -214,10 +214,16 @@ void MainWindow::visible()
 
 void MainWindow::setPosition()
 {
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = Settings::getMainWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = Settings::getMainWindowScreenHeight(screenHeight);
+
     this->setGeometry(
-        ((Settings::getMainWindowX() * this->screen()->geometry().width()) / Settings::getMainWindowScreenWidth()),
-        ((Settings::getMainWindowY() * this->screen()->geometry().height()) / Settings::getMainWindowScreenHeight()),
-        ((Settings::getMainWindowWidth() * this->screen()->geometry().width()) / Settings::getMainWindowScreenWidth()),
-        ((Settings::getMainWindowHeight() * this->screen()->geometry().height()) / Settings::getMainWindowScreenHeight())
+        ((Settings::getMainWindowX() * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getMainWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((Settings::getMainWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getMainWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
 }

@@ -22,9 +22,9 @@ public:
     static void setColorMapWindowHeight(const int &height);
     static int getColorMapWindowHeight();
     static void setColorMapWindowScreenWidth(const int &width);
-    static int getColorMapWindowScreenWidth();
+    static int getColorMapWindowScreenWidth(const int &screenWidth);
     static void setColorMapWindowScreenHeight(const int &height);
-    static int getColorMapWindowScreenHeight();
+    static int getColorMapWindowScreenHeight(const int &screenHeight);
 
     static void setCreateSchemeWindowX(const int &x);
     static int getCreateSchemeWindowX();
@@ -35,9 +35,9 @@ public:
     static void setCreateSchemeWindowHeight(const int &height);
     static int getCreateSchemeWindowHeight();
     static void setCreateSchemeWindowScreenWidth(const int &width);
-    static int getCreateSchemeWindowScreenWidth();
+    static int getCreateSchemeWindowScreenWidth(const int &screenWidth);
     static void setCreateSchemeWindowScreenHeight(const int &height);
-    static int getCreateSchemeWindowScreenHeight();
+    static int getCreateSchemeWindowScreenHeight(const int &screenHeight);
 
     static void setEditDirectionForNewNodeWindowX(const int &x);
     static int getEditDirectionForNewNodeWindowX();
@@ -48,9 +48,9 @@ public:
     static void setEditDirectionForNewNodeWindowHeight(const int &height);
     static int getEditDirectionForNewNodeWindowHeight();
     static void setEditDirectionForNewNodeWindowScreenWidth(const int &width);
-    static int getEditDirectionForNewNodeWindowScreenWidth();
+    static int getEditDirectionForNewNodeWindowScreenWidth(const int &screenWidth);
     static void setEditDirectionForNewNodeWindowScreenHeight(const int &height);
-    static int getEditDirectionForNewNodeWindowScreenHeight();
+    static int getEditDirectionForNewNodeWindowScreenHeight(const int &screenHeight);
 
     static void setListShortcutActionSchemeObliqueShortcutSceneCreate(const QList<QKeySequence> &valueParam);
     static void setListShortcutActionSchemeObliqueShortcutHistoryBack(const QList<QKeySequence> &valueParam);

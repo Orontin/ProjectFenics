@@ -132,10 +132,16 @@ void SchemeObliqueWidgetColorMapWindow::setVisibleWidget(const bool &visible)
 
 void SchemeObliqueWidgetColorMapWindow::setPosition()
 {
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = SchemeObliqueFileSettings::getColorMapWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = SchemeObliqueFileSettings::getColorMapWindowScreenHeight(screenHeight);
+
     this->setGeometry(
-        ((SchemeObliqueFileSettings::getColorMapWindowX() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getColorMapWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getColorMapWindowY() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getColorMapWindowScreenHeight()),
-        ((SchemeObliqueFileSettings::getColorMapWindowWidth() * this->screen()->geometry().width()) / SchemeObliqueFileSettings::getColorMapWindowScreenWidth()),
-        ((SchemeObliqueFileSettings::getColorMapWindowHeight() * this->screen()->geometry().height()) / SchemeObliqueFileSettings::getColorMapWindowScreenHeight())
+        ((SchemeObliqueFileSettings::getColorMapWindowX() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getColorMapWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((SchemeObliqueFileSettings::getColorMapWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getColorMapWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
 }
