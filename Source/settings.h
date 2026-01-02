@@ -13,9 +13,9 @@ public:
     static QString getFileDirectoryWrite();
 
     static void setMainWindowX(const int &x);
-    static int getMainWindowX();
+    static int getMainWindowX(const int &screenWidth);
     static void setMainWindowY(const int &y);
-    static int getMainWindowY();
+    static int getMainWindowY(const int &screenHeight);
     static void setMainWindowWidth(const int &width);
     static int getMainWindowWidth();
     static void setMainWindowHeight(const int &height);
@@ -26,9 +26,9 @@ public:
     static int getMainWindowScreenHeight(const int &screenHeight);
 
     static void setShortcutWindowX(const int &x);
-    static int getShortcutWindowX();
+    static int getShortcutWindowX(const int &screenWidth);
     static void setShortcutWindowY(const int &y);
-    static int getShortcutWindowY();
+    static int getShortcutWindowY(const int &screenHeight);
     static void setShortcutWindowWidth(const int &width);
     static int getShortcutWindowWidth();
     static void setShortcutWindowHeight(const int &height);

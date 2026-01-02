@@ -44,20 +44,20 @@ const QString SchemeObliqueFileSettings::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBL
 
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE{"7"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_VISIBLE{"0"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X{"0"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y{"0"};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X{""};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y{""};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_WIDTH{"300"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_HEIDGHT{"600"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCREEN_WIDTH{"-1"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCREEN_HEIDGHT{"-1"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X{"0"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y{"0"};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X{""};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y{""};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_WIDTH{"300"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_HEIDGHT{"250"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_SCREEN_WIDTH{"-1"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_SCREEN_HEIDGHT{"-1"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X{"0"};
-const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y{"0"};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X{""};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y{""};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_WIDTH{"380"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_HEIDGHT{"450"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_SCREEN_WIDTH{"-1"};
@@ -109,9 +109,17 @@ void SchemeObliqueFileSettings::setColorMapWindowX(const int &x)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X, QString::number(x));
 }
 
-int SchemeObliqueFileSettings::getColorMapWindowX()
+int SchemeObliqueFileSettings::getColorMapWindowX(const int &screenWidth)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setColorMapWindowX((screenWidth / 2) - (SchemeObliqueFileSettings::getColorMapWindowWidth() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setColorMapWindowY(const int &y)
@@ -119,9 +127,17 @@ void SchemeObliqueFileSettings::setColorMapWindowY(const int &y)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y, QString::number(y));
 }
 
-int SchemeObliqueFileSettings::getColorMapWindowY()
+int SchemeObliqueFileSettings::getColorMapWindowY(const int &screenHeight)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setColorMapWindowY((screenHeight / 2) - (SchemeObliqueFileSettings::getColorMapWindowHeight() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setColorMapWindowWidth(const int &width)
@@ -185,9 +201,17 @@ void SchemeObliqueFileSettings::setCreateSchemeWindowX(const int &x)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X, QString::number(x));
 }
 
-int SchemeObliqueFileSettings::getCreateSchemeWindowX()
+int SchemeObliqueFileSettings::getCreateSchemeWindowX(const int &screenWidth)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_X;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setCreateSchemeWindowX((screenWidth / 2) - (SchemeObliqueFileSettings::getCreateSchemeWindowWidth() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setCreateSchemeWindowY(const int &y)
@@ -195,9 +219,17 @@ void SchemeObliqueFileSettings::setCreateSchemeWindowY(const int &y)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y, QString::number(y));
 }
 
-int SchemeObliqueFileSettings::getCreateSchemeWindowY()
+int SchemeObliqueFileSettings::getCreateSchemeWindowY(const int &screenHeight)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_CREATE_SCHEME_Y;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setCreateSchemeWindowY((screenHeight / 2) - (SchemeObliqueFileSettings::getCreateSchemeWindowHeight() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setCreateSchemeWindowWidth(const int &width)
@@ -261,9 +293,17 @@ void SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowX(const int &x)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X, QString::number(x));
 }
 
-int SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX()
+int SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX(const int &screenWidth)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_X;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowX((screenWidth / 2) - (SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowWidth() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowY(const int &y)
@@ -271,9 +311,17 @@ void SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowY(const int &y)
     AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y, QString::number(y));
 }
 
-int SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY()
+int SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY(const int &screenHeight)
 {
-    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y).toInt();
+    QString path = SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y;
+    QString defaultValue = SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_EDIT_DIRECTION_FOR_NEW_NODE_Y;
+    QString value = AbstractSchemeFileSettings::getValue(path, defaultValue);
+
+    if (value == defaultValue) {
+        SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowY((screenHeight / 2) - (SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowHeight() / 2));
+    }
+
+    return AbstractSchemeFileSettings::getValue(path, defaultValue).toInt();
 }
 
 void SchemeObliqueFileSettings::setEditDirectionForNewNodeWindowWidth(const int &width)

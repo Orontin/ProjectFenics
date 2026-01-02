@@ -257,8 +257,8 @@ void ShortcutWindow::setPosition()
     int colorMapWindowScreenHeight = Settings::getShortcutWindowScreenHeight(screenHeight);
 
     this->setGeometry(
-        ((Settings::getShortcutWindowX() * screenWidth) / colorMapWindowScreenWidth),
-        ((Settings::getShortcutWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((Settings::getShortcutWindowX(screenWidth) * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getShortcutWindowY(screenHeight) * screenHeight) / colorMapWindowScreenHeight),
         ((Settings::getShortcutWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
         ((Settings::getShortcutWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );

@@ -14,9 +14,9 @@ public:
     static void setColorMapVisible(const bool &visible);
     static bool getColorMapVisible();
     static void setColorMapWindowX(const int &x);
-    static int getColorMapWindowX();
+    static int getColorMapWindowX(const int &screenWidth);
     static void setColorMapWindowY(const int &y);
-    static int getColorMapWindowY();
+    static int getColorMapWindowY(const int &screenHeight);
     static void setColorMapWindowWidth(const int &width);
     static int getColorMapWindowWidth();
     static void setColorMapWindowHeight(const int &height);
@@ -27,9 +27,9 @@ public:
     static int getColorMapWindowScreenHeight(const int &screenHeight);
 
     static void setCreateSchemeWindowX(const int &x);
-    static int getCreateSchemeWindowX();
+    static int getCreateSchemeWindowX(const int &screenWidth);
     static void setCreateSchemeWindowY(const int &y);
-    static int getCreateSchemeWindowY();
+    static int getCreateSchemeWindowY(const int &screenHeight);
     static void setCreateSchemeWindowWidth(const int &width);
     static int getCreateSchemeWindowWidth();
     static void setCreateSchemeWindowHeight(const int &height);
@@ -40,9 +40,9 @@ public:
     static int getCreateSchemeWindowScreenHeight(const int &screenHeight);
 
     static void setEditDirectionForNewNodeWindowX(const int &x);
-    static int getEditDirectionForNewNodeWindowX();
+    static int getEditDirectionForNewNodeWindowX(const int &screenWidth);
     static void setEditDirectionForNewNodeWindowY(const int &y);
-    static int getEditDirectionForNewNodeWindowY();
+    static int getEditDirectionForNewNodeWindowY(const int &screenHeight);
     static void setEditDirectionForNewNodeWindowWidth(const int &width);
     static int getEditDirectionForNewNodeWindowWidth();
     static void setEditDirectionForNewNodeWindowHeight(const int &height);

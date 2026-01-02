@@ -221,8 +221,8 @@ void MainWindow::setPosition()
     int colorMapWindowScreenHeight = Settings::getMainWindowScreenHeight(screenHeight);
 
     this->setGeometry(
-        ((Settings::getMainWindowX() * screenWidth) / colorMapWindowScreenWidth),
-        ((Settings::getMainWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((Settings::getMainWindowX(screenWidth) * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getMainWindowY(screenHeight) * screenHeight) / colorMapWindowScreenHeight),
         ((Settings::getMainWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
         ((Settings::getMainWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );

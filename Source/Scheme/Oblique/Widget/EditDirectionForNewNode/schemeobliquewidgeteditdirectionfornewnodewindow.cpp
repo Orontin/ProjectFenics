@@ -75,8 +75,8 @@ void SchemeObliqueWidgetEditDirectionForNewNodeWindow::setPosition()
     int colorMapWindowScreenHeight = SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowScreenHeight(screenHeight);
 
     this->setGeometry(
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX() * screenWidth) / colorMapWindowScreenWidth),
-        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowX(screenWidth) * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowY(screenHeight) * screenHeight) / colorMapWindowScreenHeight),
         ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
         ((SchemeObliqueFileSettings::getEditDirectionForNewNodeWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );

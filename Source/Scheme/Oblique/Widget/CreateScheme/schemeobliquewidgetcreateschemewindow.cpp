@@ -143,8 +143,8 @@ void SchemeObliqueWidgetCreateSchemeWindow::setPosition()
     int colorMapWindowScreenHeight = SchemeObliqueFileSettings::getCreateSchemeWindowScreenHeight(screenHeight);
 
     this->setGeometry(
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowX() * screenWidth) / colorMapWindowScreenWidth),
-        ((SchemeObliqueFileSettings::getCreateSchemeWindowY() * screenHeight) / colorMapWindowScreenHeight),
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowX(screenWidth) * screenWidth) / colorMapWindowScreenWidth),
+        ((SchemeObliqueFileSettings::getCreateSchemeWindowY(screenHeight) * screenHeight) / colorMapWindowScreenHeight),
         ((SchemeObliqueFileSettings::getCreateSchemeWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
         ((SchemeObliqueFileSettings::getCreateSchemeWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
     );
