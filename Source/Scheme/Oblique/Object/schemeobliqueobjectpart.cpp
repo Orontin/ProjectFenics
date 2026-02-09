@@ -5,6 +5,8 @@
 
 #include "Scheme/Oblique/Object/schemeobliqueobjectnode.h"
 
+#include "Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h"
+
 QPolygon SchemeObliqueObjectPart::POLYGON_BRUSH_BEGGINING_CORNER_LEFT{{QPoint(-12, -24), QPoint(-56, -68), QPoint(-22, -102), QPoint(-22, -148), QPoint(-39, -148), QPoint(-39, -109), QPoint(-80, -68), QPoint(-24, -12), QPoint(-12, -24)}};
 QPolygon SchemeObliqueObjectPart::POLYGON_BRUSH_BEGGINING_CORNER_RIGHT{{QPoint(12, -24), QPoint(56, -68), QPoint(22, -102), QPoint(22, -148), QPoint(39, -148), QPoint(39, -109), QPoint(80, -68), QPoint(24, -12), QPoint(12, -24)}};
 QPolygon SchemeObliqueObjectPart::POLYGON_BRUSH_BEGGINING_LEFT{{QPoint(-24, -12), QPoint(-46, -34), QPoint(-46, -80), QPoint(-29, -80), QPoint(-29, -41), QPoint(-12, -24), QPoint(-24, -12)}};
@@ -261,7 +263,8 @@ void SchemeObliqueObjectPart::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    switch (directionPart) {
+    if (widget != SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
+        switch (directionPart) {
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_LEFT:
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_RIGHT:
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_LEFT:
@@ -304,5 +307,6 @@ void SchemeObliqueObjectPart::paint(QPainter *painter, const QStyleOptionGraphic
                 }
             }
             break;
+        }
     }
 }

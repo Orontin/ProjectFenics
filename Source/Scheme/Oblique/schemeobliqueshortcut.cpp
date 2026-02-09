@@ -14,7 +14,6 @@ SchemeObliqueShortcut &SchemeObliqueShortcut::getInstance()
 
 void SchemeObliqueShortcut::setShortcut(QGridLayout &gridLayouShortcut)
 {
-
     int rowCount = gridLayouShortcut.rowCount();
     this->labelName.setText("Сочетания клавиш усложненной косой схемы");
     this->labelName.setAlignment(Qt::AlignCenter);
