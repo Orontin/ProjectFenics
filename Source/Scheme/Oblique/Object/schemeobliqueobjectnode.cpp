@@ -294,7 +294,9 @@ void SchemeObliqueObjectNode::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    if (widget != SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
+    if (widget == SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
+        painter->setPen(QPen(QColor(), -1));
+    } else {
         painter->setPen(QPen(QColor(), -1));
 
         if (this->graphicObjectNodeLeftUpPen.size() < this->graphicObjectNodeRightUpPen.size()) {
