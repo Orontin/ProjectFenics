@@ -120,8 +120,6 @@ void SchemeObliqueWidgetColorMapChartView::mousePressEvent(QMouseEvent *event)
         this->setTransformationAnchor(QGraphicsView::NoAnchor);
         this->isMovements = true;
         this->lastPos = event->pos();
-    } else {
-        QGraphicsView::mousePressEvent(event);
     }
 }
 
@@ -137,8 +135,6 @@ void SchemeObliqueWidgetColorMapChartView::mouseMoveEvent(QMouseEvent *event)
         verticalScrollBar()->setValue(verticalScrollBarValue - delta.y());
 
         this->lastPos = event->pos();
-    } else {
-        QGraphicsView::mouseMoveEvent(event);
     }
 }
 
@@ -146,8 +142,6 @@ void SchemeObliqueWidgetColorMapChartView::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && this->isMovements) {
         this->isMovements = false;
-    } else {
-        QGraphicsView::mouseReleaseEvent(event);
     }
 }
 
