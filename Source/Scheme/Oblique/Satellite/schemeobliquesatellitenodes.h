@@ -61,12 +61,6 @@ public:
     QList<SchemeObliqueObjectNode*> top;
     QList<SchemeObliqueObjectNode*> bottom;
 
-    QList<const SchemeObliqueObjectNode*> all;
-
-signals:
-    void signalCreateNode(const SchemeObliqueObjectNode &node);
-    void signalDeleteNode(const SchemeObliqueObjectNode &node);
-
 private:
     SchemeObliqueObjectNode *createNode(const QPoint &pos);
     void deleteNode(SchemeObliqueObjectNode *&node);

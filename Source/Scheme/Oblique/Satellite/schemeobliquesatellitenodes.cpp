@@ -748,22 +748,12 @@ int SchemeObliqueSatelliteNodes::getSizeRight()
 SchemeObliqueObjectNode *SchemeObliqueSatelliteNodes::createNode(const QPoint &pos)
 {
     SchemeObliqueObjectNode *node = new SchemeObliqueObjectNode(pos, SchemeObliqueWidgetEditDirectionForNewNodeChartScene::getInstance().getStandartDirectionObliqueNode());
-
     this->scene->addItem(node);
-
-    this->all.push_back(node);
-
-    emit this->signalCreateNode(*node);
-
     return node;
 }
 
 void SchemeObliqueSatelliteNodes::deleteNode(SchemeObliqueObjectNode *&node)
 {
-    emit this->signalDeleteNode(*node);
-
-    this->all.removeAll(node);
-
     delete node;
     node = nullptr;
 }
