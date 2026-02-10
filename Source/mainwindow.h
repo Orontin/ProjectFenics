@@ -11,7 +11,6 @@
 #include "tabwidget.h"
 #include "fileread.h"
 #include "filewrite.h"
-#include "shortcutwidget.h"
 
 #include "Abstract/abstractscheme.h"
 
@@ -22,6 +21,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QList<AbstractScheme*> &schemes, QWidget *parent = nullptr);
     ~MainWindow();
+
+    void open();
+
+protected:
+    void moveEvent(QMoveEvent *event) override final;
+    void resizeEvent(QResizeEvent *event) override final;
 
 private slots:
     // файл
@@ -40,6 +45,9 @@ private slots:
 private:
     void updateShortcut();
     void updateMenu(int index);
+
+    void visible();
+    void setPosition();
 
     QMenu file;
     QAction openFile;

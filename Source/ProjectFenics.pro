@@ -12,33 +12,35 @@ SOURCES += \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.cpp \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.cpp \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.cpp \
-    Scheme/Oblique/File/Setting/schemeobliquefilesetting.cpp \
+    Scheme/Oblique/File/Setting/schemeobliquefilesettings.cpp \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.cpp \
     Scheme/Oblique/Satellite/History/event.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.cpp \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.cpp \
-    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.cpp \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.cpp \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.cpp \
-    Scheme/Oblique/Chart/schemeobliquechartscene.cpp \
-    Scheme/Oblique/Chart/schemeobliquechartview.cpp \
-    Scheme/Oblique/Object/schemeobliqueobjectnode.cpp \
-    Scheme/Oblique/Object/schemeobliqueobjectpart.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitecolors.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteconnects.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.cpp \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.cpp \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.cpp \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreateschemewindow.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.cpp \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.cpp \
+    Scheme/Oblique/Chart/schemeobliquechartscene.cpp \
+    Scheme/Oblique/Chart/schemeobliquechartview.cpp \
+    Scheme/Oblique/Object/schemeobliqueobjectnode.cpp \
+    Scheme/Oblique/Object/schemeobliqueobjectpart.cpp \
     Scheme/Oblique/schemeoblique.cpp \
     Scheme/Oblique/schemeobliqueaction.cpp \
     Scheme/Oblique/schemeobliqueshortcut.cpp \
+    Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.cpp \
+    Scheme/Oblique/Widget/ColorMap/schemeobliquewidgetcolormapwindow.cpp \
     fileread.cpp \
     filewrite.cpp \
     settings.cpp \
-    shortcutwidget.cpp \
+    shortcutwindow.cpp \
     tabwidget.cpp \
     mainwindow.cpp \
     main.cpp \
@@ -48,38 +50,40 @@ HEADERS += \
     Abstract/abstractschemechartscene.h \
     Abstract/abstractschemechartview.h \
     Abstract/abstractschemefileread.h \
-    Abstract/abstractschemefilesetting.h \
+    Abstract/abstractschemefilesettings.h \
     Abstract/abstractschemefilewrite.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadfbd.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadpfco.h \
     Scheme/Oblique/File/Read/schemeobliquefilereadrnx.h \
-    Scheme/Oblique/File/Setting/schemeobliquefilesetting.h \
+    Scheme/Oblique/File/Setting/schemeobliquefilesettings.h \
     Scheme/Oblique/File/Write/schemeobliquefilewritepfco.h \
     Scheme/Oblique/Satellite/History/event.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirectionnode.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenedirections.h \
     Scheme/Oblique/Satellite/History/eventabstractschemechartscenesetcolorthread.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitehistory.h \
-    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreatescheme.h \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h \
-    Scheme/Oblique/Chart/schemeobliquechartscene.h \
-    Scheme/Oblique/Chart/schemeobliquechartview.h \
-    Scheme/Oblique/Object/schemeobliqueobjectnode.h \
-    Scheme/Oblique/Object/schemeobliqueobjectpart.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitecolors.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteconnects.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteinfos.h \
     Scheme/Oblique/Satellite/schemeobliquesatellitenodes.h \
     Scheme/Oblique/Satellite/schemeobliquesatelliteparts.h \
-    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodechartwindow.h \
+    Scheme/Oblique/Widget/CreateScheme/schemeobliquewidgetcreateschemewindow.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartscene.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/Chart/schemeobliquewidgeteditdirectionfornewnodechartview.h \
+    Scheme/Oblique/Widget/EditDirectionForNewNode/schemeobliquewidgeteditdirectionfornewnodewindow.h \
+    Scheme/Oblique/Chart/schemeobliquechartscene.h \
+    Scheme/Oblique/Chart/schemeobliquechartview.h \
+    Scheme/Oblique/Object/schemeobliqueobjectnode.h \
+    Scheme/Oblique/Object/schemeobliqueobjectpart.h \
     Scheme/Oblique/schemeoblique.h \
     Scheme/Oblique/schemeobliqueaction.h \
     Scheme/Oblique/schemeobliqueshortcut.h \
+    Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h \
+    Scheme/Oblique/Widget/ColorMap/schemeobliquewidgetcolormapwindow.h \
     fileread.h \
     filewrite.h \
     settings.h \
-    shortcutwidget.h \
+    shortcutwindow.h \
     tabwidget.h \
     mainwindow.h
 

@@ -22,6 +22,7 @@ public:
 
     QAction actionCreate;
     QAction actionEditDirectionNewNode;
+    QAction actionColorMap;
 
     QAction actionBack;
     QAction actionNext;
@@ -59,7 +60,8 @@ private:
     static SchemeObliqueAction *schemeObliqueAction;
 
     void createActions();
-    void createActionOblique();
+    void createActionCreateOblique();
+    void createActionSettingsOblique();
     void createActionView();
     void createActionScene();
 

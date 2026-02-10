@@ -1,6 +1,6 @@
 #include "schemeobliquewidgeteditdirectionfornewnodechartscene.h"
 
-#include "Scheme/Oblique/File/Setting/schemeobliquefilesetting.h"
+#include "Scheme/Oblique/File/Setting/schemeobliquefilesettings.h"
 #include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
 
 SchemeObliqueWidgetEditDirectionForNewNodeChartScene *SchemeObliqueWidgetEditDirectionForNewNodeChartScene::schemeObliqueWidgetEditDirectionForNewNodeChartScene{nullptr};
@@ -24,7 +24,7 @@ SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode SchemeObliq
 }
 
 SchemeObliqueWidgetEditDirectionForNewNodeChartScene::SchemeObliqueWidgetEditDirectionForNewNodeChartScene():
-    standartDirectionObliqueNode(SchemeObliqueFileSetting::getStandartDirectionObliqueNode()),
+    standartDirectionObliqueNode(SchemeObliqueFileSettings::getStandartDirectionObliqueNode()),
     node(new SchemeObliqueObjectNode(QPoint(0, 0), this->getStandartDirectionObliqueNode())),
     partLeftTop(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_LEFT)),
     partLeftBottom(new SchemeObliqueObjectPart(this->node->pos, SchemeObliqueObjectPart::DirectionsPart::END_CORNER_LEFT)),
@@ -69,6 +69,6 @@ void SchemeObliqueWidgetEditDirectionForNewNodeChartScene::mouseReleaseEvent(QGr
     if (node) {
         node->click();
         this->setStandartDirectionObliqueNode(node->directionNode);
-        SchemeObliqueFileSetting::setStandartDirectionObliqueNode(this->getStandartDirectionObliqueNode());
+        SchemeObliqueFileSettings::setStandartDirectionObliqueNode(this->getStandartDirectionObliqueNode());
     }
 }

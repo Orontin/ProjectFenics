@@ -1,58 +1,87 @@
-#include "shortcutwidget.h"
+#include "shortcutwindow.h"
 
 #include "settings.h"
 
-ShortcutWidget *ShortcutWidget::shortcutWidget{nullptr};
+#include <QScreen>
 
-ShortcutWidget &ShortcutWidget::getInstance()
+ShortcutWindow *ShortcutWindow::shortcutWindow{nullptr};
+
+ShortcutWindow &ShortcutWindow::getInstance()
 {
-    if (!ShortcutWidget::shortcutWidget) {
-        ShortcutWidget::shortcutWidget = new ShortcutWidget;
+    if (!ShortcutWindow::shortcutWindow) {
+        ShortcutWindow::shortcutWindow = new ShortcutWindow;
     }
-    return *ShortcutWidget::shortcutWidget;
+    return *ShortcutWindow::shortcutWindow;
 }
 
-QGridLayout &ShortcutWidget::getGridLayouWidgetScrollArea()
+QGridLayout &ShortcutWindow::getGridLayouWidgetScrollArea()
 {
     return gridLayouWidgetScrollArea;
 }
 
-void ShortcutWidget::showEvent(QShowEvent *event)
+void ShortcutWindow::open()
+{
+    this->visible();
+}
+
+void ShortcutWindow::showEvent(QShowEvent *event)
 {
     onClickedCancel();
     QWidget::showEvent(event);
 }
 
-void ShortcutWidget::closeEvent(QCloseEvent *event)
+void ShortcutWindow::closeEvent(QCloseEvent *event)
 {
     onClickedCancel();
     QWidget::closeEvent(event);
 }
 
-void ShortcutWidget::onClickedSetDefaultShortcut()
+void ShortcutWindow::moveEvent(QMoveEvent *event)
+{
+    Q_UNUSED(event)
+
+    Settings::setShortcutWindowX(this->geometry().x());
+    Settings::setShortcutWindowY(this->geometry().y());
+
+    Settings::setShortcutWindowScreenWidth(this->screen()->geometry().width());
+    Settings::setShortcutWindowScreenHeight(this->screen()->geometry().height());
+}
+
+void ShortcutWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event)
+
+    Settings::setShortcutWindowWidth(this->geometry().width());
+    Settings::setShortcutWindowHeight(this->geometry().height());
+
+    Settings::setShortcutWindowScreenWidth(this->screen()->geometry().width());
+    Settings::setShortcutWindowScreenHeight(this->screen()->geometry().height());
+}
+
+void ShortcutWindow::onClickedSetDefaultShortcut()
 {
     setDefaultShortcutInWidget();
     emit this->clickedShortcutSetDefaultShortcut();
 }
 
-void ShortcutWidget::onClickedCancel()
+void ShortcutWindow::onClickedCancel()
 {
     setShortcutInWidget();
     emit this->clickedShortcutCancel();
 }
 
-void ShortcutWidget::onClickedSave()
+void ShortcutWindow::onClickedSave()
 {
     saveShortcutInFile();
     emit this->clickedShortcutSave();
     this->close();
 }
 
-
-ShortcutWidget::ShortcutWidget()
+ShortcutWindow::ShortcutWindow()
 {
     this->setWindowModality(Qt::ApplicationModal);
     this->setWindowTitle("Настройка сочетаний клавиш");
+    this->setPosition();
 
     int rowCount = this->gridLayouWidgetScrollArea.rowCount();
     this->labelName.setText("Общие сочетания клавиш");
@@ -111,17 +140,17 @@ ShortcutWidget::ShortcutWidget()
 
     this->setLayout(&this->gridLayout);
 
-    connect(&this->setDefaultShortcut, &QPushButton::clicked, this, &ShortcutWidget::onClickedSetDefaultShortcut);
-    connect(&this->cancel, &QPushButton::clicked, this, &ShortcutWidget::onClickedCancel);
-    connect(&this->save, &QPushButton::clicked, this, &ShortcutWidget::onClickedSave);
+    connect(&this->setDefaultShortcut, &QPushButton::clicked, this, &ShortcutWindow::onClickedSetDefaultShortcut);
+    connect(&this->cancel, &QPushButton::clicked, this, &ShortcutWindow::onClickedCancel);
+    connect(&this->save, &QPushButton::clicked, this, &ShortcutWindow::onClickedSave);
 }
 
-ShortcutWidget::~ShortcutWidget()
+ShortcutWindow::~ShortcutWindow()
 {
 
 }
 
-void ShortcutWidget::setDefaultShortcutInWidget()
+void ShortcutWindow::setDefaultShortcutInWidget()
 {
     QList<QKeySequence> listShortcutOpenFile = Settings::getListDefaultShortcutActionOpenFile();
     QList<QKeySequence> listShortcutEditSaveOpenScheme = Settings::getListDefaultShortcutActionSaveScheme();
@@ -149,7 +178,7 @@ void ShortcutWidget::setDefaultShortcutInWidget()
     this->keySequenceEditShortcutWidget_4.setKeySequence(listShortcutShortcutWidget[3]);
 }
 
-void ShortcutWidget::setShortcutInWidget()
+void ShortcutWindow::setShortcutInWidget()
 {
     QList<QKeySequence> listShortcutOpenFile = Settings::getListShortcutActionOpenFile();
     QList<QKeySequence> listShortcutEditSaveOpenScheme = Settings::getListShortcutActionSaveScheme();
@@ -159,7 +188,7 @@ void ShortcutWidget::setShortcutInWidget()
     setInWidget(listShortcutOpenFile, listShortcutEditSaveOpenScheme, listShortcutDeleteOpenScheme, listShortcutShortcutWidget);
 }
 
-void ShortcutWidget::setInWidget(QList<QKeySequence> &listShortcutOpenFile, QList<QKeySequence> &listShortcutEditSaveOpenScheme, QList<QKeySequence> &listShortcutDeleteOpenScheme, QList<QKeySequence> &listShortcutShortcutWidget)
+void ShortcutWindow::setInWidget(QList<QKeySequence> &listShortcutOpenFile, QList<QKeySequence> &listShortcutEditSaveOpenScheme, QList<QKeySequence> &listShortcutDeleteOpenScheme, QList<QKeySequence> &listShortcutShortcutWidget)
 {
     this->keySequenceEditOpenFile_1.setKeySequence(listShortcutOpenFile[0]);
     this->keySequenceEditOpenFile_2.setKeySequence(listShortcutOpenFile[1]);
@@ -182,7 +211,7 @@ void ShortcutWidget::setInWidget(QList<QKeySequence> &listShortcutOpenFile, QLis
     this->keySequenceEditShortcutWidget_4.setKeySequence(listShortcutShortcutWidget[3]);
 }
 
-void ShortcutWidget::saveShortcutInFile()
+void ShortcutWindow::saveShortcutInFile()
 {
     QList<QKeySequence> listShortcutOpenFile;
     listShortcutOpenFile.push_back(this->keySequenceEditOpenFile_1.keySequence());
@@ -211,4 +240,26 @@ void ShortcutWidget::saveShortcutInFile()
     listShortcutShortcutWidget.push_back(this->keySequenceEditShortcutWidget_3.keySequence());
     listShortcutShortcutWidget.push_back(this->keySequenceEditShortcutWidget_4.keySequence());
     Settings::setListShortcutActionOpenShortcutWidget(listShortcutShortcutWidget);
+}
+
+void ShortcutWindow::visible()
+{
+    this->show();
+    this->setPosition();
+}
+
+void ShortcutWindow::setPosition()
+{
+    int screenWidth = this->screen()->geometry().width();
+    int screenHeight = this->screen()->geometry().height();
+
+    int colorMapWindowScreenWidth = Settings::getShortcutWindowScreenWidth(screenWidth);
+    int colorMapWindowScreenHeight = Settings::getShortcutWindowScreenHeight(screenHeight);
+
+    this->setGeometry(
+        ((Settings::getShortcutWindowX(screenWidth) * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getShortcutWindowY(screenHeight) * screenHeight) / colorMapWindowScreenHeight),
+        ((Settings::getShortcutWindowWidth() * screenWidth) / colorMapWindowScreenWidth),
+        ((Settings::getShortcutWindowHeight() * screenHeight) / colorMapWindowScreenHeight)
+    );
 }

@@ -1,5 +1,5 @@
-#ifndef ABSTRACTSCHEMEFILESETTING_H
-#define ABSTRACTSCHEMEFILESETTING_H
+#ifndef ABSTRACTSCHEMEFILESETTINGS_H
+#define ABSTRACTSCHEMEFILESETTINGS_H
 
 #include <QDir>
 #include <QList>
@@ -9,7 +9,7 @@
 #include <QKeySequence>
 #include <QCoreApplication>
 
-class AbstractSchemeFileSetting
+class AbstractSchemeFileSettings
 {
 public:
     static void setValue(const QString &nameParam, const QString &valueParam){
@@ -47,4 +47,4 @@ protected:
     };
 };
 
-#endif // ABSTRACTSCHEMEFILESETTING_H
+#endif // ABSTRACTSCHEMEFILESETTINGS_H

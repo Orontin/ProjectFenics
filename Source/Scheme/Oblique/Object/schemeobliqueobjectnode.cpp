@@ -2,7 +2,9 @@
 
 #include <QPainter>
 
-QPolygon SchemeObliqueObjectNode::POLYGON_ROMB{QPoint(0, -40), QPoint(40, 0), QPoint(0, 40), QPoint(-40, 0), QPoint(0, -40)};
+#include "Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h"
+
+QPolygon SchemeObliqueObjectNode::POLYGON_ROMB{QPoint(0, -68), QPoint(68, 0), QPoint(0, 68), QPoint(-68, 0), QPoint(0, -68)};
 
 QPolygon SchemeObliqueObjectNode::POLYGON_PARALLEL_LEFT_PART{QPoint(-24, 12), QPoint(-24, -12), QPoint(-12, -24), QPoint(-6, -18), QPoint(-6, 18), QPoint(-12, 24)};
 QPolygon SchemeObliqueObjectNode::POLYGON_PARALLEL_RIGHT_PART{QPoint(24, 12), QPoint(24, -12), QPoint(12, -24), QPoint(6, -18), QPoint(6, 18), QPoint(12, 24)};
@@ -292,52 +294,74 @@ void SchemeObliqueObjectNode::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    painter->setPen(QPen(QColor(), -1));
+    if (widget == SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
+        painter->setPen(QPen(Qt::black, 1));
 
-    if (this->graphicObjectNodeLeftUpPen.size() < this->graphicObjectNodeRightUpPen.size()) {
-        painter->setBrush(this->partRightTop->brush);
-        painter->drawPath(this->graphicObjectNodeRightBrush);
-        painter->setBrush(this->partLeftTop->brush);
-        painter->drawPath(this->graphicObjectNodeLeftBrush);
-
-        painter->setPen(this->partRightTop->pen);
-        for (QLine &line : this->graphicObjectNodeRightUpPen) {
-            painter->drawLine(line);
+        switch (this->directionNode) {
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
+            painter->setBrush(this->partLeftTop->brush);
+            painter->drawPath(this->graphicObjectNode);
+            break;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
+            painter->setBrush(this->partRightTop->brush);
+            painter->drawPath(this->graphicObjectNode);
+            break;
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL:
+        case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP:
+            break;
         }
-        painter->setPen(this->partLeftTop->pen);
-        for (QLine &line : this->graphicObjectNodeLeftUpPen) {
-            painter->drawLine(line);
-        }
-
-        painter->setBrush(this->partRightTop->pen.brush());
-        painter->setPen(this->partRightTop->pen);
-        painter->drawPath(this->graphicObjectArrow);
     } else {
-        painter->setBrush(this->partLeftTop->brush);
-        painter->drawPath(this->graphicObjectNodeLeftBrush);
-        painter->setBrush(this->partRightTop->brush);
-        painter->drawPath(this->graphicObjectNodeRightBrush);
+        painter->setPen(QPen(QColor(), -1));
 
-        painter->setPen(this->partLeftTop->pen);
-        for (QLine &line : this->graphicObjectNodeLeftUpPen) {
+        if (this->graphicObjectNodeLeftUpPen.size() < this->graphicObjectNodeRightUpPen.size()) {
+            painter->setBrush(this->partRightTop->brush);
+            painter->drawPath(this->graphicObjectNodeRightBrush);
+            painter->setBrush(this->partLeftTop->brush);
+            painter->drawPath(this->graphicObjectNodeLeftBrush);
+
+            painter->setPen(this->partRightTop->pen);
+            for (QLine &line : this->graphicObjectNodeRightUpPen) {
+                painter->drawLine(line);
+            }
+            painter->setPen(this->partLeftTop->pen);
+            for (QLine &line : this->graphicObjectNodeLeftUpPen) {
+                painter->drawLine(line);
+            }
+
+            painter->setBrush(this->partRightTop->pen.brush());
+            painter->setPen(this->partRightTop->pen);
+            painter->drawPath(this->graphicObjectArrow);
+        } else {
+            painter->setBrush(this->partLeftTop->brush);
+            painter->drawPath(this->graphicObjectNodeLeftBrush);
+            painter->setBrush(this->partRightTop->brush);
+            painter->drawPath(this->graphicObjectNodeRightBrush);
+
+            painter->setPen(this->partLeftTop->pen);
+            for (QLine &line : this->graphicObjectNodeLeftUpPen) {
+                painter->drawLine(line);
+            }
+            painter->setPen(this->partRightTop->pen);
+            for (QLine &line : this->graphicObjectNodeRightUpPen) {
+                painter->drawLine(line);
+            }
+
+            painter->setBrush(this->partLeftTop->pen.brush());
+            painter->setPen(this->partLeftTop->pen);
+            painter->drawPath(this->graphicObjectArrow);
+        }
+
+        painter->setPen(this->partLeftBottom->pen);
+        for (QLine &line : this->graphicObjectNodeLeftBottomPen) {
             painter->drawLine(line);
         }
-        painter->setPen(this->partRightTop->pen);
-        for (QLine &line : this->graphicObjectNodeRightUpPen) {
+        painter->setPen(this->partRightBottom->pen);
+        for (QLine &line : this->graphicObjectNodeRightBottomPen) {
             painter->drawLine(line);
         }
-
-        painter->setBrush(this->partLeftTop->pen.brush());
-        painter->setPen(this->partLeftTop->pen);
-        painter->drawPath(this->graphicObjectArrow);
-    }
-
-    painter->setPen(this->partLeftBottom->pen);
-    for (QLine &line : this->graphicObjectNodeLeftBottomPen) {
-        painter->drawLine(line);
-    }
-    painter->setPen(this->partRightBottom->pen);
-    for (QLine &line : this->graphicObjectNodeRightBottomPen) {
-        painter->drawLine(line);
     }
 }

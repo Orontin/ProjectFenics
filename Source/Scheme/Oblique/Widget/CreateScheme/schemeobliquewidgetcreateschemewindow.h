@@ -1,5 +1,5 @@
-#ifndef SCHEMEOBLIQUEWIDGETCREATESCHEME_H
-#define SCHEMEOBLIQUEWIDGETCREATESCHEME_H
+#ifndef SCHEMEOBLIQUEWIDGETCREATESCHEMEWINDOW_H
+#define SCHEMEOBLIQUEWIDGETCREATESCHEMEWINDOW_H
 
 #include <QWidget>
 #include <QGridLayout>
@@ -14,12 +14,12 @@
 
 #include "Abstract/abstractschemechartview.h"
 
-class SchemeObliqueWidgetCreateScheme: public QWidget
+class SchemeObliqueWidgetCreateSchemeWindow: public QWidget
 {
     Q_OBJECT
 
 public:
-    static SchemeObliqueWidgetCreateScheme &getInstance(AbstractScheme &scheme);
+    static SchemeObliqueWidgetCreateSchemeWindow &getInstance(AbstractScheme &scheme);
 
 public slots:
     void createIn();
@@ -27,15 +27,22 @@ public slots:
 signals:
     void createOut(AbstractSchemeChartView &view);
 
+protected:
+    void moveEvent(QMoveEvent *event) override final;
+    void resizeEvent(QResizeEvent *event) override final;
+
 private slots:
     void onCancelClicked();
     void onCreateClicked();
 
 private:
-    explicit SchemeObliqueWidgetCreateScheme(AbstractScheme &scheme);
-    ~SchemeObliqueWidgetCreateScheme();
+    explicit SchemeObliqueWidgetCreateSchemeWindow(AbstractScheme &scheme);
+    ~SchemeObliqueWidgetCreateSchemeWindow();
 
-    static SchemeObliqueWidgetCreateScheme *schemeObliqueWidgetCreateScheme;
+    void visible();
+    void setPosition();
+
+    static SchemeObliqueWidgetCreateSchemeWindow *schemeObliqueWidgetCreateSchemeWindow;
     AbstractScheme &scheme;
 
     QGridLayout gridLayout;
@@ -60,4 +67,4 @@ private:
     QPushButton cancel;
 };
 
-#endif // SCHEMEOBLIQUEWIDGETCREATESCHEME_H
+#endif // SCHEMEOBLIQUEWIDGETCREATESCHEMEWINDOW_H

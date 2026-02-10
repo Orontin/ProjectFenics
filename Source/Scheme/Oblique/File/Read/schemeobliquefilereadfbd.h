@@ -11,7 +11,7 @@ class SchemeObliqueFileReadFBD: public AbstractSchemeFileRead
 public:
     static SchemeObliqueFileReadFBD &getInstance(AbstractScheme &scheme);
 
-    void readScheme(QByteArray byteArray, QString name) override final;;
+    void readScheme(QByteArray byteArray, QString name) override final;
 
 private:
     SchemeObliqueFileReadFBD(AbstractScheme &scheme);

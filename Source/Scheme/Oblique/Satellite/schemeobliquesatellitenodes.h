@@ -63,6 +63,7 @@ public:
 
 private:
     SchemeObliqueObjectNode *createNode(const QPoint &pos);
+    void deleteNode(SchemeObliqueObjectNode *&node);
 
     SchemeObliqueChartScene *scene = nullptr;
 };

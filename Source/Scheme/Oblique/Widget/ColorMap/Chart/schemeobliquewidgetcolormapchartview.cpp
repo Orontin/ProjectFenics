@@ -1,4 +1,4 @@
-#include "schemeobliquechartview.h"
+#include "schemeobliquewidgetcolormapchartview.h"
 
 #include <QSurfaceFormat>
 #include <QGraphicsView>
@@ -6,62 +6,41 @@
 #include <QScrollBar>
 #include <QtMath>
 
-#include "Scheme/Oblique/Chart/schemeobliquechartscene.h"
+SchemeObliqueWidgetColorMapChartView *SchemeObliqueWidgetColorMapChartView::schemeObliqueWidgetColorMapChartView{nullptr};
 
-SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
-                                               const int &countHalfrow,
-                                               const bool &isNode1_2,
-                                               const QString &name,
-                                               AbstractScheme &scheme):
-    AbstractSchemeChartView(name, scheme)
+SchemeObliqueWidgetColorMapChartView &SchemeObliqueWidgetColorMapChartView::getInstance()
 {
-    this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2));
-    this->commonCreate();
+    if (!SchemeObliqueWidgetColorMapChartView::schemeObliqueWidgetColorMapChartView) {
+        SchemeObliqueWidgetColorMapChartView::schemeObliqueWidgetColorMapChartView = new SchemeObliqueWidgetColorMapChartView;
+    }
+    return *schemeObliqueWidgetColorMapChartView;
 }
 
-SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
-                                               const int &countHalfrow,
-                                               const bool &isNode1_2,
-                                               const QList<int> &nodeDirections,
-                                               const QList<QBrush> &colorThreads,
-                                               const QString &name,
-                                               AbstractScheme &scheme):
-    AbstractSchemeChartView(name, scheme)
-{
-    this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads));
-    this->commonCreate();
-}
-
-SchemeObliqueChartView::~SchemeObliqueChartView()
-{
-    delete this->scene();
-}
-
-void SchemeObliqueChartView::toRight()
+void SchemeObliqueWidgetColorMapChartView::toRight()
 {
     const int step = abs(this->horizontalScrollBar()->minimum());
     this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() + step);
 }
 
-void SchemeObliqueChartView::toLeft()
+void SchemeObliqueWidgetColorMapChartView::toLeft()
 {
     const int step = abs(this->horizontalScrollBar()->minimum());
     this->horizontalScrollBar()->setValue(this->horizontalScrollBar()->value() - step);
 }
 
-void SchemeObliqueChartView::toTop()
+void SchemeObliqueWidgetColorMapChartView::toTop()
 {
     const int step = abs(this->verticalScrollBar()->minimum());
     this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() - step);
 }
 
-void SchemeObliqueChartView::toBottom()
+void SchemeObliqueWidgetColorMapChartView::toBottom()
 {
     const int step = abs(this->verticalScrollBar()->minimum());
     this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() + step);
 }
 
-void SchemeObliqueChartView::zoomIn()
+void SchemeObliqueWidgetColorMapChartView::zoomIn()
 {
     if (this->skrooll > -25) {
         double angle = 120;
@@ -72,7 +51,7 @@ void SchemeObliqueChartView::zoomIn()
     }
 }
 
-void SchemeObliqueChartView::zoomOut()
+void SchemeObliqueWidgetColorMapChartView::zoomOut()
 {
     if (this->skrooll < 25) {
         double angle = -120;
@@ -83,17 +62,22 @@ void SchemeObliqueChartView::zoomOut()
     }
 }
 
-void SchemeObliqueChartView::rotateRight()
+void SchemeObliqueWidgetColorMapChartView::rotateRight()
 {
     this->rotate(45);
 }
 
-void SchemeObliqueChartView::rotateLeft()
+void SchemeObliqueWidgetColorMapChartView::rotateLeft()
 {
     this->rotate(-45);
 }
 
-void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)
+void SchemeObliqueWidgetColorMapChartView::setSchemeObliqueChartScene(SchemeObliqueChartScene *scene)
+{
+    this->setScene(scene);
+}
+
+void SchemeObliqueWidgetColorMapChartView::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier) {
         double angle = event->angleDelta().y();
@@ -130,18 +114,16 @@ void SchemeObliqueChartView::wheelEvent(QWheelEvent *event)
     }
 }
 
-void SchemeObliqueChartView::mousePressEvent(QMouseEvent *event)
+void SchemeObliqueWidgetColorMapChartView::mousePressEvent(QMouseEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier && event->button() == Qt::LeftButton && !this->isMovements) {
         this->setTransformationAnchor(QGraphicsView::NoAnchor);
         this->isMovements = true;
         this->lastPos = event->pos();
-    } else {
-        QGraphicsView::mousePressEvent(event);
     }
 }
 
-void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
+void SchemeObliqueWidgetColorMapChartView::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier && event->buttons() == Qt::LeftButton && this->isMovements) {
         QPoint delta = event->pos() - this->lastPos;
@@ -153,23 +135,29 @@ void SchemeObliqueChartView::mouseMoveEvent(QMouseEvent *event)
         verticalScrollBar()->setValue(verticalScrollBarValue - delta.y());
 
         this->lastPos = event->pos();
-    } else {
-        QGraphicsView::mouseMoveEvent(event);
     }
 }
 
-void SchemeObliqueChartView::mouseReleaseEvent(QMouseEvent *event)
+void SchemeObliqueWidgetColorMapChartView::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && this->isMovements) {
         this->isMovements = false;
-    } else {
-        QGraphicsView::mouseReleaseEvent(event);
     }
 }
 
-void SchemeObliqueChartView::commonCreate()
+void SchemeObliqueWidgetColorMapChartView::commonCreate()
 {
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     this->setMouseTracking(true);
+}
+
+SchemeObliqueWidgetColorMapChartView::SchemeObliqueWidgetColorMapChartView()
+{
+
+}
+
+SchemeObliqueWidgetColorMapChartView::~SchemeObliqueWidgetColorMapChartView()
+{
+
 }
