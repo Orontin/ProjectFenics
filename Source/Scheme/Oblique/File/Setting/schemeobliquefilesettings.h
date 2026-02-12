@@ -11,6 +11,8 @@ public:
     static void setStandartDirectionObliqueNode(const SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode &standartDirectionObliqueNode);
     static SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode getStandartDirectionObliqueNode();
 
+    static void setColorMapScroll(const int &scroll);
+    static int getColorMapScroll();
     static void setColorMapVisible(const bool &visible);
     static bool getColorMapVisible();
     static void setColorMapWindowX(const int &x);
@@ -123,6 +125,7 @@ public:
 private:
     static const QString PATH_TO_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE;
 
+    static const QString PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL;
     static const QString PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_VISIBLE;
     static const QString PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X;
     static const QString PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y;
@@ -169,6 +172,7 @@ private:
 
     static const QString DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE;
 
+    static const QString DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL;
     static const QString DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_VISIBLE;
     static const QString DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X;
     static const QString DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y;

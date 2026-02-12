@@ -1,6 +1,7 @@
 #include "schemeobliquefilesettings.h"
 
 const QString SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE{"Scheme/Oblique/standartDirectionObliqueNode"};
+const QString SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL{"Scheme/Oblique/Window/ColorMap/scroll"};
 const QString SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_VISIBLE{"Scheme/Oblique/Window/ColorMap/visible"};
 const QString SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X{"Scheme/Oblique/Window/ColorMap/x"};
 const QString SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y{"Scheme/Oblique/Window/ColorMap/y"};
@@ -43,6 +44,7 @@ const QString SchemeObliqueFileSettings::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBL
 const QString SchemeObliqueFileSettings::PATH_TO_LIST_SHORTCUT_ACTION_SCHEME_OBLIQUE_SHORTCUT_VIEW_ROTATE_RIGHT{"Scheme/Oblique/Shortcut/View/Rotate/right"};
 
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE{"7"};
+const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL{"5"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_VISIBLE{"0"};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_X{""};
 const QString SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_Y{""};
@@ -92,6 +94,16 @@ void SchemeObliqueFileSettings::setStandartDirectionObliqueNode(const SchemeObli
 SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode SchemeObliqueFileSettings::getStandartDirectionObliqueNode()
 {
     return static_cast<SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode>(AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_STANDART_DIRECTION_OBLIQUE_NODE).toInt());
+}
+
+void SchemeObliqueFileSettings::setColorMapScroll(const int &scroll)
+{
+    AbstractSchemeFileSettings::setValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL, QString::number(scroll));
+}
+
+int SchemeObliqueFileSettings::getColorMapScroll()
+{
+    return AbstractSchemeFileSettings::getValue(SchemeObliqueFileSettings::PATH_TO_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL, SchemeObliqueFileSettings::DEFAULT_VALUE_SCHEME_OBLIQUE_WINDOW_COLOR_MAP_SCROLL).toInt();
 }
 
 void SchemeObliqueFileSettings::setColorMapVisible(const bool &visible)

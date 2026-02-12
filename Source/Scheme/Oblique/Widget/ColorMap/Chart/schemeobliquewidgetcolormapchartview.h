@@ -37,9 +37,11 @@ private:
 
     void commonCreate();
 
+    void tryZoom(const int &direction, const QWheelEvent *targetViewportPos);
+
     QPoint lastPos;
-    bool isMovements = false;
-    int skrooll = 5;
+    bool isMovements;
+    int scroll;
 
     static SchemeObliqueWidgetColorMapChartView *schemeObliqueWidgetColorMapChartView;
 };
