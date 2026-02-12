@@ -48,6 +48,8 @@ private:
     QPainterPath shape() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    QPainterPath graphicObjectNodeMapColor;
+
     QPainterPath graphicObjectNode;
 
     QPainterPath graphicObjectArrow;
@@ -61,7 +63,8 @@ private:
     QList<QLine> graphicObjectNodeRightUpPen;
     QList<QLine> graphicObjectNodeRightBottomPen;
 
-    static QPolygon POLYGON_ROMB;
+    static QPolygon POLYGON_ROMB_BIG;
+    static QPolygon POLYGON_ROMB_SMALL;
 
     static QPolygon POLYGON_PARALLEL_LEFT_PART;
     static QPolygon POLYGON_PARALLEL_RIGHT_PART;

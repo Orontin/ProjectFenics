@@ -4,7 +4,8 @@
 
 #include "Scheme/Oblique/Widget/ColorMap/Chart/schemeobliquewidgetcolormapchartview.h"
 
-QPolygon SchemeObliqueObjectNode::POLYGON_ROMB{QPoint(0, -68), QPoint(68, 0), QPoint(0, 68), QPoint(-68, 0), QPoint(0, -68)};
+QPolygon SchemeObliqueObjectNode::POLYGON_ROMB_BIG{QPoint(0, -68), QPoint(68, 0), QPoint(0, 68), QPoint(-68, 0), QPoint(0, -68)};
+QPolygon SchemeObliqueObjectNode::POLYGON_ROMB_SMALL{QPoint(0, -40), QPoint(40, 0), QPoint(0, 40), QPoint(-40, 0), QPoint(0, -40)};
 
 QPolygon SchemeObliqueObjectNode::POLYGON_PARALLEL_LEFT_PART{QPoint(-24, 12), QPoint(-24, -12), QPoint(-12, -24), QPoint(-6, -18), QPoint(-6, 18), QPoint(-12, 24)};
 QPolygon SchemeObliqueObjectNode::POLYGON_PARALLEL_RIGHT_PART{QPoint(24, 12), QPoint(24, -12), QPoint(12, -24), QPoint(6, -18), QPoint(6, 18), QPoint(12, 24)};
@@ -45,7 +46,8 @@ SchemeObliqueObjectNode::SchemeObliqueObjectNode(const QPoint &pos, const Scheme
     directionNode(directionNode)
 {
     this->setZValue(1);
-    this->graphicObjectNode.addPolygon(SchemeObliqueObjectNode::POLYGON_ROMB.translated(pos));
+    this->graphicObjectNode.addPolygon(SchemeObliqueObjectNode::POLYGON_ROMB_SMALL.translated(pos));
+    this->graphicObjectNodeMapColor.addPolygon(SchemeObliqueObjectNode::POLYGON_ROMB_BIG.translated(pos));
     editNode(directionNode);
 }
 
@@ -281,7 +283,7 @@ SchemeObliqueObjectPart *SchemeObliqueObjectNode::searhPart(const SchemeObliqueO
 
 QRectF SchemeObliqueObjectNode::boundingRect() const
 {
-    return this->graphicObjectNode.boundingRect();
+    return this->graphicObjectNodeMapColor.boundingRect();
 }
 
 QPainterPath SchemeObliqueObjectNode::shape() const
@@ -295,20 +297,20 @@ void SchemeObliqueObjectNode::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(widget)
 
     if (widget == SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
-        painter->setPen(QPen(Qt::black, 1));
+        painter->setPen(QPen(QColor(), -1));
 
         switch (this->directionNode) {
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM:
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__RIGHT_BOTTOM_NO_NODE:
             painter->setBrush(this->partLeftTop->brush);
-            painter->drawPath(this->graphicObjectNode);
+            painter->drawPath(this->graphicObjectNodeMapColor);
             break;
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__RIGHT_BOTTOM:
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM:
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::RIGHT_UP__IN__LEFT_BOTTOM_NO_NODE:
             painter->setBrush(this->partRightTop->brush);
-            painter->drawPath(this->graphicObjectNode);
+            painter->drawPath(this->graphicObjectNodeMapColor);
             break;
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::PARALLEL:
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::GAP:
