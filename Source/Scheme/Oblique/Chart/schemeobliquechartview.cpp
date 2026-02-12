@@ -15,7 +15,7 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                AbstractScheme &scheme):
     AbstractSchemeChartView(name, scheme),
     isMovements(false),
-    scroll(5)
+    scroll(0)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2));
     this->commonCreate();
@@ -28,7 +28,9 @@ SchemeObliqueChartView::SchemeObliqueChartView(const int &countThreads,
                                                const QList<QBrush> &colorThreads,
                                                const QString &name,
                                                AbstractScheme &scheme):
-    AbstractSchemeChartView(name, scheme)
+    AbstractSchemeChartView(name, scheme),
+    isMovements(false),
+    scroll(0)
 {
     this->setScene(new SchemeObliqueChartScene(countThreads, countHalfrow, isNode1_2, nodeDirections, colorThreads));
     this->commonCreate();
@@ -141,7 +143,7 @@ void SchemeObliqueChartView::commonCreate()
     this->setMouseTracking(true);
 }
 
-void SchemeObliqueChartView::tryZoom(const int &direction, const QWheelEvent *targetViewportPos)
+void SchemeObliqueChartView::tryZoom(const int &direction, const QWheelEvent *event)
 {
     if (direction > 0) {
         if (this->scroll <= -25) {
@@ -161,16 +163,19 @@ void SchemeObliqueChartView::tryZoom(const int &direction, const QWheelEvent *ta
 
     double angle = 120.0 * direction;
     double factor = qPow(1.0015, angle);
-    this->scale(factor, factor);
 
-    if (targetViewportPos) {
+    if (event) {
         // Центрирование по позиции курсора
-        QPoint targetScenePos = this->mapToScene(targetViewportPos->position().toPoint()).toPoint();
-        QPoint deltaViewportPos = targetViewportPos->position().toPoint() - QPoint(this->viewport()->width() / 2, this->viewport()->height() / 2);
+        QPoint targetViewportPos = event->position().toPoint();
+        QPoint targetScenePos = this->mapToScene(event->position().x(),event->position().y()).toPoint();
+        this->scale(factor, factor);
+        this->centerOn(targetScenePos);
+        QPoint deltaViewportPos = targetViewportPos - QPoint(this->viewport()->width() / 2.0, this->viewport()->height() / 2.0);
         QPoint viewportCenter = this->mapFromScene(targetScenePos) - deltaViewportPos;
         this->centerOn(this->mapToScene(viewportCenter));
     } else {
         // Центрирование по центру всей сцены
+        this->scale(factor, factor);
         this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
     }
 }

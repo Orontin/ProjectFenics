@@ -37,7 +37,9 @@ private:
 
     void commonCreate();
 
-    void tryZoom(const int &direction, const QWheelEvent *targetViewportPos);
+    void setSaveZoom();
+
+    void tryZoom(const int &direction, const QWheelEvent *event);
 
     QPoint lastPos;
     bool isMovements;

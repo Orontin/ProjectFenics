@@ -33,7 +33,7 @@ protected:
 private:
     void commonCreate();
 
-    void tryZoom(const int &direction, const QWheelEvent *targetViewportPos);
+    void tryZoom(const int &direction, const QWheelEvent *event);
 
     QPoint lastPos;
     bool isMovements;

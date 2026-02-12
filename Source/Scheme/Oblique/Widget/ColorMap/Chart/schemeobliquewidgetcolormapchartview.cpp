@@ -112,6 +112,19 @@ void SchemeObliqueWidgetColorMapChartView::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
+SchemeObliqueWidgetColorMapChartView::SchemeObliqueWidgetColorMapChartView():
+    isMovements(false),
+    scroll(0)
+{
+    this->commonCreate();
+    this->setSaveZoom();
+}
+
+SchemeObliqueWidgetColorMapChartView::~SchemeObliqueWidgetColorMapChartView()
+{
+
+}
+
 void SchemeObliqueWidgetColorMapChartView::commonCreate()
 {
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -119,7 +132,22 @@ void SchemeObliqueWidgetColorMapChartView::commonCreate()
     this->setMouseTracking(true);
 }
 
-void SchemeObliqueWidgetColorMapChartView::tryZoom(const int &direction, const QWheelEvent *targetViewportPos)
+void SchemeObliqueWidgetColorMapChartView::setSaveZoom()
+{
+    int scroll = SchemeObliqueFileSettings::getColorMapScroll();
+    int scrollModule = (scroll < 0 ? scroll * -1 : scroll);
+
+    for (int i = 0; i < scrollModule; i++) {
+        if (scroll < 0) {
+            this->tryZoom(1, nullptr);
+        } else {
+            this->tryZoom(-1, nullptr);
+        }
+    }
+    this->scroll = scroll;
+}
+
+void SchemeObliqueWidgetColorMapChartView::tryZoom(const int &direction, const QWheelEvent *event)
 {
     if (direction > 0) {
         if (this->scroll <= -25) {
@@ -135,32 +163,25 @@ void SchemeObliqueWidgetColorMapChartView::tryZoom(const int &direction, const Q
         }
     }
 
+    qCritical() << this->scroll;
+
     double angle = 120.0 * direction;
     double factor = qPow(1.0015, angle);
-    this->scale(factor, factor);
 
-    if (targetViewportPos) {
+    if (event) {
         // Центрирование по позиции курсора
-        QPoint targetScenePos = this->mapToScene(targetViewportPos->position().toPoint()).toPoint();
-        QPoint deltaViewportPos = targetViewportPos->position().toPoint() - QPoint(this->viewport()->width() / 2, this->viewport()->height() / 2);
+        QPoint targetViewportPos = event->position().toPoint();
+        QPoint targetScenePos = this->mapToScene(event->position().x(),event->position().y()).toPoint();
+        this->scale(factor, factor);
+        this->centerOn(targetScenePos);
+        QPoint deltaViewportPos = targetViewportPos - QPoint(this->viewport()->width() / 2.0, this->viewport()->height() / 2.0);
         QPoint viewportCenter = this->mapFromScene(targetScenePos) - deltaViewportPos;
         this->centerOn(this->mapToScene(viewportCenter));
     } else {
         // Центрирование по центру всей сцены
+        this->scale(factor, factor);
         this->centerOn(this->mapToScene(this->viewport()->geometry()).boundingRect().center());
     }
 
     SchemeObliqueFileSettings::setColorMapScroll(this->scroll);
-}
-
-SchemeObliqueWidgetColorMapChartView::SchemeObliqueWidgetColorMapChartView():
-    isMovements(false),
-    scroll(SchemeObliqueFileSettings::getColorMapScroll())
-{
-
-}
-
-SchemeObliqueWidgetColorMapChartView::~SchemeObliqueWidgetColorMapChartView()
-{
-
 }
