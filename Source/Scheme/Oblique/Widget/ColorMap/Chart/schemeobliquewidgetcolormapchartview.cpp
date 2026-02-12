@@ -163,8 +163,6 @@ void SchemeObliqueWidgetColorMapChartView::tryZoom(const int &direction, const Q
         }
     }
 
-    qCritical() << this->scroll;
-
     double angle = 120.0 * direction;
     double factor = qPow(1.0015, angle);
 
