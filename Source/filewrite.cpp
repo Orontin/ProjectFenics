@@ -38,4 +38,24 @@ void FileWrite::writeFile(AbstractSchemeChartView &view)
             }
         }
     }
+
+    // QSvgGenerator generator;
+    // generator.setFileName("C:/Users/oront/Desktop/333.svg");
+    // generator.setSize(QSize(view.scene()->width(), view.scene()->height()));          // размер изображения в пикселях (логических)
+    // generator.setViewBox(QRect(0, 0, view.scene()->width(), view.scene()->height())); // область, которая попадёт в SVG
+    // generator.setTitle(tr("SVG из QGraphicsScene"));
+    // generator.setDescription(tr("Создано с помощью Qt"));
+
+    // QPainter painter;
+    // painter.begin(&generator);
+
+    // painter.setRenderHint(QPainter::RenderHint::Antialiasing, true);
+    // painter.setRenderHint(QPainter::RenderHint::TextAntialiasing, true);
+    // painter.setRenderHint(QPainter::RenderHint::SmoothPixmapTransform, true);
+    // painter.setRenderHint(QPainter::RenderHint::VerticalSubpixelPositioning, true);
+    // painter.setRenderHint(QPainter::RenderHint::LosslessImageRendering, true);
+    // painter.setRenderHint(QPainter::RenderHint::NonCosmeticBrushPatterns, true);
+    // view.scene()->render(&painter);
+
+    // painter.end();
 }

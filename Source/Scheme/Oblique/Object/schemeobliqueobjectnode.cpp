@@ -297,7 +297,7 @@ void SchemeObliqueObjectNode::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(widget)
 
     if (widget == SchemeObliqueWidgetColorMapChartView::getInstance().viewport()) {
-        painter->setPen(QPen(QColor(), -1));
+        painter->setPen(QPen(Qt::NoPen));
 
         switch (this->directionNode) {
         case SchemeObliqueWidgetEditDirectionForNewNodeChartScene::DirectionsNode::LEFT_UP__IN__LEFT_BOTTOM:
@@ -317,7 +317,7 @@ void SchemeObliqueObjectNode::paint(QPainter *painter, const QStyleOptionGraphic
             break;
         }
     } else {
-        painter->setPen(QPen(QColor(), -1));
+        painter->setPen(QPen(Qt::NoPen));
 
         if (this->graphicObjectNodeLeftUpPen.size() < this->graphicObjectNodeRightUpPen.size()) {
             painter->setBrush(this->partRightTop->brush);

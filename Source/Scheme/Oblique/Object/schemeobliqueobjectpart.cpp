@@ -269,7 +269,7 @@ void SchemeObliqueObjectPart::paint(QPainter *painter, const QStyleOptionGraphic
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_CORNER_RIGHT:
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_LEFT:
         case SchemeObliqueObjectPart::DirectionsPart::BEGGINING_RIGHT:
-            painter->setPen(QPen(QColor(), -1));
+            painter->setPen(QPen(Qt::NoPen));
             painter->setBrush(this->brush);
             painter->drawPath(this->partBrush);
 
@@ -288,7 +288,7 @@ void SchemeObliqueObjectPart::paint(QPainter *painter, const QStyleOptionGraphic
         case SchemeObliqueObjectPart::DirectionsPart::END_RIGHT:
             SchemeObliqueObjectPart *part = this->nodeTop->searhPart(this);
             if (part) {
-                painter->setPen(QPen(QColor(), -1));
+                painter->setPen(QPen(Qt::NoPen));
                 painter->setBrush(part->brush);
                 painter->drawPath(this->partBrush);
 
@@ -297,7 +297,7 @@ void SchemeObliqueObjectPart::paint(QPainter *painter, const QStyleOptionGraphic
                     painter->drawLine(line);
                 }
             } else {
-                painter->setPen(QPen(QColor(), -1));
+                painter->setPen(QPen(Qt::NoPen));
                 painter->setBrush(this->brush);
                 painter->drawPath(this->partBrush);
 
